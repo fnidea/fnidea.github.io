@@ -76,6 +76,17 @@ figcaption { font-size: 13.5px; color: var(--ink-3); margin-top: 8px; }
 .card .t { font-size: 20px; font-weight: 650; margin: 0 0 6px; }
 .card .d { color: var(--ink-2); margin: 0 0 12px; font-size: 16px; }
 .card .n { font-family: var(--mono); font-size: 13px; color: var(--ink-3); margin: 0; }
+main ol.jobs { list-style: none; padding: 0; margin: 0 0 24px; }
+.jobs li { margin: 0; padding: 14px 0 0; border-top: 1px solid var(--rule); }
+.jobs li.more { border-top: 0; padding-top: 0; }
+.jobs li p { margin: 0 0 14px; color: var(--ink-2); font-size: 16px; }
+.jobs .role { color: var(--ink); margin-bottom: 4px; display: flex; flex-wrap: wrap;
+              justify-content: space-between; gap: 0 12px; }
+.jobs .role b { font-weight: 650; }
+.jobs .when { font-family: var(--mono); font-size: 13px; color: var(--ink-3); }
+.also { font-size: 15px; color: var(--ink-2); margin: 0 0 8px; }
+.also b { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+          color: var(--ink-3); margin-right: 8px; }
 .reach { font-size: 16px; color: var(--ink-2); margin-top: 32px; }
 footer.site .contact { margin: 0 0 6px; font-size: 14px; color: var(--ink-2); }
 .how { border-left: 3px solid var(--rule-hard); padding-left: 16px; color: var(--ink-2); margin-top: 40px; }
