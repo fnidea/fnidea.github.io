@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payout Reconciliation Generations</title>
+<link rel="stylesheet" href="visuals.css">
+</head>
+<body>
+<div class="frame">
+
+<p class="kicker">Case study · Stripe payout reconciliation</p>
+<h1>Three generations of one weekly reconciliation</h1>
+<p class="dek">From four to six hours by hand, to under thirty minutes in KNIME, to a console that checks every week 16 ways and keeps every run.</p>
+
+<div class="gens">
+
+<section class="gen">
+<p class="era">Generation 1</p>
+<h2>By hand</h2>
+<div class="metric"><div class="v">4–6 hrs</div><div class="l">every week, longer at month end</div></div>
+<ul>
+<li class="limit">Stripe downloads too big for Excel, pushed through Tableau first</li>
+<li class="limit">Consolidated with Power Query, then every tab checked by hand</li>
+<li>Journal entry created and posted in NetSuite by hand</li>
+</ul>
+<p class="tag">The process being replaced</p>
+</section>
+
+<div class="arrow" aria-hidden="true"></div>
+
+<section class="gen">
+<p class="era">Generation 2</p>
+<h2>KNIME rebuild</h2>
+<div class="metric"><div class="v">&lt; 30 min</div><div class="l">door to door, review included</div></div>
+<ul>
+<li class="gain">Execution itself runs five to fifteen minutes</li>
+<li class="gain">A completeness branch catches any fee outside the nine known categories</li>
+<li class="gain">Builds the NetSuite journal-entry import, keyed on External ID so a re-import cannot double-post</li>
+<li class="gain">Run side by side with the manual process before cutover</li>
+<li class="limit">Ten parameters typed by hand at the start of every run</li>
+<li class="limit">Runs on one machine only</li>
+<li class="limit">A re-run overwrites what was booked; no snapshot is kept</li>
+<li class="limit">Its query window was too narrow and missed backdated payment entries</li>
+</ul>
+<p class="tag">Built, tested and put into production alone</p>
+</section>
+
+<div class="arrow" aria-hidden="true"></div>
+
+<section class="gen now">
+<p class="era">Generation 3</p>
+<h2>Python console</h2>
+<div class="metric"><div class="v">16 checks</div><div class="l">before anything is exported</div></div>
+<ul>
+<li class="gain">Every run saves the data it used, with a fingerprint, so any week can be replayed</li>
+<li class="gain">Nothing accrued twice, checked by Stripe's own row ID</li>
+<li class="gain">Journal entries rebuild from the snapshot to the cent</li>
+<li class="gain">Caught a booked week where hand-typed dates added a day that was already booked</li>
+<li class="limit">Still in testing next to the manual process, not posting yet</li>
+</ul>
+<p class="tag">Built, and matching what was booked</p>
+</section>
+
+</div>
+
+<div class="legend"><span><i class="g"></i>What the generation added</span><span><i class="r"></i>What it still could not do</span></div>
+
+<p class="foot">Every figure on this page is traced to the evidence base. No client data is shown.</p>
+
+</div>
+</body>
+</html>

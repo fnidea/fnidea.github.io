@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payout Console Checks</title>
+<link rel="stylesheet" href="visuals.css">
+</head>
+<body>
+<div class="frame">
+
+<p class="kicker">Case study · Stripe payout reconciliation</p>
+<h1>The checks before anything leaves</h1>
+<p class="dek">Every week goes through these checks before I can export it. If I override one, the reason gets written into the run log next to the numbers it let through.</p>
+
+<span class="real">From a real run · amounts removed</span>
+
+<div class="console">
+
+<div class="chead">
+<div class="t">Weekly payout console</div>
+<div class="meta">WEEK ENDING SEP 20, 2026<br>SNAPSHOT + FINGERPRINT SAVED</div>
+</div>
+
+<div class="band review" role="status">
+<div class="h">1 to review</div>
+<div class="b">Nothing here blocks the export. It still gets a look.</div>
+</div>
+
+<p class="sec">Checks</p>
+<ul class="gates two">
+<li><span class="stamp warn">Warn</span>
+<span class="name">No unattributable network cost<small>Cost Stripe sends with no client posts to the platform line</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Journal entries balance<small>Debits equal credits in every entry</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Cost reconciles to source<small>Journal lines add back to the Snowflake cost total</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Entity allocation ties<small>Platform cost splits across entities with nothing created or lost</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Retention matches the rec sheet<small>Each client's retention equals the reconciliation figure</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Retention invoices supplied<small>The week's retention invoices are in</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">No cost on a provisional account<small>A placeholder account is not a mapping</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Entity validated<small>Checked against journal entries already posted</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">No open findings<small>Nothing recorded as looking off this week</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Source population accounted for<small>Every category in the itemized view is declared and its cost captured</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Source view is complete<small>Every category in Stripe's ledger is declared, so a new fee type gets caught</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Cost/revenue ratio is plausible<small>A big move means cost and revenue disagree about the week</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Every account has a NetSuite name<small>No client cost posts without a name</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Nothing already accrued<small>Checked by Stripe's own row ID against earlier runs</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Cost composition is stable<small>New, vanished or shifted cost types get flagged</small></span></li>
+</ul>
+
+<div class="runs">
+<div><div class="v">228,255</div><div class="l">new Stripe rows, none accrued before</div></div>
+<div><div class="v">2</div><div class="l">journal entries, one per payout window</div></div>
+<div><div class="v">6</div><div class="l">files per run, snapshot included</div></div>
+</div>
+
+</div>
+
+<p class="foot">15 of the console's 16 checks, with their results from the run for the week ending September 20, 2026. No client data or amounts are shown.</p>
+
+</div>
+</body>
+</html>

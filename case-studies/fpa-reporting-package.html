@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The thirty-minute re-run · Franco Nidea</title>
+<link rel="stylesheet" href="../site.css">
+</head>
+<body>
+<header class="site"><div class="wrap wide">
+<a class="brand" href="../index.html">Franco Nidea</a>
+<nav class="site" aria-label="Site">
+<a href="../case-studies/fpa-reporting-package.html">Reporting package</a>
+<a href="../case-studies/stripe-payout-recon.html">Payout reconciliation</a>
+</nav>
+</div></header>
+<main><div class="wrap">
+<p class="kicker">Case study</p>
+<h1>The thirty-minute re-run</h1>
+<p class="meta">The work described here is at TixTrack, where I'm a senior financial analyst.</p>
+
+<p>Every time we closed a period I'd pull the reports, analyze the numbers and write the commentary, and every time something would have to change.</p>
+
+<p>Any change meant I had to pull all the reports again and consolidate them again, which took me 30 minutes each time.</p>
+
+<p>It happened maybe 2 to 4 times per close, I never actually counted.</p>
+
+<p>So you can imagine what it's like when you thought you were already done and there's pressure to finish and send the package so the CEO can review it.</p>
+
+<h2>Building it</h2>
+<figure>
+<a href="../visuals/reporting-package.html"><img src="../visuals/png/reporting-package.png" alt="Where the numbers come from, how they get built and checked, and what goes out." loading="lazy"></a>
+<figcaption>Where the numbers come from, how they get built and checked, and what goes out. Opens full size.</figcaption>
+</figure>
+
+<p>I built the dashboard in July 2026, once my ERP and close platform were connected to an AI assistant and the gears started grinding.</p>
+
+<p>The first time I tried pulling ERP data through Claude, it burned through my usage allowance really fast because it kept retrying queries it didn't have access to.</p>
+
+<p>Numeric already had the same data, more organized and cheaper to pull, so I built on that instead and NetSuite was just the check.</p>
+
+<p>As I got better with Claude Code, I built the two NetSuite reports it needed myself so it could pull cheaply and accurately. I tested it, and on September 11 we switched the P&amp;L and balance sheet back to NetSuite and reloaded all 8 months that day.</p>
+
+<p>Claude pulls the reports, the code builds every number, and at the end everything gets tied back to the ERP account by account and in total.</p>
+
+<p>Numeric still has the commentary, the balance sheet by entity and the department detail.</p>
+
+<p>The dashboard has 8 views: overview, P&amp;L detail, income statement, balance sheet, balance sheet by entity for our 6 legal entities, adjusted EBITDA, budget vs actuals, and a page for data and runs.</p>
+
+<p>Budget vs actuals switches between the original budget and the reforecast, 12 months each, and adjusted EBITDA is net ordinary income plus depreciation, amortization and stock comp.</p>
+
+<p>I can export the whole package in one click, plus a second version in the format the CEO expects.</p>
+
+<p>I didn't write the code myself, Claude wrote it. My part is telling it what the dashboard has to produce and checking the output against the source data.</p>
+
+<h2>Catching drift</h2>
+<figure>
+<a href="../visuals/reporting-tieout.html"><img src="../visuals/png/reporting-tieout.png" alt="Every closed month so far this year against the two tie-outs and the drift check." loading="lazy"></a>
+<figcaption>Every closed month so far this year against the two tie-outs and the drift check. Opens full size.</figcaption>
+</figure>
+
+<p>I wanted to make sure we'd catch any drift between what we already sent for past periods and any adjustments we make after.</p>
+
+<p>So every time I load a month it gets saved as a run instead of overwriting the last one, and if a closed month comes back different on a reload, it gets flagged.</p>
+
+<p>From July 22 to September 11 there were 74 runs. 49 passed, 16 were provisional and 9 were for months that were still open, and no closed month changed on any of them.</p>
+
+<p>But that also means the drift check hasn't caught anything yet, so I don't know for sure it works on a real change.</p>
+
+<p>Every closed month so far this year, January to August, ties two ways. Assets equal liabilities plus equity within $0.02, and net income ties to the financial package.</p>
+
+<h2>What changed</h2>
+<p>A full run takes me under 5 minutes now, and I timed that too.</p>
+
+<p>So now when something changes after close, I just run it again.</p>
+
+<h2>What didn't work</h2>
+<p>I tried having Claude analyze the numbers, find the variances and write the commentary, but it was bad so I reverted it back.</p>
+
+<p>The commentary is written in Numeric's flux reports and pulled into the dashboard and the exports, and the numbers come from SQL and Python.</p>
+
+<h2>What it still can't do</h2>
+<p>The executive summary is empty for every month, and the build only carries one summary tagged to one month, so even if I wrote them all it wouldn't fix it.</p>
+
+<p>The commentary cells can still be edited on the dashboard, and an edit there stays in that browser and never goes back to Numeric. Nobody edits there, but nothing stops them either, so I need to make those cells read-only.</p>
+
+<p>The prepaid and accrual schedules are still maintained by hand.</p>
+
+<p>The overview still says "Numeric consolidated basis" even though the numbers come from NetSuite now.</p>
+
+<p>And the balance sheet is off by up to $0.02 in some months and the check lets it pass. I hate that, it should tie to the penny.</p>
+
+<h2>What's next</h2>
+<p>I'm rebuilding the prepaid and accrual schedules directly from ERP data so the whole method is deterministic end to end, and that's in progress.</p>
+
+<p>I'm also being brought into the FP&amp;A reforecast cycle, wiring the VP of Finance's live reforecast into the leadership reporting dashboard so it refreshes continuously and locks each quarter. That's in progress too.</p>
+
+<hr>
+<div class="sources">
+
+<h3>Sources</h3>
+<p>Parsed from the dashboard itself (built September 18, 2026), through a structural extract with no amounts in it: the 8 views, the 6 entities, 12 months per budget basis, the EBITDA definition, the $0.02 balance check, the net income tie in all 8 months, the 74 runs and their statuses, no drift, the empty executive summary and the editable commentary cells.</p>
+
+<p>Parsed from the same extract: the switch to NetSuite reports on September 11, what still comes from Numeric, and the stale overview label.</p>
+
+<p>Timed by me: 30 minutes before, under 5 after. I didn't write either timing down.</p>
+
+<p>My estimate, not a count: 2 to 4 re-runs per close.</p>
+
+<p>My own account: when and why I built it, the drift requirement, where commentary is written, the AI commentary I tried and reverted, the first ERP pull that burned my usage, how the old Numeric setup worked, building the NetSuite reports myself, that Claude pulls the reports while code builds the numbers and ties them account by account, and that Claude writes the code.</p>
+
+</div>
+</div></main>
+<footer class="site"><div class="wrap wide">
+<p class="contact"><a href="mailto:franco.nidea@gmail.com">franco.nidea@gmail.com</a> · <a href="https://www.linkedin.com/in/franco-nidea/" rel="me">LinkedIn</a></p>
+Every figure on this site traces back to a source, listed at the end of each case study.
+</div></footer>
+</body>
+</html>
