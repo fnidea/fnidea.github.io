@@ -225,3 +225,9 @@ h1 { font-size: 26px; line-height: 1.2; font-weight: 650; margin: 0 0 8px; lette
         text-transform: uppercase; color: var(--ok); border: 1px solid var(--ok);
         padding: 2px 7px; margin-bottom: 14px; }
 .btnrow { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Embedded in a case study (?embed): the page around it already has the title, intro and
+   source note, so the visual shows only its content. */
+.embed .kicker, .embed h1, .embed .dek, .embed .foot, .embed .illus, .embed .real,
+.embed .principle, .embed .before { display: none; }
+.embed .frame { padding-top: 28px; padding-bottom: 8px; }
