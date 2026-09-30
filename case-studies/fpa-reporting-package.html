@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
 <link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="../vis.css">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
 <script>
@@ -61,8 +62,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </dl>
 
 <figure class="breakout full">
-<a href="../visuals/png/fpa-dashboard-overview.png"><img src="../visuals/png/fpa-dashboard-overview.png" srcset="../visuals/png/fpa-dashboard-overview-1000.webp 1000w, ../visuals/png/fpa-dashboard-overview-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1107" alt="Sample data: the real dashboard running on invented names and amounts. The executive summary was written for this demo. In the real one it&#x27;s still empty, which is one of the limits below. Opens the full-size image." fetchpriority="high"></a>
-<figcaption aria-hidden="true">Sample data: the real dashboard running on invented names and amounts. The executive summary was written for this demo. In the real one it's still empty, which is one of the limits below. Opens full size.</figcaption>
+<a href="../visuals/png/fpa-dashboard-overview.png" data-zoom><img src="../visuals/png/fpa-dashboard-overview.png" srcset="../visuals/png/fpa-dashboard-overview-1000.webp 1000w, ../visuals/png/fpa-dashboard-overview-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1107" alt="Sample data: the real dashboard running on invented names and amounts. The executive summary was written for this demo. In the real one it&#x27;s still empty, which is one of the limits below." fetchpriority="high"></a>
+<figcaption aria-hidden="true">Sample data: the real dashboard running on invented names and amounts. The executive summary was written for this demo. In the real one it's still empty, which is one of the limits below. Tap to zoom.</figcaption>
 </figure>
 
 <h2>The problem</h2>
@@ -73,9 +74,67 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <p>So you can imagine what it's like when you thought you were already done and there's pressure to finish and send the package so the CEO can review it.</p>
 
 <h2>What I built</h2>
-<figure class="breakout diagram full">
-<a href="../visuals/reporting-package.html"><img src="../visuals/png/reporting-package.png" srcset="../visuals/png/reporting-package-1000.webp 1000w, ../visuals/png/reporting-package-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1000" height="517" alt="Where the numbers come from, how they get built and checked, and what goes out. Opens the diagram as a page, with its text." loading="lazy"></a>
-<figcaption aria-hidden="true">Where the numbers come from, how they get built and checked, and what goes out. Opens the full diagram.</figcaption>
+<figure class="breakout inline">
+<div class="vis"><div class="frame">
+<p class="back"><a href="../case-studies/fpa-reporting-package.html">&larr; Back to the case study</a></p>
+
+<p class="kicker">Case study · Reporting package</p>
+
+<p class="dek">Reports pulled from NetSuite, every number built by code, all of it tied back account by account, and the whole package out in one click.</p>
+
+<div class="strip">
+<div><div class="v">30 → &lt;5 min</div><div class="l">per run, timed before and after, re-runs included</div></div>
+<div><div class="v">~2–4</div><div class="l">re-runs a close</div></div>
+</div>
+
+<p class="before"><b>Before:</b> manual ERP exports, consolidated in spreadsheets.</p>
+
+<div class="flow">
+
+<div class="stage">
+<p class="sec">Sources</p>
+<div class="node primary"><div class="t">NetSuite</div><div class="d">Two consolidated reports, the P&amp;L and the balance sheet</div></div>
+<div class="node"><div class="t">Numeric</div><div class="d">Flux commentary, balance sheet by entity, department detail</div></div>
+</div>
+
+<div class="arrow" aria-hidden="true"></div>
+
+<div class="stage">
+<p class="sec">Build and check</p>
+<div class="node"><div class="t">Claude fetches, code builds</div><div class="d">Every number built deterministically from the pulled reports</div></div>
+<div class="node check"><div class="t">Tie-out</div><div class="d">Back to the ERP, account by account and in total</div></div>
+</div>
+
+<div class="arrow" aria-hidden="true"></div>
+
+<div class="stage">
+<p class="sec">Finance dashboard</p>
+<ul class="views">
+<li>Profit and loss</li>
+<li>Balance sheet<small>Consolidated and by entity</small></li>
+<li>Flux commentary</li>
+<li>Budget vs actuals<small>Monthly and quarterly</small>
+<span class="toggle"><span class="sr">Budget basis: </span><span class="on">Original<span class="sr"> (selected)</span></span><span>Reforecast</span></span></li>
+</ul>
+</div>
+
+<div class="arrow" aria-hidden="true"></div>
+
+<div class="stage">
+<p class="sec">One click out</p>
+<div class="node"><div class="t">Reporting package</div><div class="d">Exported whole, straight from the dashboard</div></div>
+<div class="node"><div class="t">CEO format</div><div class="d">A second export in the layout the CEO expects</div></div>
+<div class="node"><div class="t">Budget vs actuals</div><div class="d">Its own one-click export</div></div>
+</div>
+
+</div>
+
+<p class="principle">Commentary is written by people, in Numeric, and pulled through. The numbers stay deterministic, in SQL and Python, with human review before anything reaches leadership.</p>
+
+<p class="foot">Every figure on this page is sourced in the case study. No company financials are shown.</p>
+
+</div></div>
+<figcaption>Where the numbers come from, how they get built and checked, and what goes out.</figcaption>
 </figure>
 
 <p>I built the dashboard in July 2026, once my ERP and close platform were connected to an AI assistant and the gears started grinding.</p>
@@ -90,14 +149,43 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </ul>
 
 <figure class="breakout full">
-<a href="../visuals/png/fpa-dashboard-bva.png"><img src="../visuals/png/fpa-dashboard-bva.png" srcset="../visuals/png/fpa-dashboard-bva-1000.webp 1000w, ../visuals/png/fpa-dashboard-bva-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1084" alt="Sample data: budget vs actuals filtered to one department, with two expense groups opened to the account level. Opens the full-size image." loading="lazy"></a>
-<figcaption aria-hidden="true">Sample data: budget vs actuals filtered to one department, with two expense groups opened to the account level. Opens full size.</figcaption>
+<a href="../visuals/png/fpa-dashboard-bva.png" data-zoom><img src="../visuals/png/fpa-dashboard-bva.png" srcset="../visuals/png/fpa-dashboard-bva-1000.webp 1000w, ../visuals/png/fpa-dashboard-bva-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1084" alt="Sample data: budget vs actuals filtered to one department, with two expense groups opened to the account level." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: budget vs actuals filtered to one department, with two expense groups opened to the account level. Tap to zoom.</figcaption>
 </figure>
 
 <h2>How I know it works</h2>
-<figure class="breakout diagram full">
-<a href="../visuals/reporting-tieout.html"><img src="../visuals/png/reporting-tieout.png" srcset="../visuals/png/reporting-tieout-1000.webp 1000w, ../visuals/png/reporting-tieout-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1000" height="410" alt="Every closed month so far this year, checked against both tie-outs, with no closed month flagged as changed. Opens the diagram as a page, with its text." loading="lazy"></a>
-<figcaption aria-hidden="true">Every closed month so far this year, checked against both tie-outs, with no closed month flagged as changed. Opens the full diagram.</figcaption>
+<figure class="breakout inline">
+<div class="vis"><div class="frame">
+<p class="back"><a href="../case-studies/fpa-reporting-package.html">&larr; Back to the case study</a></p>
+
+<p class="kicker">Case study · Reporting package</p>
+
+<p class="dek">Every closed month of 2026 so far is tied two ways. A closed month that comes back different on a reload gets flagged, and none is flagged.</p>
+
+<div class="grid">
+<table class="tie">
+<caption class="sr">Tie-out results by month, January to August 2026</caption>
+<thead><tr><th scope="col" class="lab">Check</th><th scope="col">Jan</th><th scope="col">Feb</th><th scope="col">Mar</th><th scope="col">Apr</th><th scope="col">May</th><th scope="col">Jun</th><th scope="col">Jul</th><th scope="col">Aug</th></tr></thead>
+<tbody>
+<tr><th scope="row">Balance sheet balances<small>Assets against liabilities and equity, to the cent or two</small></th><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td></tr>
+<tr><th scope="row">Net income ties<small>Against Numeric</small></th><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td></tr>
+<tr><th scope="row">Not flagged as changed<small>None flagged in the September 18 build</small></th><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&#10003;</span><span class="sr">Pass</span></td><td><span class="cell" aria-hidden="true">&ndash;</span><span class="sr">Not reloaded since it closed</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="runs">
+<div><div class="v">74</div><div class="l">load runs kept, none overwritten</div></div>
+<div><div class="v ok">49</div><div class="l">passed</div></div>
+<div><div class="v">16</div><div class="l">provisional</div></div>
+<div><div class="v">9</div><div class="l">open</div></div>
+<div><div class="v ok">0</div><div class="l">closed months flagged as changed</div></div>
+</div>
+
+<p class="foot">January to August 2026, runs from July to September. Pass marks only, and no amounts are shown. August hasn&rsquo;t been reloaded since it closed.</p>
+
+</div></div>
+<figcaption>Every closed month so far this year, checked against both tie-outs, with no closed month flagged as changed.</figcaption>
 </figure>
 
 <ul>
@@ -108,13 +196,13 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </ul>
 
 <figure class="breakout full">
-<a href="../visuals/png/fpa-bva-workbook.png"><img src="../visuals/png/fpa-bva-workbook.png" srcset="../visuals/png/fpa-bva-workbook-1000.webp 1000w, ../visuals/png/fpa-bva-workbook-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1100" height="838" alt="Sample data: the one-click budget-vs-actuals export, recalculated by Excel. Opens the full-size image." loading="lazy"></a>
-<figcaption aria-hidden="true">Sample data: the one-click budget-vs-actuals export, recalculated by Excel. Opens full size.</figcaption>
+<a href="../visuals/png/fpa-bva-workbook.png" data-zoom><img src="../visuals/png/fpa-bva-workbook.png" srcset="../visuals/png/fpa-bva-workbook-1000.webp 1000w, ../visuals/png/fpa-bva-workbook-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1100" height="838" alt="Sample data: the one-click budget-vs-actuals export, recalculated by Excel." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: the one-click budget-vs-actuals export, recalculated by Excel. Tap to zoom.</figcaption>
 </figure>
 
 <figure class="breakout full">
-<a href="../visuals/png/fpa-package-cover.png"><img src="../visuals/png/fpa-package-cover.png" srcset="../visuals/png/fpa-package-cover-1000.webp 1000w, ../visuals/png/fpa-package-cover-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1100" height="552" alt="Sample data: the reporting package&#x27;s cover and contents, exported in one click. Opens the full-size image." loading="lazy"></a>
-<figcaption aria-hidden="true">Sample data: the reporting package's cover and contents, exported in one click. Opens full size.</figcaption>
+<a href="../visuals/png/fpa-package-cover.png" data-zoom><img src="../visuals/png/fpa-package-cover.png" srcset="../visuals/png/fpa-package-cover-1000.webp 1000w, ../visuals/png/fpa-package-cover-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1100" height="552" alt="Sample data: the reporting package&#x27;s cover and contents, exported in one click." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: the reporting package's cover and contents, exported in one click. Tap to zoom.</figcaption>
 </figure>
 
 <a class="card deep" href="after-the-package.html" aria-labelledby="t-after-the-package">
@@ -131,8 +219,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </ul>
 
 <figure class="breakout full">
-<a href="../visuals/png/fpa-dashboard-runs.png"><img src="../visuals/png/fpa-dashboard-runs.png" srcset="../visuals/png/fpa-dashboard-runs-1000.webp 1000w, ../visuals/png/fpa-dashboard-runs-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1032" alt="Sample data: every load is kept as a run, and a closed month that comes back different on a reload gets flagged. On September 11 the source switches from Numeric to the two NetSuite reports. Opens the full-size image." loading="lazy"></a>
-<figcaption aria-hidden="true">Sample data: every load is kept as a run, and a closed month that comes back different on a reload gets flagged. On September 11 the source switches from Numeric to the two NetSuite reports. Opens full size.</figcaption>
+<a href="../visuals/png/fpa-dashboard-runs.png" data-zoom><img src="../visuals/png/fpa-dashboard-runs.png" srcset="../visuals/png/fpa-dashboard-runs-1000.webp 1000w, ../visuals/png/fpa-dashboard-runs-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1032" alt="Sample data: every load is kept as a run, and a closed month that comes back different on a reload gets flagged. On September 11 the source switches from Numeric to the two NetSuite reports." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: every load is kept as a run, and a closed month that comes back different on a reload gets flagged. On September 11 the source switches from Numeric to the two NetSuite reports. Tap to zoom.</figcaption>
 </figure>
 
 <h2>What didn't work</h2>
@@ -171,6 +259,28 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </ul>
 </nav>
 </div></main>
+<dialog class="zoom" id="zoom" aria-label="Enlarged image">
+<button class="zoom-close" type="button" aria-label="Close">&times;</button>
+<div class="zoom-wrap"><img alt=""></div>
+</dialog>
+<script>
+(function () {
+  var d = document.getElementById("zoom"), img = d.querySelector("img");
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a[data-zoom]");
+    if (!a) return;
+    e.preventDefault();
+    img.src = a.href;
+    img.alt = (a.querySelector("img") || {}).alt || "";
+    d.classList.remove("full");
+    d.showModal();
+  });
+  d.addEventListener("click", function (e) {
+    if (e.target === img) { d.classList.toggle("full"); return; }
+    d.close();
+  });
+})();
+</script>
 <footer class="site"><div class="wrap wide">
 <p class="contact" id="contact"><a href="mailto:franco.nidea@gmail.com">franco.nidea@gmail.com</a> · <a href="https://www.linkedin.com/in/franco-nidea/" rel="me">LinkedIn</a></p>
 <p>Every number on this site has a source. Open "How these numbers are sourced" at the end of each case study.</p>

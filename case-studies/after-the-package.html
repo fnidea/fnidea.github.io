@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
 <link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="../vis.css">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
 <script>
@@ -69,9 +70,167 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 <p>August is a good example. I loaded it 12 times as Provisional between September 8 and 11, and it turned Pass on the 11th.</p>
 
-<figure class="breakout diagram full">
-<a href="../visuals/fpa-runs.html"><img src="../visuals/png/fpa-runs.png" srcset="../visuals/png/fpa-runs-1000.webp 1000w, ../visuals/png/fpa-runs-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1200" height="467" alt="All 74 loads from the run history, one row per month and one column per day that had a load, marked by status. Dates and statuses only. Opens the diagram as a page, with its text." fetchpriority="high"></a>
-<figcaption aria-hidden="true">All 74 loads from the run history, one row per month and one column per day that had a load, marked by status. Dates and statuses only. Opens the full diagram.</figcaption>
+<figure class="breakout inline">
+<div class="vis"><div class="frame">
+<p class="back"><a href="../case-studies/after-the-package.html">&larr; Back to the deep dive</a></p>
+
+<p class="kicker">Deep dive · Reporting package</p>
+
+<p class="dek">All 74 loads between July 22 and September 11, one row per month, one column per day
+that had a load. A number means that month was loaded that many times that day.</p>
+
+<span class="real">From the real run history · dates and statuses only</span>
+
+<div class="console" tabindex="0" role="region" aria-label="Load history, scrolls sideways on small screens">
+<table class="runs-grid">
+<caption class="sr">Loads of each month by the day they happened, with status</caption>
+<thead><tr><th scope="col" class="rg-corner">Loaded on</th>
+<th scope="col" class="rg-day">Jul 22</th>
+<th scope="col" class="rg-day">Jul 28</th>
+<th scope="col" class="rg-day">Jul 29</th>
+<th scope="col" class="rg-day">Aug 3</th>
+<th scope="col" class="rg-day">Aug 4</th>
+<th scope="col" class="rg-day">Aug 6</th>
+<th scope="col" class="rg-day">Aug 10</th>
+<th scope="col" class="rg-day">Aug 13</th>
+<th scope="col" class="rg-day">Sep 8</th>
+<th scope="col" class="rg-day">Sep 9</th>
+<th scope="col" class="rg-day">Sep 10</th>
+<th scope="col" class="rg-day">Sep 11</th>
+</tr><tr><th scope="row" class="rg-corner">Source</th>
+<td class="rg-src">Package workbook</td>
+<td class="rg-src">Package workbook</td>
+<td class="rg-src">Package workbook</td>
+<td class="rg-src">Numeric</td>
+<td class="rg-src">Numeric</td>
+<td class="rg-src">Numeric</td>
+<td class="rg-src">Numeric</td>
+<td class="rg-src">Numeric</td>
+<td class="rg-src">Numeric</td>
+<td class="rg-src">Numeric</td>
+<td class="rg-src">Numeric</td>
+<td class="rg-src">Numeric + NetSuite</td>
+</tr></thead><tbody>
+<tr><th scope="row" class="rg-month">January</th>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark open" aria-hidden="true"></span><span class="sr">1 open</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true">3</span><span class="sr">3 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+</tr>
+<tr><th scope="row" class="rg-month">February</th>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark open" aria-hidden="true"></span><span class="sr">1 open</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true">2</span><span class="sr">2 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+</tr>
+<tr><th scope="row" class="rg-month">March</th>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark open" aria-hidden="true"></span><span class="sr">1 open</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true">2</span><span class="sr">2 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+</tr>
+<tr><th scope="row" class="rg-month">April</th>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark open" aria-hidden="true"></span><span class="sr">1 open</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true">2</span><span class="sr">2 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+</tr>
+<tr><th scope="row" class="rg-month">May</th>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark open" aria-hidden="true"></span><span class="sr">1 open</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true">2</span><span class="sr">2 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+</tr>
+<tr><th scope="row" class="rg-month">June</th>
+<td class="rg-cell"><span class="rg-mark open" aria-hidden="true"></span><span class="sr">1 open</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark open" aria-hidden="true">2</span><span class="sr">2 open</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true">2</span><span class="sr">2 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true">2</span><span class="sr">2 pass</span></td>
+</tr>
+<tr><th scope="row" class="rg-month">July</th>
+<td class="rg-cell"></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark open" aria-hidden="true"></span><span class="sr">1 open</span></td>
+<td class="rg-cell"><span class="rg-mark prov" aria-hidden="true">2</span><span class="sr">2 provisional</span></td>
+<td class="rg-cell"><span class="rg-mark prov" aria-hidden="true">2</span><span class="sr">2 provisional</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+</tr>
+<tr><th scope="row" class="rg-month">August</th>
+<td class="rg-cell"></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"></td>
+<td class="rg-cell"><span class="rg-mark prov" aria-hidden="true"></span><span class="sr">1 provisional</span></td>
+<td class="rg-cell"><span class="rg-mark prov" aria-hidden="true">6</span><span class="sr">6 provisional</span></td>
+<td class="rg-cell"><span class="rg-mark prov" aria-hidden="true"></span><span class="sr">1 provisional</span></td>
+<td class="rg-cell"><span class="rg-mark prov" aria-hidden="true">4</span><span class="sr">4 provisional</span><span class="rg-mark pass" aria-hidden="true"></span><span class="sr">1 pass</span></td>
+</tr>
+</tbody></table>
+<p class="key" aria-hidden="true"><span class="rg-mark open"></span> Open <span class="rg-mark prov"></span> Provisional <span class="rg-mark pass"></span> Pass</p>
+</div>
+
+<p class="foot">74 loads from the dashboard's run history, built September 18, 2026. Only the load dates, months, statuses and sources are shown. Days with no load are left out, including the gap between August 13 and September 8. The first loads show as Open because that was the default before the statuses were set up.</p>
+
+</div></div>
+<figcaption>All 74 loads from the run history, one row per month and one column per day that had a load, marked by status. Dates and statuses only.</figcaption>
 </figure>
 
 <h2>Watching the closed months</h2>
@@ -123,6 +282,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </ul>
 </nav>
 </div></main>
+
 <footer class="site"><div class="wrap wide">
 <p class="contact" id="contact"><a href="mailto:franco.nidea@gmail.com">franco.nidea@gmail.com</a> · <a href="https://www.linkedin.com/in/franco-nidea/" rel="me">LinkedIn</a></p>
 <p>Every number on this site has a source. Open "How these numbers are sourced" at the end of each case study.</p>

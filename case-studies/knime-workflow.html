@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
 <link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="../vis.css">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
 <script>
@@ -61,8 +62,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <h2>How it ran, step by step</h2>
 <h3>Every run started with ten things typed by hand</h3>
 <figure class="breakout diagram">
-<a href="../visuals/knime-params.html"><img src="../visuals/png/knime-params.png" srcset="../visuals/png/knime-params-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="879" height="900" alt="The Variable Creator, redrawn from the workflow file, with the ten parameters from the last saved run. The account id and the folder path are masked. Opens the diagram full size." fetchpriority="high"></a>
-<figcaption aria-hidden="true">The Variable Creator, redrawn from the workflow file, with the ten parameters from the last saved run. The account id and the folder path are masked. Opens the full diagram.</figcaption>
+<a href="../visuals/png/knime-params.png" data-zoom><img src="../visuals/png/knime-params.png" srcset="../visuals/png/knime-params-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="879" height="900" alt="The Variable Creator, redrawn from the workflow file, with the ten parameters from the last saved run. The account id and the folder path are masked." fetchpriority="high"></a>
+<figcaption aria-hidden="true">The Variable Creator, redrawn from the workflow file, with the ten parameters from the last saved run. The account id and the folder path are masked. Tap to zoom.</figcaption>
 </figure>
 
 <p>Every run began in one node, where I typed ten parameters: the start and end dates for the queries, the Mon–Sun week, the Sun–Sat week, two timezones, the Stripe account and the folder the files went to.</p>
@@ -73,8 +74,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 <h3>Twelve queries off one connector</h3>
 <figure class="breakout diagram tall">
-<a href="../visuals/knime-queries.html"><img src="../visuals/png/knime-queries.png" srcset="../visuals/png/knime-queries-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="898" height="1925" alt="The twelve queries, each reading the same hand-typed dates from the Variable Creator. Opens the diagram full size." loading="lazy"></a>
-<figcaption aria-hidden="true">The twelve queries, each reading the same hand-typed dates from the Variable Creator. Opens the full diagram.</figcaption>
+<a href="../visuals/png/knime-queries.png" data-zoom><img src="../visuals/png/knime-queries.png" srcset="../visuals/png/knime-queries-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="898" height="1925" alt="The twelve queries, each reading the same hand-typed dates from the Variable Creator." loading="lazy"></a>
+<figcaption aria-hidden="true">The twelve queries, each reading the same hand-typed dates from the Variable Creator. Tap to zoom.</figcaption>
 </figure>
 
 <p>Twelve queries pulled the week out of Snowflake. Eleven pulled one kind of fee or payment each, and the twelfth was the checker further down. Every one of them read the same two hand-typed dates.</p>
@@ -104,8 +105,8 @@ GROUP BY ...</code></pre>
 
 <h3>Trimming every row back to its client's week</h3>
 <figure class="breakout diagram full">
-<a href="../visuals/knime-trim.html"><img src="../visuals/png/knime-trim.png" srcset="../visuals/png/knime-trim-1000.webp 1000w, ../visuals/png/knime-trim-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1400" height="533" alt="Inside one of the ten copies: join the client list, filter the Mon–Sun and Sun–Sat weeks, total by date and client, and split by product. Opens the diagram full size." loading="lazy"></a>
-<figcaption aria-hidden="true">Inside one of the ten copies: join the client list, filter the Mon–Sun and Sun–Sat weeks, total by date and client, and split by product. Opens the full diagram.</figcaption>
+<a href="../visuals/png/knime-trim.png" data-zoom><img src="../visuals/png/knime-trim.png" srcset="../visuals/png/knime-trim-1000.webp 1000w, ../visuals/png/knime-trim-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1400" height="533" alt="Inside one of the ten copies: join the client list, filter the Mon–Sun and Sun–Sat weeks, total by date and client, and split by product." loading="lazy"></a>
+<figcaption aria-hidden="true">Inside one of the ten copies: join the client list, filter the Mon–Sun and Sun–Sat weeks, total by date and client, and split by product. Tap to zoom.</figcaption>
 </figure>
 
 <p>Ten of the queries handed their rows to their own copy of one sub-workflow. I named it "Tableau Workflow Replacement," because it did what the Tableau calculated fields used to do.</p>
@@ -116,16 +117,16 @@ GROUP BY ...</code></pre>
 
 <h3>Splitting shared costs between two products</h3>
 <figure class="breakout diagram">
-<a href="../visuals/knime-allocation.html"><img src="../visuals/png/knime-allocation.png" srcset="../visuals/png/knime-allocation-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="938" height="449" alt="The allocation sub-workflow that works out each product&#x27;s share. Opens the diagram full size." loading="lazy"></a>
-<figcaption aria-hidden="true">The allocation sub-workflow that works out each product's share. Opens the full diagram.</figcaption>
+<a href="../visuals/png/knime-allocation.png" data-zoom><img src="../visuals/png/knime-allocation.png" srcset="../visuals/png/knime-allocation-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="938" height="449" alt="The allocation sub-workflow that works out each product&#x27;s share." loading="lazy"></a>
+<figcaption aria-hidden="true">The allocation sub-workflow that works out each product's share. Tap to zoom.</figcaption>
 </figure>
 
 <p>Two products ran through one Stripe account. After one was sold, its transactions kept running through the account while its clients moved over, so they had to be separated in the books and paid over to the buyer. Some costs came in as one pile and had to be split. The allocation sub-workflow worked out each product's share and passed the percentages on to the rest of the run.</p>
 
 <h3>Writing the files</h3>
 <figure class="breakout diagram">
-<a href="../visuals/knime-writers.html"><img src="../visuals/png/knime-writers.png" width="268" height="579" alt="One writer sub-workflow: four files, one for each product and week type. Opens the diagram full size." loading="lazy"></a>
-<figcaption aria-hidden="true">One writer sub-workflow: four files, one for each product and week type. Opens the full diagram.</figcaption>
+<a href="../visuals/png/knime-writers.png" data-zoom><img src="../visuals/png/knime-writers.png" width="268" height="579" alt="One writer sub-workflow: four files, one for each product and week type." loading="lazy"></a>
+<figcaption aria-hidden="true">One writer sub-workflow: four files, one for each product and week type. Tap to zoom.</figcaption>
 </figure>
 
 <p>Every branch ended in Excel. The writer sub-workflows saved a separate file for each product and each week type into shared folders, and the US workflow alone had 29 Excel writers.</p>
@@ -134,8 +135,8 @@ GROUP BY ...</code></pre>
 
 <h3>A checker for fees I didn't know about</h3>
 <figure class="breakout diagram">
-<a href="../visuals/knime-checker.html"><img src="../visuals/png/knime-checker.png" srcset="../visuals/png/knime-checker-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="543" height="444" alt="The checker branch and my note on it. Opens the diagram full size." loading="lazy"></a>
-<figcaption aria-hidden="true">The checker branch and my note on it. Opens the full diagram.</figcaption>
+<a href="../visuals/png/knime-checker.png" data-zoom><img src="../visuals/png/knime-checker.png" srcset="../visuals/png/knime-checker-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="543" height="444" alt="The checker branch and my note on it." loading="lazy"></a>
+<figcaption aria-hidden="true">The checker branch and my note on it. Tap to zoom.</figcaption>
 </figure>
 
 <p>The twelfth query was a branch of its own. It only returns fees outside the nine categories the rest of the workflow handled. My note on it says "in case any additional fees pop up."</p>
@@ -146,8 +147,8 @@ GROUP BY ...</code></pre>
 
 <h3>Building the NetSuite import</h3>
 <figure class="breakout diagram full">
-<a href="../visuals/knime-import.html"><img src="../visuals/png/knime-import.png" srcset="../visuals/png/knime-import-1000.webp 1000w, ../visuals/png/knime-import-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1556" height="976" alt="The import workflow. The yellow notes are the steps still done by hand each week. It&#x27;s wide, so it reads best full size. Opens the diagram full size." loading="lazy"></a>
-<figcaption aria-hidden="true">The import workflow. The yellow notes are the steps still done by hand each week. It's wide, so it reads best full size. Opens the full diagram.</figcaption>
+<a href="../visuals/png/knime-import.png" data-zoom><img src="../visuals/png/knime-import.png" srcset="../visuals/png/knime-import-1000.webp 1000w, ../visuals/png/knime-import-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1556" height="976" alt="The import workflow. The yellow notes are the steps still done by hand each week. It&#x27;s wide, so it reads best full size." loading="lazy"></a>
+<figcaption aria-hidden="true">The import workflow. The yellow notes are the steps still done by hand each week. It's wide, so it reads best full size. Tap to zoom.</figcaption>
 </figure>
 
 <p>A separate workflow turned the week's files into the journal entry import. It maps every fee type to its ledger account and splits each amount into debit and credit by its sign.</p>
@@ -210,6 +211,28 @@ GROUP BY ...</code></pre>
 </ul>
 </nav>
 </div></main>
+<dialog class="zoom" id="zoom" aria-label="Enlarged image">
+<button class="zoom-close" type="button" aria-label="Close">&times;</button>
+<div class="zoom-wrap"><img alt=""></div>
+</dialog>
+<script>
+(function () {
+  var d = document.getElementById("zoom"), img = d.querySelector("img");
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a[data-zoom]");
+    if (!a) return;
+    e.preventDefault();
+    img.src = a.href;
+    img.alt = (a.querySelector("img") || {}).alt || "";
+    d.classList.remove("full");
+    d.showModal();
+  });
+  d.addEventListener("click", function (e) {
+    if (e.target === img) { d.classList.toggle("full"); return; }
+    d.close();
+  });
+})();
+</script>
 <footer class="site"><div class="wrap wide">
 <p class="contact" id="contact"><a href="mailto:franco.nidea@gmail.com">franco.nidea@gmail.com</a> · <a href="https://www.linkedin.com/in/franco-nidea/" rel="me">LinkedIn</a></p>
 <p>Every number on this site has a source. Open "How these numbers are sourced" at the end of each case study.</p>

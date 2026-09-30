@@ -308,3 +308,43 @@ main:focus { outline: none; }
 /* The plain name of the work, over a card's title. */
 .card .k { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
            color: var(--accent); margin: 0 0 8px; }
+
+/* Diagrams inline in a case study: real HTML in a light frame, the same left edge as the text. */
+figure.inline { margin: 40px 0 48px; }
+/* No outer box: the diagram's own cards and rules start at the text's left edge. */
+figure.inline .vis { border: 0; background: transparent; padding: 0; }
+figure.inline figcaption { margin-top: 14px; }
+/* At actual size the diagrams' small print needs to be a step bigger than it was in the images. */
+figure.inline .vis .steps p,
+figure.inline .vis .gen ul,
+figure.inline .vis .gates .name small,
+figure.inline .vis .band .b,
+figure.inline .vis .legend,
+figure.inline .vis .gen .tag,
+figure.inline .vis .metric .l,
+figure.inline .vis .total .l,
+figure.inline .vis .runs .l,
+figure.inline .vis .node .d,
+figure.inline .vis .dayrow .dl small,
+figure.inline .vis .key { font-size: 14px; line-height: 1.5; }
+figure.inline .vis .steps h4,
+figure.inline .vis .gen h4 { font-size: 16px; }
+figure.inline .vis .gates .name { font-size: 15px; }
+figure.inline .vis .tie td,
+figure.inline .vis .tie th { font-size: 13px; }
+
+/* Tap-to-zoom for screenshots. */
+figure a[data-zoom] { cursor: zoom-in; }
+dialog.zoom { width: 100vw; height: 100vh; max-width: none; max-height: none; margin: 0; padding: 0;
+              border: 0; background: rgba(20, 19, 17, .94); }
+dialog.zoom::backdrop { background: rgba(20, 19, 17, .6); }
+.zoom-wrap { width: 100%; height: 100%; overflow: auto; display: flex; align-items: flex-start;
+             justify-content: center; padding: 56px 16px 24px; box-sizing: border-box; }
+.zoom-wrap img { display: block; max-width: 100%; height: auto; margin: auto; cursor: zoom-in;
+                 border: 0; background: #fff; }
+dialog.zoom.full .zoom-wrap { justify-content: flex-start; }
+dialog.zoom.full .zoom-wrap img { max-width: none; width: auto; cursor: zoom-out; }
+.zoom-close { position: fixed; top: 10px; right: 12px; width: 44px; height: 44px; border: 0;
+              border-radius: 22px; background: rgba(255, 255, 255, .15); color: #fff; font-size: 28px;
+              line-height: 44px; cursor: pointer; }
+.zoom-close:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
