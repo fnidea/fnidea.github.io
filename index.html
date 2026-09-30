@@ -21,19 +21,36 @@
 <link rel="stylesheet" href="site.css">
 
 <meta name="robots" content="noindex, nofollow, noarchive">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-Q32D4GRSG7');
-</script>
-<script>
-(function(c,l,a,r,i,t,y){
-c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "lypopapb7o");
+(function () {
+  var off = false;
+  try {
+    if (/[?&]notrack\b/.test(location.search)) localStorage.setItem("fn_notrack", "1");
+    if (/[?&]track\b/.test(location.search)) localStorage.removeItem("fn_notrack");
+    off = localStorage.getItem("fn_notrack") === "1";
+  } catch (e) {}
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  if (off) { window["ga-disable-G-Q32D4GRSG7"] = true; return; }
+  function load(src) {
+    var t = document.createElement("script"); t.async = true; t.src = src;
+    document.head.appendChild(t);
+  }
+  load("https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7");
+  gtag("js", new Date());
+  gtag("config", "G-Q32D4GRSG7");
+  window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
+  load("https://www.clarity.ms/tag/lypopapb7o");
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[href]");
+    if (!a) return;
+    var h = a.getAttribute("href"), where = location.pathname;
+    if (h.indexOf("mailto:") === 0) gtag("event", "contact_email", { link_page: where });
+    else if (h.indexOf("linkedin.com") > -1) gtag("event", "linkedin_click", { link_page: where });
+    else if (h.indexOf("/releases") > -1) gtag("event", "installer_download", { link_page: where });
+    else if (a.hasAttribute("data-zoom")) gtag("event", "figure_zoom", { figure: h.split("/").pop(), link_page: where });
+  }, true);
+})();
 </script>
 </head>
 <body>
