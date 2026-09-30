@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Payout Reconciliation Generations</title>
+<meta name="description" content="From 4 hours a week by hand, 6 at month end, to under 30 minutes in KNIME, to a console that checks every week 16 ways and keeps every run.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
@@ -29,9 +30,9 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <main class="frame">
 <p class="back"><a href="../case-studies/stripe-payout-recon.html">&larr; Back to the case study</a></p>
 
-<p class="kicker">Case study · Stripe payout reconciliation</p>
-<h1>Three generations of one weekly reconciliation</h1>
-<p class="dek">From four hours a week by hand, six at month end, to under thirty minutes in KNIME, to a console that checks every week 16 ways and keeps every run.</p>
+<p class="kicker">Case study · Stripe reconciliation</p>
+<h1>Three versions of one weekly reconciliation</h1>
+<p class="dek">From 4 hours a week by hand, 6 at month end, to under 30 minutes in KNIME, to a console that checks every week 16 ways and keeps every run.</p>
 
 <div class="gens">
 
@@ -54,14 +55,14 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <h2>KNIME rebuild</h2>
 <div class="metric"><div class="v">&lt; 30 min</div><div class="l">door to door, review included</div></div>
 <ul>
-<li class="gain"><span class="sr">Added: </span>Execution itself runs five to fifteen minutes</li>
+<li class="gain"><span class="sr">Added: </span>Execution itself runs 5 to 15 minutes</li>
 <li class="gain"><span class="sr">Added: </span>A completeness branch catches any fee outside the nine known categories</li>
 <li class="gain"><span class="sr">Added: </span>Builds the NetSuite journal-entry import, keyed on External ID so a re-import cannot double-post</li>
 <li class="gain"><span class="sr">Added: </span>Run side by side with the manual process before cutover</li>
 <li class="limit"><span class="sr">Limit: </span>Ten parameters typed by hand at the start of every run</li>
 <li class="limit"><span class="sr">Limit: </span>Every file path typed into the workflow, and each person sets up their own credentials</li>
 <li class="limit"><span class="sr">Limit: </span>A re-run overwrites what was booked, and no snapshot is kept</li>
-<li class="limit"><span class="sr">Limit: </span>Its query window was too narrow and missed backdated payment entries</li>
+<li class="limit"><span class="sr">Limit: </span>Its query window was too narrow and missed backdated Stripe entries</li>
 </ul>
 <p class="tag">Built, tested and put into production alone</p>
 </section>
@@ -86,7 +87,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 <div class="legend"><span><i class="g"></i>What the generation added</span><span><i class="r"></i>What it still could not do</span></div>
 
-<p class="foot">Every figure on this page is traced to the evidence base. No client data is shown.</p>
+<p class="foot">Every figure on this page is sourced in the case study. No client data is shown.</p>
 
 </main>
 </body>

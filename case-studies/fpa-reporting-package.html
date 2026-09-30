@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Monthly reporting package case study · Franco Nidea</title>
-<meta name="description" content="I rebuilt our monthly reporting package so a re-run takes under 5 minutes instead of 30, and every closed month of 2026 balances and ties to the package.">
+<meta name="description" content="I rebuilt our monthly reporting package so a re-run takes under 5 minutes instead of 30, and every closed month of 2026 balances and its net income ties to Numeric.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Monthly reporting package case study · Franco Nidea">
-<meta property="og:description" content="I rebuilt our monthly reporting package so a re-run takes under 5 minutes instead of 30, and every closed month of 2026 balances and ties to the package.">
+<meta property="og:description" content="I rebuilt our monthly reporting package so a re-run takes under 5 minutes instead of 30, and every closed month of 2026 balances and its net income ties to Numeric.">
 <meta property="og:url" content="https://franconidea.com/case-studies/fpa-reporting-package.html">
 <meta property="og:image" content="https://franconidea.com/visuals/png/og.png">
 <meta property="og:image:width" content="1200">
@@ -51,13 +51,13 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <h1>The thirty-minute re-run</h1>
 <p class="meta">The work described here is at TixTrack, where I'm a Senior Financial Analyst.</p>
 
-<p class="lede">I rebuilt our monthly reporting package so a re-run takes under 5 minutes instead of 30, and every closed month of 2026 balances and ties to the package.</p>
+<p class="lede">I rebuilt our monthly reporting package so a re-run takes under 5 minutes instead of 30, and every closed month of 2026 balances and its net income ties to Numeric.</p>
 
 <dl class="snapshot">
 <div><dt>Role</dt><dd>Built it. I decided what it had to produce and I check the output against the source data. Claude wrote the code.</dd></div>
 <div><dt>When</dt><dd>Built in July 2026, moved onto NetSuite reports in September</dd></div>
 <div><dt>Tools</dt><dd>NetSuite, Numeric, SQL, Python, Claude</dd></div>
-<div class="results"><dt>Results</dt><dd><ul><li>30 minutes to under 5 per run (timed)</li><li>All 8 closed months balance and tie to the package</li><li>74 runs kept, no closed month flagged as changed</li></ul></dd></div>
+<div class="results"><dt>Results</dt><dd><ul><li>30 minutes to under 5 per run (timed)</li><li>All 8 closed months balance and tie to Numeric</li><li>74 runs kept, no closed month flagged as changed</li></ul></dd></div>
 </dl>
 
 <figure class="breakout full">
@@ -85,7 +85,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <li>Claude pulls the reports from the ERP and the code builds every number deterministically.</li>
 <li>8 views: overview, P&amp;L detail, income statement, balance sheet, balance sheet by entity for our 6 legal entities, adjusted EBITDA, budget vs actuals on both the original budget and the reforecast, and a page for data and runs.</li>
 <li>Commentary is written by people in Numeric's flux reports and pulled in as is.</li>
-<li>Prepaid and accrual tabs my VP asked for, laid out so someone who isn't an accountant can follow them. I rebuilt both straight from ERP data instead of hand-kept schedules, so the whole method is deterministic end to end.</li>
+<li>Prepaid and accrual tabs my VP asked for, laid out so someone who isn't an accountant can follow them. I rebuilt both straight from ERP data instead of hand-kept schedules, so the method is deterministic end to end.</li>
 <li>The whole package exports in one click, plus a second version in the format the CEO expects.</li>
 </ul>
 
@@ -96,13 +96,13 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 <h2>How I know it works</h2>
 <figure class="breakout diagram full">
-<a href="../visuals/reporting-tieout.html"><img src="../visuals/png/reporting-tieout.png" srcset="../visuals/png/reporting-tieout-1000.webp 1000w, ../visuals/png/reporting-tieout-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1000" height="410" alt="Every closed month so far this year, checked against both tie-outs and for any change after close. Opens the diagram as a page, with its text." loading="lazy"></a>
-<figcaption aria-hidden="true">Every closed month so far this year, checked against both tie-outs and for any change after close. Opens the full diagram.</figcaption>
+<a href="../visuals/reporting-tieout.html"><img src="../visuals/png/reporting-tieout.png" srcset="../visuals/png/reporting-tieout-1000.webp 1000w, ../visuals/png/reporting-tieout-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1000" height="410" alt="Every closed month so far this year, checked against both tie-outs, with no closed month flagged as changed. Opens the diagram as a page, with its text." loading="lazy"></a>
+<figcaption aria-hidden="true">Every closed month so far this year, checked against both tie-outs, with no closed month flagged as changed. Opens the full diagram.</figcaption>
 </figure>
 
 <ul>
-<li>At the end everything gets tied back to the ERP, account by account and in total.</li>
-<li>Every closed month so far this year, January to August, ties two ways. Assets equal liabilities plus equity within $0.02, and net income ties to the financial package.</li>
+<li>At the end, everything that comes from NetSuite gets tied back to it, account by account and in total, and budget vs actuals ties down to department and vendor.</li>
+<li>Every closed month so far this year, January to August, ties two ways. Assets equal liabilities plus equity within $0.02, and net income ties to Numeric.</li>
 <li>Every load of a month gets saved as a run instead of overwriting the last one, and a closed month that comes back different on a reload gets flagged. I wanted that so any adjustment shows up against what we already sent.</li>
 <li>From July 22 to September 11 there were 74 runs, and no closed month is flagged as changed. That also means the drift check hasn't been tested on a real change yet.</li>
 </ul>
@@ -131,14 +131,13 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </ul>
 
 <figure class="breakout full">
-<a href="../visuals/png/fpa-dashboard-runs.png"><img src="../visuals/png/fpa-dashboard-runs.png" srcset="../visuals/png/fpa-dashboard-runs-1000.webp 1000w, ../visuals/png/fpa-dashboard-runs-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1032" alt="Sample data: every load is kept as a run, and the drift check compares each closed month with its last run. On September 11 the source switches from Numeric to the two NetSuite reports. Opens the full-size image." loading="lazy"></a>
-<figcaption aria-hidden="true">Sample data: every load is kept as a run, and the drift check compares each closed month with its last run. On September 11 the source switches from Numeric to the two NetSuite reports. Opens full size.</figcaption>
+<a href="../visuals/png/fpa-dashboard-runs.png"><img src="../visuals/png/fpa-dashboard-runs.png" srcset="../visuals/png/fpa-dashboard-runs-1000.webp 1000w, ../visuals/png/fpa-dashboard-runs-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1032" alt="Sample data: every load is kept as a run, and a closed month that comes back different on a reload gets flagged. On September 11 the source switches from Numeric to the two NetSuite reports. Opens the full-size image." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: every load is kept as a run, and a closed month that comes back different on a reload gets flagged. On September 11 the source switches from Numeric to the two NetSuite reports. Opens full size.</figcaption>
 </figure>
 
 <h2>What didn't work</h2>
 <ul>
 <li>The first time I tried pulling ERP data through Claude, it burned through my usage allowance really fast because it kept retrying queries it didn't have access to. So I built on our package workbook and then Numeric first, then built the two NetSuite reports myself and moved the P&amp;L and balance sheet to them on September 11.</li>
-<li>I tried having Claude analyze the numbers, find the variances and write the commentary, but it was bad so I reverted it back.</li>
 </ul>
 
 <h2>Limits and what's next</h2>
@@ -147,7 +146,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <li>The commentary cells can still be edited on the dashboard, and an edit there never goes back to Numeric. They should be read-only.</li>
 <li>The balance sheet is off by up to $0.02 in some months and the check lets it pass. I hate that, it should tie to the penny.</li>
 <li>The overview still says "Numeric consolidated basis" even though the P&amp;L and balance sheet come from NetSuite now.</li>
-<li>Next: wiring the VP of Finance's live reforecast into the dashboard. That's in progress.</li>
+<li>We're moving to a new ERP, run in parallel with NetSuite at first. I expect to repoint the package's pulls to it, or use the reporting it has built in.</li>
+<li>Next: a better way to bring our reforecast into the dashboard. That's in progress.</li>
 </ul>
 
 <details class="sources">
@@ -159,7 +159,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 <p>My estimate, not a count: 2 to 4 re-runs per close.</p>
 
-<p>My own account: when and why I built it, the drift requirement, where commentary is written, the AI commentary I tried and reverted, the first ERP pull that burned my usage, building the NetSuite reports myself, that Claude pulls the reports while code builds the numbers and ties them account by account, and that Claude writes the code.</p>
+<p>My own account: when and why I built it, the drift requirement, where commentary is written, the first ERP pull that burned my usage, building the NetSuite reports myself, that Claude pulls the reports while code builds the numbers and ties them account by account, the prepaid and accrual tabs, the CEO-format export, and that Claude writes the code.</p>
 
 </details>
 

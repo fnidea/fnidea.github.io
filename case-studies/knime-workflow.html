@@ -142,7 +142,7 @@ GROUP BY ...</code></pre>
 
 <p>The checker was catching the per-authorization fee, but it never made it into the summary's other-fees line, so the payout summary had been leaving it out. A review in July found the gap, and it's fixed now.</p>
 
-<p>The checker also sat outside the main workflow, so it only ran when someone ran it on its own. Once the weekly run was handed over, it wasn't being run every week, and that's how a per-authorization fee went unbooked until my cost dashboard surfaced it.</p>
+<p>The checker also sat outside the main workflow, so it only ran when someone ran it on its own. Once the weekly run was handed over, it wasn't being run every week, and that's how the fee went unbooked until my cost dashboard surfaced it.</p>
 
 <h3>Building the NetSuite import</h3>
 <figure class="breakout diagram full">
@@ -160,9 +160,8 @@ GROUP BY ...</code></pre>
 <ul>
 <li>The week went from 4 hours by hand, 6 at month end, to under 30 minutes door to door. The run itself took 5 to 15 minutes once it started.</li>
 <li>The timezone rule was deliberate. Any cost with a connected account ID gets the client's timezone, and anything without one stays on UTC. That's the matching principle. Our revenue is booked from each client's weekly reconciliation, which runs on the client's own time, so cutting their costs on the same local day keeps cost of sales matched to that revenue. All 12 queries apply it to every row the same way.</li>
-<li>Client attribution moved out of spreadsheet formulas and into the query, and later I collapsed nine categorization queries into one.</li>
-<li>The checker was already catching the per-authorization fee before the summary picked it up.</li>
-<li>The import couldn't double-post.</li>
+<li>Client attribution moved out of spreadsheet formulas and into the query, and later, in a separate cost workflow, I collapsed nine categorization queries into one.</li>
+<li>Re-running the import updated lines instead of posting them twice.</li>
 <li>Running it next to the manual process showed the manual process had been wrong in places for months, and nobody had noticed.</li>
 </ul>
 
@@ -174,7 +173,7 @@ GROUP BY ...</code></pre>
 <li>A re-run overwrote what was booked, so there was no way to see what we booked, what Stripe says now and what moved in between.</li>
 <li>The same logic lived in ten copies.</li>
 <li>All 12 of its database nodes are deprecated.</li>
-<li>A reconciliation query's activity window was too narrow, and it had been missing backdated payment entries since January, about $110K of them.</li>
+<li>A reconciliation query's activity window was too narrow, and it had been missing backdated Stripe entries since January, about $110K of them.</li>
 </ul>
 
 <h2>Why I rebuilt it</h2>
@@ -182,7 +181,7 @@ GROUP BY ...</code></pre>
 <li>KNIME was moving to a paid subscription the next year. It isn't expensive, but it wasn't in the budget.</li>
 <li>Every run still depended on hand-typed dates, and hand-typed windows did give one booked week an extra day.</li>
 <li>It couldn't show what changed after a week was booked. That's what the true-up view does now, and it surfaced backdated entries the old reconciliation had missed.</li>
-<li>New Stripe fee types were caught by a side branch instead of by the process itself. The console that replaced it checks that every category in the source is declared.</li>
+<li>New Stripe fee types were caught by a side branch instead of by the process itself. The console built to replace it checks that every category in the source is declared.</li>
 </ul>
 
 <p>The Python console I built to replace it is the next part of the case study.</p>
@@ -190,13 +189,13 @@ GROUP BY ...</code></pre>
 <details class="sources">
 <summary>How these numbers are sourced</summary>
 
-<p>Parsed from the workflow files themselves, "US Payout Summary - CLEAN.knwf" and "FN - Stripe Fees NetSuite import.knwf": the ten parameters and their values, the twelve queries and the dates they read, the timezone rule every query applies to each row, the deprecated database nodes, the ten copies of one sub-workflow, the 29 Excel writers and their hardcoded paths, the checker branch, the import builder's mapping, External IDs and date pickers, and the notes on its canvas. The SQL is shortened here. The account id and folder path are masked, and product and client names in the drawings are replaced.</p>
+<p>From the workflow files, "US Payout Summary - CLEAN.knwf" and "FN - Stripe Fees NetSuite import.knwf", and the build spec written against them: the ten parameters and their values, the twelve queries and the dates they read, the timezone rule every query applies to each row, the deprecated database nodes, the ten copies of one sub-workflow, the 29 Excel writers and their hardcoded paths, the checker branch, the import builder's mapping, External IDs and date pickers, and the notes on its canvas. The SQL is shortened here. The account id and folder path are masked, and product and client names in the drawings are replaced.</p>
 
 <p>From the build spec written against the workflows: the widened window, the UK queries following the same timezone rule, client attribution in the query, the nine queries collapsed into one, and the overwrite on re-run.</p>
 
-<p>My own account: what the week involved, the hundreds of thousands of lines, the product split and the sale, the timings, the per-authorization fee, the parallel run, the date error the console caught, the subscription and the true-up view.</p>
+<p>My own account: what the week involved, the hundreds of thousands of lines, the product split and the sale, the timings, the per-authorization fee, the parallel run, the date error the console caught, the subscription, the true-up view and the handover.</p>
 
-<p>My estimate, not a count: about $110K of backdated entries missed.</p>
+<p>Rounded from Stripe's figures, so stated as an estimate: about $110K of backdated entries missed.</p>
 
 </details>
 

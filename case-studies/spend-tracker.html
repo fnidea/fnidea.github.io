@@ -60,8 +60,10 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <div class="results"><dt>Results</dt><dd><ul><li>393 automated tests, all passing</li><li>Windows and Mac installers</li><li>Our household's monthly close runs on it</li></ul></dd></div>
 </dl>
 
+<p>You can <a href="https://github.com/growingtendies/spend-tracker/releases/latest" rel="noopener" target="_blank">download the test version</a> for Windows or Mac and try it on the built-in sample household.</p>
+
 <h2>The problem</h2>
-<p>I used Mint for a while and then stopped. When I got better at Excel I built my own budget spreadsheet, and later I moved it to Google Sheets.</p>
+<p>I used Mint for a while and then stopped. Then I built my own budget spreadsheet in Excel, and later I moved it to Google Sheets.</p>
 
 <p>But keeping the budget current and comparing it to actuals every month was a pain. So I just got too lazy to update it.</p>
 
@@ -76,7 +78,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <p>It's an app that runs on your own computer. You download CSV exports from your bank, card and wallet accounts, drop them in, and it sorts every transaction into spending buckets.</p>
 
 <ul>
-<li>Budget vs actual, savings, net worth, recurring charges and a monthly close, across 9 views.</li>
+<li>Spending vs budget, savings, net worth, recurring charges and a monthly close, across 9 views.</li>
 <li>A setup wizard that recognizes your bank's file, guesses the account type and imports it right away. It comes with settings for six banks and cards, and others work too. The first time you load a file it doesn't recognize, you map the columns once.</li>
 <li>No bank connection. That would've meant more complexity and probably paying for a service like Plaid.</li>
 <li>Everything stays on your computer, and the only thing the app talks to is itself. I like that it's offline, it keeps the data a little more secure than something in the cloud.</li>
@@ -85,13 +87,13 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </ul>
 
 <figure class="breakout full">
-<a href="../visuals/png/spend-bva.png"><img src="../visuals/png/spend-bva.png" srcset="../visuals/png/spend-bva-1000.webp 1000w, ../visuals/png/spend-bva-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1066" alt="Sample data: budget vs actual for the year so far, every bucket by month against its budget. Opens the full-size image." loading="lazy"></a>
-<figcaption aria-hidden="true">Sample data: budget vs actual for the year so far, every bucket by month against its budget. Opens full size.</figcaption>
+<a href="../visuals/png/spend-bva.png"><img src="../visuals/png/spend-bva.png" srcset="../visuals/png/spend-bva-1000.webp 1000w, ../visuals/png/spend-bva-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1066" alt="Sample data: spending vs budget for the year so far, every bucket by month against its budget. Opens the full-size image." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: spending vs budget for the year so far, every bucket by month against its budget. Opens full size.</figcaption>
 </figure>
 
 <h2>How I know it works</h2>
 <ul>
-<li>There are 393 automated tests, and they all pass on the latest version, run on September 26.</li>
+<li>There are 393 automated tests, and they all passed on the September 26 version.</li>
 <li>It has three guards against counting the same money twice. A card payment from checking isn't counted as spending, since the purchases are already on the card. A Venmo payment funded from checking gets counted once. And four identical $2.90 fares on the same day stay four transactions instead of collapsing into one.</li>
 <li>Nothing gets dropped quietly. Spending in a bucket that isn't in the budget shows up as Unmapped instead of disappearing from the totals.</li>
 <li>I test every build myself, and I run our household's close on it.</li>
@@ -124,7 +126,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <li>It comes with ready-made settings for Ally, American Express, Bank of America, Capital One, Chase and Venmo, and only Ally, Chase and Venmo are marked verified so far. Every other bank needs that one-time column mapping first.</li>
 <li>The installers aren't signed, so Windows and Mac both warn you the first time you open it.</li>
 <li>If you close the browser halfway through setup, you lose your place. What you already saved stays.</li>
-<li>I'm the only one testing it so far. The source goes public on GitHub once testing is done.</li>
+<li>I'm the only one testing it so far. The installers are already public on GitHub, and the source goes public once testing is done.</li>
 </ul>
 
 <details class="sources">

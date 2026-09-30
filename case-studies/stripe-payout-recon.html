@@ -79,7 +79,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <p>I already had a CSV import for the journal entry, but getting the data into that format took time too. Then the workbook with our net payout went to the CFO for review, and he pulled that amount from Stripe into our bank account.</p>
 
 <figure class="breakout diagram full">
-<a href="../visuals/payout-generations.html"><img src="../visuals/png/payout-generations.png" srcset="../visuals/png/payout-generations-1000.webp 1000w, ../visuals/png/payout-generations-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1000" height="744" alt="The same weekly reconciliation in three versions: by hand, in KNIME and in the console. Opens the diagram as a page, with its text." loading="lazy"></a>
+<a href="../visuals/payout-generations.html"><img src="../visuals/png/payout-generations.png" srcset="../visuals/png/payout-generations-1000.webp 1000w, ../visuals/png/payout-generations-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1000" height="725" alt="The same weekly reconciliation in three versions: by hand, in KNIME and in the console. Opens the diagram as a page, with its text." loading="lazy"></a>
 <figcaption aria-hidden="true">The same weekly reconciliation in three versions: by hand, in KNIME and in the console. Opens the full diagram.</figcaption>
 </figure>
 
@@ -89,8 +89,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <ul>
 <li>The queries pull one extra day on each side of the week, then a filter trims every row back to its own client's week.</li>
 <li>Any cost with a connected account ID gets that client's timezone, and anything without one, usually platform-level costs, stays on UTC. I did that on purpose. Our revenue is booked from each client's weekly reconciliation, which runs on the client's own time, so cutting their costs on the same local day keeps cost of sales matched to that revenue. All 12 queries in the US workflow apply it to every row, and the UK workflow follows the same rule.</li>
-<li>I moved client attribution out of the spreadsheet formulas and into the query, and later collapsed nine categorization queries into one.</li>
-<li>One branch only catches fees that don't fit the nine categories I knew about. My note on it says "in case any additional fees pop up," and it was already catching the per-auth fee the summary had been leaving out.</li>
+<li>I moved client attribution out of the spreadsheet formulas and into the query, and later, in a separate cost workflow, collapsed nine categorization queries into one.</li>
+<li>One branch only catches fees that don't fit the nine categories I knew about. My note on it says "in case any additional fees pop up."</li>
 <li>Another workflow builds the NetSuite journal entry import. Every line has an External ID, so if the import runs twice NetSuite updates it instead of booking it twice.</li>
 </ul>
 
@@ -114,8 +114,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <ul>
 <li>Every file path is typed into the workflow, and anyone else running it has to set up their own Snowflake credentials first.</li>
 <li>A re-run overwrites whatever was booked, so there's no way to see what we booked, what Stripe says now and what moved in between.</li>
-<li>Every run starts with 10 parameters typed in by hand, dates included, and nothing checks them.</li>
-<li>The US workflow has 10 copies of the same component, and all 12 of its database nodes are flagged deprecated by the vendor.</li>
+<li>Every run starts with ten parameters typed in by hand, dates included, and nothing checks them.</li>
+<li>The US workflow has ten copies of the same component, and all 12 of its database nodes are flagged deprecated by the vendor.</li>
 </ul>
 
 <h2>The console</h2>
@@ -167,8 +167,15 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <h2>Results</h2>
 <ul>
 <li>The week went from 4 hours by hand, 6 at month end, to under 30 minutes door to door.</li>
-<li>I built a true-up view for costs and credits that show up once a week has been booked. It found that a reconciliation query in my KNIME workflow had an activity window that was too narrow, and it had been missing backdated payment entries since January, about $110K of them, which is an estimate. The find drove a reclassification at month-end close.</li>
-<li>The Stripe cost dashboard I built alongside it surfaced a per-authorization fee that had never been booked. My KNIME checker should have caught it, but it sat outside the main workflow and wasn't being run every week. I fixed the dashboard's fee handling, and the fee gets booked going forward now.</li>
+<li>I built a true-up view for costs and credits that show up once a week has been booked. It's what caught the backdated entries below, and the find drove a reclassification at month-end close.</li>
+<li>The Stripe cost dashboard I built alongside it surfaced the unbooked per-authorization fee below. I fixed the dashboard's fee handling, and the fee gets booked going forward now.</li>
+</ul>
+
+<h2>What didn't work</h2>
+<ul>
+<li>My KNIME reconciliation query only looked at a narrow activity window, so backdated Stripe entries fell outside it. It missed about $110K of them from January on, and I only found it once I built the true-up view.</li>
+<li>I put the checker for unknown fees on its own branch, outside the main workflow. Once the weekly run was handed over it wasn't being run every week, and a per-authorization fee went unbooked until my cost dashboard surfaced it.</li>
+<li>Every KNIME run started with dates typed by hand, and one booked week picked up an extra day that had already been booked.</li>
 </ul>
 
 <h2>Limits and what's next</h2>
@@ -178,18 +185,19 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <li>Stripe doesn't send all of its fee data into Snowflake, so some fees can't be tied to a client. The console posts those to the platform line and warns me instead of guessing.</li>
 <li>Posting straight into NetSuite isn't built. It writes import files and a person still imports them.</li>
 <li>The cost dashboard is supposed to replace the per-client workbooks, but they haven't been retired yet.</li>
+<li>We're moving from NetSuite to a new ERP, run in parallel at first. The console reads from Snowflake, so it isn't affected.</li>
 </ul>
 
 <details class="sources">
 <summary>How these numbers are sourced</summary>
 
-<p>Counted from the KNIME workflow files: the 10 typed parameters, the 10 copied components, the 12 deprecated nodes, the hardcoded paths, the nine-category completeness branch and its note, and the journal entry import and its External IDs. Also from the US workflow file: every query applying the timezone rule row by row. From the build spec written against those files: the UK queries following the same rule, the widen-then-trim filter, the nine queries collapsed into one and the overwriting outputs.</p>
+<p>From the KNIME workflow files and the build spec written against them: the ten typed parameters, the ten copied components, the 12 deprecated nodes, the hardcoded paths, the nine-category completeness branch and its note, the journal entry import and its External IDs, and every US query applying the timezone rule row by row. Also from the build spec: the UK queries following the same rule, the widen-then-trim filter, the nine queries collapsed into one and the overwriting outputs.</p>
 
-<p>Read from one console run, the week ending September 20, 2026, through an extract with no client names or dollar amounts: the 16 checks, the snapshot and fingerprint, 228,255 new rows, the 14 of 16 groups rebuilt to the cent, the six exports, the override that didn't remap, and what isn't built.</p>
+<p>Read from one console run, the week ending September 20, 2026, through an extract with no client names or dollar amounts: the 16 checks, the snapshot and fingerprint, 228,255 new rows, the 14 of 16 groups rebuilt to the cent, the six files, the override that didn't remap, and what isn't built.</p>
 
-<p>My own account: 4 hours a week and 6 at month end before, and what they went into, under 30 minutes door to door after, 5 to 15 minutes of run time, the side-by-side testing, the per-auth fee fix, the console matching September 20, the booked week it caught, the dashboard and its per-auth fee, the true-up view, and that Claude writes the code.</p>
+<p>My own account: 4 hours a week and 6 at month end before, and what they went into, under 30 minutes door to door after, 5 to 15 minutes of run time, the side-by-side testing, the per-authorization fee fix, the console matching September 20, the booked week it caught, the dashboard and its per-authorization fee, the true-up view, the invoice and payment imports, the accrual process I designed, the journal entry import that already existed, the CFO's review, why costs follow the client's timezone, the documents I wrote for the team, and that Claude writes the code.</p>
 
-<p>Estimates, stated as estimates: more than 10 tabs in the old workbook, about two months to build and test the KNIME version, and about $110K of backdated entries, rounded from Stripe.</p>
+<p>Estimates, stated as estimates: more than 10 tabs in the old workbook, about two hours each for invoices and payments by hand, about two months to build and test the KNIME version, and about $110K of backdated entries, rounded from Stripe. The ~400 hours a year on the home page adds up my estimates for the weekly payout process, invoices, payments and the reporting package.</p>
 
 <p>The reclassification was read from Stripe. The hundreds of thousands of lines a week across five timezones is my own account.</p>
 

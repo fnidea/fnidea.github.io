@@ -54,7 +54,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <p class="lede">The console I built to replace KNIME runs 16 checks before it lets me export a journal entry. Most of them are checks I was still doing by hand every week, even with KNIME running. It's still in testing.</p>
 
 <h2>Why checks</h2>
-<p>KNIME got our weekly Stripe reconciliation from 4 hours a week, and 6 at month end, down to under 30 minutes. But I still checked the output by hand every week, because the run itself couldn't tell me if something had been booked twice.</p>
+<p>KNIME got our weekly Stripe reconciliation from 4 hours a week, and 6 at month end, down to under 30 minutes. But I still checked the output by hand every week, because nothing in the run did those checks for me.</p>
 
 <p>The hand-typed dates showed why that mattered. One booked week had an extra day in each week range, a day that had already been booked.</p>
 
@@ -146,7 +146,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <details class="sources">
 <summary>How these numbers are sourced</summary>
 
-<p>Parsed from the console itself: the 16 checks and what each one tests, from the console page with names and amounts replaced. From its run for the week ending September 20: 14 passed, 1 warned and 1 overridden, the override reason in the run log, the 581-row snapshot and its fingerprint, the 228,255 new rows and none already accrued, the six exports and the posting phase that isn't built. The rebuild of 14 of 16 groups to the cent was recomputed by Claude from that run's snapshot.</p>
+<p>Parsed from the console itself: the 16 checks and what each one tests, from the console page with names and amounts replaced. From its run for the week ending September 20: 14 passed, 1 warned and 1 overridden, the override reason in the run log, the 581-row snapshot and its fingerprint, the 228,255 new rows and none already accrued, the six files and the posting phase that isn't built. The rebuild of 14 of 16 groups to the cent was recomputed by Claude from that run's snapshot.</p>
 
 <p>From the design spec: the thresholds that start unset and block posting, and the approval step.</p>
 
