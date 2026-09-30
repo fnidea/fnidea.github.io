@@ -269,6 +269,7 @@ svg.knime .notet { font: 11px "IBM Plex Sans", system-ui, sans-serif; fill: #444
          border-top: 2px solid var(--ink); border-bottom: 3px double var(--rule-hard); padding: 12px 0; }
 .total .v { font-family: var(--mono); font-size: 24px; font-weight: 500; font-variant-numeric: tabular-nums; }
 .total .l { font-size: 13px; color: var(--ink-2); }
+@media (min-width: 761px) { .steps.four { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
 svg.knime .ring { fill: none; stroke: #B02A20; stroke-width: 2.5; stroke-dasharray: 6 4; }
 svg.knime .lead { fill: none; stroke: #B02A20; stroke-width: 1.5; }

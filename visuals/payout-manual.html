@@ -30,20 +30,22 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 <p class="kicker">Case study · Stripe payout reconciliation</p>
 <h1>The weekly reconciliation, by hand</h1>
-<p class="dek">Before any automation, every week went through four tools before a journal entry could be posted.</p>
+<p class="dek">Before any automation, every week went through four tools and a review by the CFO before anything was booked.</p>
 
-<ol class="steps">
+<ol class="steps four">
 <li><p class="tool">Stripe website</p><h2>Download the reports</h2><p>Go to Reports and download the week's reports as CSV files. They're big, and the downloads are slow.</p></li>
-<li><p class="tool">Tableau</p><h2>Filter and transform</h2><p>The files are too big for Excel, so they go into Tableau. Matching each client to its own timezone lives here, as a calculated field.</p></li>
+<li><p class="tool">Tableau</p><h2>Filter and transform</h2><p>The files are too big for Excel, so they go into Tableau. Moving each client's activity to its own timezone happens here.</p></li>
 <li><p class="tool">Tableau</p><h2>Export the results</h2><p>Each result goes back out of Tableau as its own separate report.</p></li>
-<li><p class="tool">Excel and Power Query</p><h2>Pull them together</h2><p>A consolidated workbook pulls every report in with Power Query.</p></li>
-<li><p class="tool">Excel</p><h2>Check every tab</h2><p>Make sure the dates were filtered right and every tab pulled and updated. That's more than ten tabs, by my count.</p></li>
-<li><p class="tool">NetSuite</p><h2>Book it</h2><p>Create the journal entry and post it by hand.</p></li>
+<li><p class="tool">Excel and Power Query</p><h2>Pull them together</h2><p>A consolidated workbook pulls every report in with Power Query and works out the net payout.</p></li>
+<li><p class="tool">Excel</p><h2>Check every tab</h2><p>Make sure the dates were filtered right and every tab pulled and updated. That's more than ten tabs.</p></li>
+<li><p class="tool">Excel</p><h2>Shape the entries</h2><p>Transform the week's data into the NetSuite import formats: invoices, the accrual entry, payments and the deposit.</p></li>
+<li><p class="tool">CFO</p><h2>Review and pull</h2><p>The CFO reviews the net payout, then pulls that amount from Stripe into our bank account.</p></li>
+<li><p class="tool">NetSuite</p><h2>Import and book</h2><p>Import the files and book the week, with hundreds of lines in each journal entry.</p></li>
 </ol>
 
 <div class="total"><span class="v">4 hrs</span><span class="l">a week, 6 at month end</span></div>
 
-<p class="foot">From my own account of the process. The tab count is my estimate, not counted from the file.</p>
+<p class="foot">From my own account of the process. The tab count is from memory, not counted from the file.</p>
 </main>
 </body>
 </html>
