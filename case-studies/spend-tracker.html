@@ -58,13 +58,13 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <div><dt>Role</dt><dd>Built it. I decided what it does and how it behaves, and I test every build. Claude wrote the code, the tests and the docs.</dd></div>
 <div><dt>When</dt><dd>Started August 25, 2026. In testing now.</dd></div>
 <div><dt>Tools</dt><dd>Python (standard library only), JavaScript, GitHub Actions, Claude</dd></div>
-<div class="results"><dt>Results</dt><dd><ul><li>393 automated tests, all passing</li><li>Windows and Mac installers</li><li>Our household's monthly close runs on it</li></ul></dd></div>
+<div class="results"><dt>Results</dt><dd><ul><li>652 automated tests, all passing</li><li>Windows and Mac installers</li><li>Our household's monthly close runs on it</li></ul></dd></div>
 </dl>
 
 <p>You can <a href="https://github.com/growingtendies/spend-tracker/releases/latest" rel="noopener" target="_blank">download the test version</a> for Windows or Mac and try it on the built-in sample household.</p>
 
 <figure class="breakout shot full">
-<a href="../visuals/png/spend-overview.png" data-zoom><img src="../visuals/png/spend-overview.png" srcset="../visuals/png/spend-overview-1000.webp 1000w, ../visuals/png/spend-overview-2000.webp 2000w" sizes="(min-width: 820px) 680px, calc(100vw - 40px)" width="1440" height="1032" alt="Sample data: the overview, with spending against budget each month and the buckets that moved most, on the app&#x27;s built-in fictional household." fetchpriority="high"></a>
+<a href="../visuals/png/spend-overview.png" data-zoom><img src="../visuals/png/spend-overview.png" srcset="../visuals/png/spend-overview-1000.webp 1000w, ../visuals/png/spend-overview-2000.webp 2000w" sizes="(min-width: 820px) 680px, calc(100vw - 40px)" width="1080" height="699" alt="Sample data: the overview, with spending against budget each month and the buckets that moved most, on the app&#x27;s built-in fictional household." fetchpriority="high"></a>
 <figcaption aria-hidden="true">Sample data: the overview, with spending against budget each month and the buckets that moved most, on the app's built-in fictional household. Tap to zoom.</figcaption>
 </figure>
 
@@ -83,6 +83,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <li>A setup wizard that recognizes your bank's file, guesses the account type and imports it right away. It comes with settings for six banks and cards, and others work too. The first time you load a file it doesn't recognize, you map the columns once.</li>
 <li>No bank connection. That would've meant more complexity and probably paying for a service like Plaid.</li>
 <li>Everything stays on your computer, and the only thing the app talks to is itself. I like that it's offline, it keeps the data a little more secure than something in the cloud.</li>
+<li>It opens in its own window, and closing the window quits it. Back takes you to the last screen, and every screen remembers where you'd scrolled.</li>
 <li>Installers for Windows and Mac that GitHub builds automatically.</li>
 <li>A made-up household with 10 accounts, so you can look around before loading your own.</li>
 </ul>
@@ -100,7 +101,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 <h2>How I know it works</h2>
 <ul>
-<li>There are 393 automated tests, and they all passed on the September 26 version.</li>
+<li>There are 652 automated tests, and they all passed on version 0.9.10.</li>
+<li>I started that version from my own test of the one before it. A UX review of scrolling and navigation came back with 12 findings, and I had all 12 go into the round. It was built in six steps, each one reviewed, the later ones live in a browser, and then the whole thing got a final review before it shipped.</li>
 <li>It has three guards against counting the same money twice. A card payment from checking isn't counted as spending, since the purchases are already on the card. A Venmo payment funded from checking gets counted once. And four identical $2.90 fares on the same day stay four transactions instead of collapsing into one.</li>
 <li>Nothing gets dropped quietly. Spending in a bucket that isn't in the budget shows up as Unmapped instead of disappearing from the totals.</li>
 <li>I test every build myself, and I run our household's close on it.</li>
@@ -109,7 +111,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <h2>Results</h2>
 <ul>
 <li>Our monthly close runs on it now.</li>
-<li>It went from the first commit on August 25 to 195 commits by September 26.</li>
+<li>It went from the first commit on August 25 to 314 commits by September 30.</li>
 </ul>
 
 <div class="fig-row breakout">
@@ -128,16 +130,18 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <li>There's no bank sync, so you download the CSV files yourself. I chose that, but it's still a manual step every month.</li>
 <li>It comes with ready-made settings for Ally, American Express, Bank of America, Capital One, Chase and Venmo, and only Ally, Chase and Venmo are marked verified so far. Every other bank needs that one-time column mapping first.</li>
 <li>The installers aren't signed, so Windows and Mac both warn you the first time you open it.</li>
-<li>If you close the browser halfway through setup, you lose your place. What you already saved stays.</li>
+<li>If you close the app halfway through setup, you lose your place. What you already saved stays.</li>
 <li>I'm the only one testing it so far. The installers are already public on GitHub, and the source goes public once testing is done.</li>
 </ul>
 
 <details class="sources">
 <summary>How these numbers are sourced</summary>
 
-<p>Parsed from the repo at commit 9ae5075 on September 26, 2026: the 9 views, the ready-made bank settings and the 3 marked verified, the server that only listens on the computer it runs on, the standard-library-only code, the Windows and Mac release workflow, the 10-account sample household, the 195 commits since August 25, the three double-count guards, the rule against dropping transactions and the setup limitation.</p>
+<p>Parsed from the repo at commit 9ae5075 on September 26, 2026: the 9 views, the ready-made bank settings and the 3 marked verified, the server that only listens on the computer it runs on, the standard-library-only code, the Windows and Mac release workflow, the 10-account sample household, the first commit on August 25, the three double-count guards, the rule against dropping transactions and the setup limitation.</p>
 
-<p>Run on September 26, 2026 against that commit: 393 tests, all passing.</p>
+<p>Parsed from the repo at commit d87eab3 on September 30, 2026, the merge that became version 0.9.10: the one-window app, the Back button and scroll memory, the 314 commits, and the round's review record, with its 12 findings, six reviewed steps and final review.</p>
+
+<p>Run on September 30, 2026 against that commit: 652 tests, all passing.</p>
 
 <p>My own account: why I built it and what I used before, why there's no bank connection, that I test the builds and run our household's close on it, that it's in testing, when the source goes public, and that Claude writes the code.</p>
 
