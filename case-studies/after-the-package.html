@@ -230,6 +230,7 @@ that had a load. A number means that month was loaded that many times that day.<
 <p class="foot">74 loads from the dashboard's run history, built September 18, 2026. Only the load dates, months, statuses and sources are shown. Days with no load are left out, including the gap between August 13 and September 8. The first loads show as Open because that was the default before the statuses were set up.</p>
 
 </div></div>
+<button class="more-btn" type="button" aria-expanded="false" data-more="Show the whole diagram">Show the whole diagram</button>
 <figcaption>All 74 loads from the run history, one row per month and one column per day that had a load, marked by status. Dates and statuses only.</figcaption>
 </figure>
 
@@ -283,6 +284,36 @@ that had a load. A number means that month was loaded that many times that day.<
 </nav>
 </div></main>
 
+<script>
+(function () {
+  var figs = [].slice.call(document.querySelectorAll("figure.inline"));
+  function fit() {
+    var small = window.innerWidth < 761;
+    figs.forEach(function (f) {
+      var v = f.querySelector(".vis");
+      if (!small) { f.classList.remove("collapsible", "collapsed"); return; }
+      if (f.dataset.opened) return;
+      var tall = v.scrollHeight > 640;
+      f.classList.toggle("collapsible", tall);
+      f.classList.toggle("collapsed", tall);
+    });
+  }
+  figs.forEach(function (f) {
+    var b = f.querySelector(".more-btn");
+    if (!b) return;
+    b.addEventListener("click", function () {
+      var open = f.classList.contains("collapsed");
+      f.classList.toggle("collapsed", !open);
+      f.dataset.opened = open ? "1" : "";
+      b.textContent = open ? "Show less" : b.dataset.more;
+      b.setAttribute("aria-expanded", open ? "true" : "false");
+      if (!open) f.scrollIntoView({ block: "start" });
+    });
+  });
+  fit();
+  window.addEventListener("resize", fit);
+})();
+</script>
 <footer class="site"><div class="wrap wide">
 <p class="contact" id="contact"><a href="mailto:franco.nidea@gmail.com">franco.nidea@gmail.com</a> · <a href="https://www.linkedin.com/in/franco-nidea/" rel="me">LinkedIn</a></p>
 <p>Every number on this site has a source. Open "How these numbers are sourced" at the end of each case study.</p>

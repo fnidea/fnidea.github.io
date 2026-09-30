@@ -62,6 +62,18 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </dl>
 
 <h2>The problem</h2>
+<p>When I joined in 2024, invoices and customer payments were both done by hand, about two hours each every week. I replaced both with NetSuite import templates. Then the CFO had us move payouts from cash to accrual, and I designed that whole weekly process myself, from which Stripe report to use to the import templates for every entry.</p>
+
+<p>Every client gets paid on its own week. Some run Monday to Sunday and some run Sunday to Saturday, and they're spread across five timezones, so every transaction has to land in the right client's week before anything gets booked. That's hundreds of thousands of lines in a single week.</p>
+
+<p>By hand it took me 4 hours every week, and 6 at month end because of the extra cutover steps.</p>
+
+<p>First I'd download the reports from the Stripe website, and they were huge, so that alone took a long time. The CSVs were too big to fully load in Excel, so I loaded them into Tableau workbooks to transform and filter them. That's where the client timezone matching lived at first, as a calculated field.</p>
+
+<p>Then I'd export from Tableau to Excel as separate reports, a consolidated workbook pulled them together with Power Query, and then the double-checks. Did I filter the dates right, and did every tab pull and update? There were more than 10 tabs, and that's my count from memory.</p>
+
+<p>I already had a CSV import for the journal entry, but getting the data into that format took time too. Then the workbook with our net payout went to the CFO for review, and he pulled that amount from Stripe into our bank account.</p>
+
 <figure class="breakout inline">
 <div class="vis"><div class="frame">
 <p class="back"><a href="../case-studies/stripe-payout-recon.html">&larr; Back to the case study</a></p>
@@ -85,86 +97,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 <p class="foot">From my own account of the process. The tab count is from memory, not counted from the file.</p>
 </div></div>
+<button class="more-btn" type="button" aria-expanded="false" data-more="Show all 8 steps">Show all 8 steps</button>
 <figcaption>The weekly reconciliation by hand: eight steps across four tools and a review by the CFO, every week.</figcaption>
-</figure>
-
-<p>When I joined in 2024, invoices and customer payments were both done by hand, about two hours each every week. I replaced both with NetSuite import templates. Then the CFO had us move payouts from cash to accrual, and I designed that whole weekly process myself, from which Stripe report to use to the import templates for every entry.</p>
-
-<p>Every client gets paid on its own week. Some run Monday to Sunday and some run Sunday to Saturday, and they're spread across five timezones, so every transaction has to land in the right client's week before anything gets booked. That's hundreds of thousands of lines in a single week.</p>
-
-<p>By hand it took me 4 hours every week, and 6 at month end because of the extra cutover steps.</p>
-
-<p>First I'd download the reports from the Stripe website, and they were huge, so that alone took a long time. The CSVs were too big to fully load in Excel, so I loaded them into Tableau workbooks to transform and filter them. That's where the client timezone matching lived at first, as a calculated field.</p>
-
-<p>Then I'd export from Tableau to Excel as separate reports, a consolidated workbook pulled them together with Power Query, and then the double-checks. Did I filter the dates right, and did every tab pull and update? There were more than 10 tabs, and that's my count from memory.</p>
-
-<p>I already had a CSV import for the journal entry, but getting the data into that format took time too. Then the workbook with our net payout went to the CFO for review, and he pulled that amount from Stripe into our bank account.</p>
-
-<figure class="breakout inline">
-<div class="vis"><div class="frame">
-<p class="back"><a href="../case-studies/stripe-payout-recon.html">&larr; Back to the case study</a></p>
-
-<p class="kicker">Case study · Stripe reconciliation</p>
-
-<p class="dek">From 4 hours a week by hand, 6 at month end, to under 30 minutes in KNIME, to a console that checks every week 16 ways and keeps every run.</p>
-
-<div class="gens">
-
-<section class="gen">
-<p class="era">Generation 1</p>
-<h4>By hand</h4>
-<div class="metric"><div class="v">4 hrs</div><div class="l">a week, 6 at month end</div></div>
-<ul>
-<li class="limit"><span class="sr">Limit: </span>Stripe downloads too big for Excel, pushed through Tableau first</li>
-<li class="limit"><span class="sr">Limit: </span>Consolidated with Power Query, then every tab checked by hand</li>
-<li>Entries shaped into NetSuite import files by hand, and the net payout reviewed by the CFO</li>
-</ul>
-<p class="tag">The process being replaced</p>
-</section>
-
-<div class="arrow" aria-hidden="true"></div>
-
-<section class="gen">
-<p class="era">Generation 2</p>
-<h4>KNIME rebuild</h4>
-<div class="metric"><div class="v">&lt; 30 min</div><div class="l">door to door, review included</div></div>
-<ul>
-<li class="gain"><span class="sr">Added: </span>Execution itself runs 5 to 15 minutes</li>
-<li class="gain"><span class="sr">Added: </span>A completeness branch catches any fee outside the nine known categories</li>
-<li class="gain"><span class="sr">Added: </span>Builds the NetSuite journal-entry import, keyed on External ID so a re-import cannot double-post</li>
-<li class="gain"><span class="sr">Added: </span>Run side by side with the manual process before cutover</li>
-<li class="limit"><span class="sr">Limit: </span>Ten parameters typed by hand at the start of every run</li>
-<li class="limit"><span class="sr">Limit: </span>Every file path typed into the workflow, and each person sets up their own credentials</li>
-<li class="limit"><span class="sr">Limit: </span>A re-run overwrites what was booked, and no snapshot is kept</li>
-<li class="limit"><span class="sr">Limit: </span>Its query window was too narrow and missed backdated Stripe entries</li>
-</ul>
-<p class="tag">Built, tested and put into production alone</p>
-</section>
-
-<div class="arrow" aria-hidden="true"></div>
-
-<section class="gen now">
-<p class="era">Generation 3</p>
-<h4>Python console</h4>
-<div class="metric"><div class="v">16 checks</div><div class="l">before anything is exported</div></div>
-<ul>
-<li class="gain"><span class="sr">Added: </span>Every run saves the data it used, with a fingerprint, so any week can be replayed</li>
-<li class="gain"><span class="sr">Added: </span>Nothing accrued twice, checked by Stripe's own row ID</li>
-<li class="gain"><span class="sr">Added: </span>14 of 16 client groups rebuild from the snapshot to the cent, and the other two are explained</li>
-<li class="gain"><span class="sr">Added: </span>Caught a booked week where hand-typed dates added a day that was already booked</li>
-<li class="limit"><span class="sr">Limit: </span>Still in testing next to the manual process, not posting yet</li>
-</ul>
-<p class="tag">Matching what was booked for the week ending September 20</p>
-</section>
-
-</div>
-
-<div class="legend"><span><i class="g"></i>What the generation added</span><span><i class="r"></i>What it still could not do</span></div>
-
-<p class="foot">Every figure on this page is sourced in the case study. No client data is shown.</p>
-
-</div></div>
-<figcaption>The same weekly reconciliation in three versions: by hand, in KNIME and in the console.</figcaption>
 </figure>
 
 <h2>The first rebuild: KNIME</h2>
@@ -207,6 +141,16 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <a href="../visuals/png/console-summary.png" data-zoom><img src="../visuals/png/console-summary.png" srcset="../visuals/png/console-summary-1000.webp 1000w, ../visuals/png/console-summary-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1200" height="465" alt="Sample data: the console itself, with the run form and the week&#x27;s summary." loading="lazy"></a>
 <figcaption aria-hidden="true">Sample data: the console itself, with the run form and the week's summary. Tap to zoom.</figcaption>
 </figure>
+
+<p>So I rebuilt it again, as a Python console. It pulls the week's Stripe costs from Snowflake, runs them through an engine and writes the NetSuite import files: two journal entries, one per payout window, plus a payments import.</p>
+
+<ul>
+<li>It checks 16 things before it lets me export, like every fee being categorized, the journal entries balancing, cost reconciling back to the source, and nothing being accrued twice.</li>
+<li>When I override a check, the reason gets written into the run log right next to the numbers it excused.</li>
+<li>Every run saves the exact data it used with a fingerprint, so I can replay any week later even though Snowflake keeps changing.</li>
+<li>It checks every row against earlier runs by Stripe's own row ID. For the week ending September 20 that was 228,255 new rows and none that had been accrued before.</li>
+<li>Each run writes six files: the journal entry import, the payments import, a summary workbook, a workpaper, the run log and the snapshot.</li>
+</ul>
 
 <figure class="breakout inline">
 <div class="vis"><div class="frame">
@@ -277,18 +221,14 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <p class="foot">All 16 of the console's checks, with their results from the run for the week ending September 20, 2026. No client data or amounts are shown.</p>
 
 </div></div>
+<button class="more-btn" type="button" aria-expanded="false" data-more="Show all 16 checks">Show all 16 checks</button>
 <figcaption>The console's checks, with their results from a real run and the amounts removed.</figcaption>
 </figure>
 
-<p>So I rebuilt it again, as a Python console. It pulls the week's Stripe costs from Snowflake, runs them through an engine and writes the NetSuite import files: two journal entries, one per payout window, plus a payments import.</p>
-
-<ul>
-<li>It checks 16 things before it lets me export, like every fee being categorized, the journal entries balancing, cost reconciling back to the source, and nothing being accrued twice.</li>
-<li>When I override a check, the reason gets written into the run log right next to the numbers it excused.</li>
-<li>Every run saves the exact data it used with a fingerprint, so I can replay any week later even though Snowflake keeps changing.</li>
-<li>It checks every row against earlier runs by Stripe's own row ID. For the week ending September 20 that was 228,255 new rows and none that had been accrued before.</li>
-<li>Each run writes six files: the journal entry import, the payments import, a summary workbook, a workpaper, the run log and the snapshot.</li>
-</ul>
+<figure class="breakout full">
+<a href="../visuals/png/console-journal-workbook.png" data-zoom><img src="../visuals/png/console-journal-workbook.png" srcset="../visuals/png/console-journal-workbook-1000.webp 1000w, ../visuals/png/console-journal-workbook-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1300" height="711" alt="Sample data: the NetSuite journal entry import from the summary workbook every run writes." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: the NetSuite journal entry import from the summary workbook every run writes. Tap to zoom.</figcaption>
+</figure>
 
 <a class="card deep" href="payout-checks.html" aria-labelledby="t-payout-checks">
 <p class="n">Deep dive</p>
@@ -306,11 +246,6 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </ul>
 
 <figure class="breakout full">
-<a href="../visuals/png/console-journal-workbook.png" data-zoom><img src="../visuals/png/console-journal-workbook.png" srcset="../visuals/png/console-journal-workbook-1000.webp 1000w, ../visuals/png/console-journal-workbook-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1300" height="711" alt="Sample data: the NetSuite journal entry import from the summary workbook every run writes." loading="lazy"></a>
-<figcaption aria-hidden="true">Sample data: the NetSuite journal entry import from the summary workbook every run writes. Tap to zoom.</figcaption>
-</figure>
-
-<figure class="breakout full">
 <a href="../visuals/png/console-workpaper.png" data-zoom><img src="../visuals/png/console-workpaper.png" srcset="../visuals/png/console-workpaper-1000.webp 1000w, ../visuals/png/console-workpaper-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1000" height="866" alt="Sample data: the audit workpaper every run writes, with the week&#x27;s summary and fees by client." loading="lazy"></a>
 <figcaption aria-hidden="true">Sample data: the audit workpaper every run writes, with the week's summary and fees by client. Tap to zoom.</figcaption>
 </figure>
@@ -321,6 +256,74 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <li>I built a true-up view for costs and credits that show up once a week has been booked. It's what caught the backdated entries below, and the find drove a reclassification at month-end close.</li>
 <li>The Stripe cost dashboard I built alongside it surfaced the unbooked per-authorization fee below. I fixed the dashboard's fee handling, and the fee gets booked going forward now.</li>
 </ul>
+
+<figure class="breakout inline">
+<div class="vis"><div class="frame">
+<p class="back"><a href="../case-studies/stripe-payout-recon.html">&larr; Back to the case study</a></p>
+
+<p class="kicker">Case study · Stripe reconciliation</p>
+
+<p class="dek">From 4 hours a week by hand, 6 at month end, to under 30 minutes in KNIME, to a console that checks every week 16 ways and keeps every run.</p>
+
+<div class="gens">
+
+<section class="gen">
+<p class="era">Generation 1</p>
+<h4>By hand</h4>
+<div class="metric"><div class="v">4 hrs</div><div class="l">a week, 6 at month end</div></div>
+<ul>
+<li class="limit"><span class="sr">Limit: </span>Stripe downloads too big for Excel, pushed through Tableau first</li>
+<li class="limit"><span class="sr">Limit: </span>Consolidated with Power Query, then every tab checked by hand</li>
+<li>Entries shaped into NetSuite import files by hand, and the net payout reviewed by the CFO</li>
+</ul>
+<p class="tag">The process being replaced</p>
+</section>
+
+<div class="arrow" aria-hidden="true"></div>
+
+<section class="gen">
+<p class="era">Generation 2</p>
+<h4>KNIME rebuild</h4>
+<div class="metric"><div class="v">&lt; 30 min</div><div class="l">door to door, review included</div></div>
+<ul>
+<li class="gain"><span class="sr">Added: </span>Execution itself runs 5 to 15 minutes</li>
+<li class="gain"><span class="sr">Added: </span>A completeness branch catches any fee outside the nine known categories</li>
+<li class="gain"><span class="sr">Added: </span>Builds the NetSuite journal-entry import, keyed on External ID so a re-import cannot double-post</li>
+<li class="gain"><span class="sr">Added: </span>Run side by side with the manual process before cutover</li>
+<li class="limit"><span class="sr">Limit: </span>Ten parameters typed by hand at the start of every run</li>
+<li class="limit"><span class="sr">Limit: </span>Every file path typed into the workflow, and each person sets up their own credentials</li>
+<li class="limit"><span class="sr">Limit: </span>A re-run overwrites what was booked, and no snapshot is kept</li>
+<li class="limit"><span class="sr">Limit: </span>Its query window was too narrow and missed backdated Stripe entries</li>
+</ul>
+<p class="tag">Built, tested and put into production alone</p>
+</section>
+
+<div class="arrow" aria-hidden="true"></div>
+
+<section class="gen now">
+<p class="era">Generation 3</p>
+<h4>Python console</h4>
+<div class="metric"><div class="v">16 checks</div><div class="l">before anything is exported</div></div>
+<ul>
+<li class="gain"><span class="sr">Added: </span>Every run saves the data it used, with a fingerprint, so any week can be replayed</li>
+<li class="gain"><span class="sr">Added: </span>Nothing accrued twice, checked by Stripe's own row ID</li>
+<li class="gain"><span class="sr">Added: </span>14 of 16 client groups rebuild from the snapshot to the cent, and the other two are explained</li>
+<li class="gain"><span class="sr">Added: </span>Caught a booked week where hand-typed dates added a day that was already booked</li>
+<li class="limit"><span class="sr">Limit: </span>Still in testing next to the manual process, not posting yet</li>
+</ul>
+<p class="tag">Matching what was booked for the week ending September 20</p>
+</section>
+
+</div>
+
+<div class="legend"><span><i class="g"></i>What the generation added</span><span><i class="r"></i>What it still could not do</span></div>
+
+<p class="foot">Every figure on this page is sourced in the case study. No client data is shown.</p>
+
+</div></div>
+<button class="more-btn" type="button" aria-expanded="false" data-more="Show all three versions">Show all three versions</button>
+<figcaption>The same weekly reconciliation in three versions: by hand, in KNIME and in the console.</figcaption>
+</figure>
 
 <h2>What didn't work</h2>
 <ul>
@@ -382,6 +385,36 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     if (e.target === img) { d.classList.toggle("full"); return; }
     d.close();
   });
+})();
+</script>
+<script>
+(function () {
+  var figs = [].slice.call(document.querySelectorAll("figure.inline"));
+  function fit() {
+    var small = window.innerWidth < 761;
+    figs.forEach(function (f) {
+      var v = f.querySelector(".vis");
+      if (!small) { f.classList.remove("collapsible", "collapsed"); return; }
+      if (f.dataset.opened) return;
+      var tall = v.scrollHeight > 640;
+      f.classList.toggle("collapsible", tall);
+      f.classList.toggle("collapsed", tall);
+    });
+  }
+  figs.forEach(function (f) {
+    var b = f.querySelector(".more-btn");
+    if (!b) return;
+    b.addEventListener("click", function () {
+      var open = f.classList.contains("collapsed");
+      f.classList.toggle("collapsed", !open);
+      f.dataset.opened = open ? "1" : "";
+      b.textContent = open ? "Show less" : b.dataset.more;
+      b.setAttribute("aria-expanded", open ? "true" : "false");
+      if (!open) f.scrollIntoView({ block: "start" });
+    });
+  });
+  fit();
+  window.addEventListener("resize", fit);
 })();
 </script>
 <footer class="site"><div class="wrap wide">

@@ -63,17 +63,17 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 <p>You can <a href="https://github.com/growingtendies/spend-tracker/releases/latest" rel="noopener" target="_blank">download the test version</a> for Windows or Mac and try it on the built-in sample household.</p>
 
+<figure class="breakout full">
+<a href="../visuals/png/spend-overview.png" data-zoom><img src="../visuals/png/spend-overview.png" srcset="../visuals/png/spend-overview-1000.webp 1000w, ../visuals/png/spend-overview-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1032" alt="Sample data: the overview, with spending against budget each month and the buckets that moved most, on the app&#x27;s built-in fictional household." fetchpriority="high"></a>
+<figcaption aria-hidden="true">Sample data: the overview, with spending against budget each month and the buckets that moved most, on the app's built-in fictional household. Tap to zoom.</figcaption>
+</figure>
+
 <h2>The problem</h2>
 <p>I used Mint for a while and then stopped. Then I built my own budget spreadsheet in Excel, and later I moved it to Google Sheets.</p>
 
 <p>But keeping the budget current and comparing it to actuals every month was a pain. So I just got too lazy to update it.</p>
 
 <p>I wanted something easier and more automated, so I'd actually do it every month.</p>
-
-<figure class="breakout full">
-<a href="../visuals/png/spend-overview.png" data-zoom><img src="../visuals/png/spend-overview.png" srcset="../visuals/png/spend-overview-1000.webp 1000w, ../visuals/png/spend-overview-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1032" alt="Sample data: the overview, with spending against budget each month and the buckets that moved most, on the app&#x27;s built-in fictional household." fetchpriority="high"></a>
-<figcaption aria-hidden="true">Sample data: the overview, with spending against budget each month and the buckets that moved most, on the app's built-in fictional household. Tap to zoom.</figcaption>
-</figure>
 
 <h2>What I built</h2>
 <p>It's an app that runs on your own computer. You download CSV exports from your bank, card and wallet accounts, drop them in, and it sorts every transaction into spending buckets.</p>
@@ -92,6 +92,11 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <figcaption aria-hidden="true">Sample data: spending vs budget for the year so far, every bucket by month against its budget. Tap to zoom.</figcaption>
 </figure>
 
+<figure class="breakout full">
+<a href="../visuals/png/spend-recurring.png" data-zoom><img src="../visuals/png/spend-recurring.png" srcset="../visuals/png/spend-recurring-1000.webp 1000w, ../visuals/png/spend-recurring-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1007" alt="Sample data: recurring charges." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: recurring charges. Tap to zoom.</figcaption>
+</figure>
+
 <h2>How I know it works</h2>
 <ul>
 <li>There are 393 automated tests, and they all passed on the September 26 version.</li>
@@ -100,11 +105,6 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <li>I test every build myself, and I run our household's close on it.</li>
 </ul>
 
-<figure class="breakout full">
-<a href="../visuals/png/spend-close.png" data-zoom><img src="../visuals/png/spend-close.png" srcset="../visuals/png/spend-close-1000.webp 1000w, ../visuals/png/spend-close-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1032" alt="Sample data: the monthly close, showing which accounts are up to date, what isn&#x27;t covered yet, what still needs a bucket, and the open decisions before the month is closed." loading="lazy"></a>
-<figcaption aria-hidden="true">Sample data: the monthly close, showing which accounts are up to date, what isn't covered yet, what still needs a bucket, and the open decisions before the month is closed. Tap to zoom.</figcaption>
-</figure>
-
 <h2>Results</h2>
 <ul>
 <li>Our monthly close runs on it now.</li>
@@ -112,13 +112,13 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </ul>
 
 <figure class="breakout full">
-<a href="../visuals/png/spend-networth.png" data-zoom><img src="../visuals/png/spend-networth.png" srcset="../visuals/png/spend-networth-1000.webp 1000w, ../visuals/png/spend-networth-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1032" alt="Sample data: net worth over time." loading="lazy"></a>
-<figcaption aria-hidden="true">Sample data: net worth over time. Tap to zoom.</figcaption>
+<a href="../visuals/png/spend-close.png" data-zoom><img src="../visuals/png/spend-close.png" srcset="../visuals/png/spend-close-1000.webp 1000w, ../visuals/png/spend-close-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1032" alt="Sample data: the monthly close, showing which accounts are up to date, what isn&#x27;t covered yet, what still needs a bucket, and the open decisions before the month is closed." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: the monthly close, showing which accounts are up to date, what isn't covered yet, what still needs a bucket, and the open decisions before the month is closed. Tap to zoom.</figcaption>
 </figure>
 
 <figure class="breakout full">
-<a href="../visuals/png/spend-recurring.png" data-zoom><img src="../visuals/png/spend-recurring.png" srcset="../visuals/png/spend-recurring-1000.webp 1000w, ../visuals/png/spend-recurring-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1007" alt="Sample data: recurring charges." loading="lazy"></a>
-<figcaption aria-hidden="true">Sample data: recurring charges. Tap to zoom.</figcaption>
+<a href="../visuals/png/spend-networth.png" data-zoom><img src="../visuals/png/spend-networth.png" srcset="../visuals/png/spend-networth-1000.webp 1000w, ../visuals/png/spend-networth-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1032" alt="Sample data: net worth over time." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: net worth over time. Tap to zoom.</figcaption>
 </figure>
 
 <h2>Limits and what's next</h2>
@@ -171,6 +171,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   });
 })();
 </script>
+
 <footer class="site"><div class="wrap wide">
 <p class="contact" id="contact"><a href="mailto:franco.nidea@gmail.com">franco.nidea@gmail.com</a> · <a href="https://www.linkedin.com/in/franco-nidea/" rel="me">LinkedIn</a></p>
 <p>Every number on this site has a source. Open "How these numbers are sourced" at the end of each case study.</p>

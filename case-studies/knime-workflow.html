@@ -61,23 +61,18 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 <h2>How it ran, step by step</h2>
 <h3>Every run started with ten things typed by hand</h3>
-<figure class="breakout diagram">
-<a href="../visuals/png/knime-params.png" data-zoom><img src="../visuals/png/knime-params.png" srcset="../visuals/png/knime-params-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="879" height="900" alt="The Variable Creator, redrawn from the workflow file, with the ten parameters from the last saved run. The account id and the folder path are masked." fetchpriority="high"></a>
-<figcaption aria-hidden="true">The Variable Creator, redrawn from the workflow file, with the ten parameters from the last saved run. The account id and the folder path are masked. Tap to zoom.</figcaption>
-</figure>
-
 <p>Every run began in one node, where I typed ten parameters: the start and end dates for the queries, the Mon–Sun week, the Sun–Sat week, two timezones, the Stripe account and the folder the files went to.</p>
 
 <p>The query dates had to sit a day outside the week on each side, so nothing close to midnight got cut off. The week dates had to be exact. I kept a note on the canvas so I'd remember which was which.</p>
 
 <p>Nothing checked any of it, and all 12 queries read those two dates. Hand-typed date windows like these once gave each week range an extra day that was already booked.</p>
 
-<h3>Twelve queries off one connector</h3>
-<figure class="breakout diagram tall">
-<a href="../visuals/png/knime-queries.png" data-zoom><img src="../visuals/png/knime-queries.png" srcset="../visuals/png/knime-queries-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="898" height="1925" alt="The twelve queries, each reading the same hand-typed dates from the Variable Creator." loading="lazy"></a>
-<figcaption aria-hidden="true">The twelve queries, each reading the same hand-typed dates from the Variable Creator. Tap to zoom.</figcaption>
+<figure class="breakout diagram">
+<a href="../visuals/png/knime-params.png" data-zoom><img src="../visuals/png/knime-params.png" srcset="../visuals/png/knime-params-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="879" height="900" alt="The Variable Creator, redrawn from the workflow file, with the ten parameters from the last saved run. The account id and the folder path are masked." fetchpriority="high"></a>
+<figcaption aria-hidden="true">The Variable Creator, redrawn from the workflow file, with the ten parameters from the last saved run. The account id and the folder path are masked. Tap to zoom.</figcaption>
 </figure>
 
+<h3>Twelve queries off one connector</h3>
 <p>Twelve queries pulled the week out of Snowflake. Eleven pulled one kind of fee or payment each, and the twelfth was the checker further down. Every one of them read the same two hand-typed dates.</p>
 
 <p>The queries moved each client's rows into that client's own local time before comparing dates. Rows that belong to no client stayed on UTC. The window was the padded one, a day early and a day late, so a filter further down could trim each row back to its own week.</p>
@@ -103,59 +98,64 @@ GROUP BY ...</code></pre>
 
 <p>All 12 of those database nodes are now flagged deprecated by KNIME, so each one is something else to replace.</p>
 
-<h3>Trimming every row back to its client's week</h3>
-<figure class="breakout diagram full">
-<a href="../visuals/png/knime-trim.png" data-zoom><img src="../visuals/png/knime-trim.png" srcset="../visuals/png/knime-trim-1000.webp 1000w, ../visuals/png/knime-trim-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1400" height="533" alt="Inside one of the ten copies: join the client list, filter the Mon–Sun and Sun–Sat weeks, total by date and client, and split by product." loading="lazy"></a>
-<figcaption aria-hidden="true">Inside one of the ten copies: join the client list, filter the Mon–Sun and Sun–Sat weeks, total by date and client, and split by product. Tap to zoom.</figcaption>
+<figure class="breakout diagram tall">
+<a href="../visuals/png/knime-queries.png" data-zoom><img src="../visuals/png/knime-queries.png" srcset="../visuals/png/knime-queries-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="898" height="1925" alt="The twelve queries, each reading the same hand-typed dates from the Variable Creator." loading="lazy"></a>
+<figcaption aria-hidden="true">The twelve queries, each reading the same hand-typed dates from the Variable Creator. Tap to zoom.</figcaption>
 </figure>
 
+<h3>Trimming every row back to its client's week</h3>
 <p>Ten of the queries handed their rows to their own copy of one sub-workflow. I named it "Tableau Workflow Replacement," because it did what the Tableau calculated fields used to do.</p>
 
 <p>Inside, it joined the client list to find each client's week, then filtered the Mon–Sun clients and the Sun–Sat clients separately and totaled each day by client. Last, it split the rows between our two products.</p>
 
 <p>There were ten copies of it, so any change to the logic had to be made ten times.</p>
 
+<figure class="breakout diagram full">
+<a href="../visuals/png/knime-trim.png" data-zoom><img src="../visuals/png/knime-trim.png" srcset="../visuals/png/knime-trim-1000.webp 1000w, ../visuals/png/knime-trim-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1400" height="533" alt="Inside one of the ten copies: join the client list, filter the Mon–Sun and Sun–Sat weeks, total by date and client, and split by product." loading="lazy"></a>
+<figcaption aria-hidden="true">Inside one of the ten copies: join the client list, filter the Mon–Sun and Sun–Sat weeks, total by date and client, and split by product. Tap to zoom.</figcaption>
+</figure>
+
 <h3>Splitting shared costs between two products</h3>
+<p>Two products ran through one Stripe account. After one was sold, its transactions kept running through the account while its clients moved over, so they had to be separated in the books and paid over to the buyer. Some costs came in as one pile and had to be split. The allocation sub-workflow worked out each product's share and passed the percentages on to the rest of the run.</p>
+
 <figure class="breakout diagram">
 <a href="../visuals/png/knime-allocation.png" data-zoom><img src="../visuals/png/knime-allocation.png" srcset="../visuals/png/knime-allocation-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="938" height="449" alt="The allocation sub-workflow that works out each product&#x27;s share." loading="lazy"></a>
 <figcaption aria-hidden="true">The allocation sub-workflow that works out each product's share. Tap to zoom.</figcaption>
 </figure>
 
-<p>Two products ran through one Stripe account. After one was sold, its transactions kept running through the account while its clients moved over, so they had to be separated in the books and paid over to the buyer. Some costs came in as one pile and had to be split. The allocation sub-workflow worked out each product's share and passed the percentages on to the rest of the run.</p>
-
 <h3>Writing the files</h3>
+<p>Every branch ended in Excel. The writer sub-workflows saved a separate file for each product and each week type into shared folders, and the US workflow alone had 29 Excel writers.</p>
+
+<p>Every one of those paths was typed into the workflow. I pointed them at our shared drive so I could send the workflow to someone else, and they only had to update their own Snowflake credentials.</p>
+
 <figure class="breakout diagram">
 <a href="../visuals/png/knime-writers.png" data-zoom><img src="../visuals/png/knime-writers.png" width="268" height="579" alt="One writer sub-workflow: four files, one for each product and week type." loading="lazy"></a>
 <figcaption aria-hidden="true">One writer sub-workflow: four files, one for each product and week type. Tap to zoom.</figcaption>
 </figure>
 
-<p>Every branch ended in Excel. The writer sub-workflows saved a separate file for each product and each week type into shared folders, and the US workflow alone had 29 Excel writers.</p>
-
-<p>Every one of those paths was typed into the workflow. I pointed them at our shared drive so I could send the workflow to someone else, and they only had to update their own Snowflake credentials.</p>
-
 <h3>A checker for fees I didn't know about</h3>
-<figure class="breakout diagram">
-<a href="../visuals/png/knime-checker.png" data-zoom><img src="../visuals/png/knime-checker.png" srcset="../visuals/png/knime-checker-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="543" height="444" alt="The checker branch and my note on it." loading="lazy"></a>
-<figcaption aria-hidden="true">The checker branch and my note on it. Tap to zoom.</figcaption>
-</figure>
-
 <p>The twelfth query was a branch of its own. It only returns fees outside the nine categories the rest of the workflow handled. My note on it says "in case any additional fees pop up."</p>
 
 <p>The checker was catching the per-authorization fee, but it never made it into the summary's other-fees line, so the payout summary had been leaving it out. A review in July found the gap, and it's fixed now.</p>
 
 <p>The checker also sat outside the main workflow, so it only ran when someone ran it on its own. Once the weekly run was handed over, it wasn't being run every week, and that's how the fee went unbooked until my cost dashboard surfaced it.</p>
 
-<h3>Building the NetSuite import</h3>
-<figure class="breakout diagram full">
-<a href="../visuals/png/knime-import.png" data-zoom><img src="../visuals/png/knime-import.png" srcset="../visuals/png/knime-import-1000.webp 1000w, ../visuals/png/knime-import-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1556" height="976" alt="The import workflow. The yellow notes are the steps still done by hand each week. It&#x27;s wide, so it reads best full size." loading="lazy"></a>
-<figcaption aria-hidden="true">The import workflow. The yellow notes are the steps still done by hand each week. It's wide, so it reads best full size. Tap to zoom.</figcaption>
+<figure class="breakout diagram">
+<a href="../visuals/png/knime-checker.png" data-zoom><img src="../visuals/png/knime-checker.png" srcset="../visuals/png/knime-checker-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="543" height="444" alt="The checker branch and my note on it." loading="lazy"></a>
+<figcaption aria-hidden="true">The checker branch and my note on it. Tap to zoom.</figcaption>
 </figure>
 
+<h3>Building the NetSuite import</h3>
 <p>A separate workflow turned the week's files into the journal entry import. It maps every fee type to its ledger account and splits each amount into debit and credit by its sign.</p>
 
 <p>Every line gets an External ID, so if the import runs twice NetSuite updates it instead of booking it twice.</p>
 
 <p>This one took its dates from date pickers instead of typed text, which is the fix the payout workflow never got. The notes on its canvas list what still had to be done by hand each week, like pointing each reader at the latest payout summary and downloading fresh lookup files.</p>
+
+<figure class="breakout diagram full">
+<a href="../visuals/png/knime-import.png" data-zoom><img src="../visuals/png/knime-import.png" srcset="../visuals/png/knime-import-1000.webp 1000w, ../visuals/png/knime-import-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1556" height="976" alt="The import workflow. The yellow notes are the steps still done by hand each week. It&#x27;s wide, so it reads best full size." loading="lazy"></a>
+<figcaption aria-hidden="true">The import workflow. The yellow notes are the steps still done by hand each week. It's wide, so it reads best full size. Tap to zoom.</figcaption>
+</figure>
 
 <h2>What it got right</h2>
 <ul>
@@ -233,6 +233,7 @@ GROUP BY ...</code></pre>
   });
 })();
 </script>
+
 <footer class="site"><div class="wrap wide">
 <p class="contact" id="contact"><a href="mailto:franco.nidea@gmail.com">franco.nidea@gmail.com</a> · <a href="https://www.linkedin.com/in/franco-nidea/" rel="me">LinkedIn</a></p>
 <p>Every number on this site has a source. Open "How these numbers are sourced" at the end of each case study.</p>
