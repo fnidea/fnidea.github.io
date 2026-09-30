@@ -353,24 +353,12 @@ dialog.zoom.full .zoom-wrap img { max-width: none; width: auto; cursor: zoom-out
   figure.inline.collapsible .more-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 }
 
-/* Screenshots sit in the text column, not across the whole page, and show about half a screen:
-   the top of a screenshot, which is what the caption is about, or the whole of a KNIME canvas
-   scaled down as an overview. A tap opens either one full size. */
+/* Every picture figure is one shape: the text column's width, 17:10, with a thin border. The
+   frame is cut in advance (tools/render_visuals.py, make_stages), so the page just shows it.
+   A tap opens the full image. */
 main .wrap > figure.shot { max-width: 680px; }
-figure.shot img { width: 100%; height: auto; max-height: 440px; object-fit: cover;
-                  object-position: left top; }
-figure.shot.diagram img { width: auto; max-width: 100%; max-height: 460px; object-fit: fill; }
-@media (max-width: 760px) {
-  figure.shot img { max-height: 400px; }
-  figure.shot.diagram img { max-height: 420px; }
-}
-/* Two screenshots in a row sit side by side on wide screens. */
-.fig-row { display: grid; gap: 24px; margin: 40px 0 48px; }
-.fig-row figure { margin: 0; }
-@media (min-width: 900px) {
-  .fig-row { grid-template-columns: 1fr 1fr; align-items: start; }
-  .fig-row figure.shot img { max-height: 380px; }
-}
+figure.shot img, figure.shot.diagram img { width: 100%; height: auto; max-height: none;
+                                            border: 1px solid var(--rule); background: #fff; }
 /* The check lists run in two columns on wide screens instead of one long one. */
 @media (min-width: 900px) {
   figure.inline .vis .gates.two { display: grid; grid-template-columns: 1fr 1fr; column-gap: 36px; }
@@ -379,6 +367,3 @@ figure.shot.diagram img { width: auto; max-width: 100%; max-height: 460px; objec
 /* The check lists inline in a case study: tighter rows, so 16 checks fit in about a screen. */
 figure.inline .vis .gates li { padding: 6px 0; line-height: 1.35; }
 figure.inline .vis .gates .name small { line-height: 1.35; }
-/* Images narrower than their column sit in the middle of it. */
-figure.shot > a { display: block; }
-figure.shot img { display: block; margin-left: auto; margin-right: auto; }
