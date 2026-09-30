@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spend Tracker case study · Franco Nidea</title>
+<meta name="description" content="I kept giving up on budget spreadsheets, so I built an offline app that runs our household&#x27;s monthly close from our bank&#x27;s CSV exports.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Spend Tracker case study · Franco Nidea">
+<meta property="og:description" content="I kept giving up on budget spreadsheets, so I built an offline app that runs our household&#x27;s monthly close from our bank&#x27;s CSV exports.">
+<meta property="og:url" content="https://franconidea.com/case-studies/spend-tracker.html">
+<meta property="og:image" content="https://franconidea.com/visuals/png/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="../site.css">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q32D4GRSG7');
+</script>
+<script>
+(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "lypopapb7o");
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap wide">
+<a class="brand" href="../index.html">Franco Nidea</a>
+<nav class="site" aria-label="Site">
+<a href="../case-studies/fpa-reporting-package.html">Reporting package</a>
+<a href="../case-studies/stripe-payout-recon.html">Stripe reconciliation</a>
+<a href="../case-studies/spend-tracker.html" aria-current="page">Spend Tracker</a>
+<a href="#contact">Contact</a>
+</nav>
+</div></header>
+<main id="main" tabindex="-1"><div class="wrap">
+<p class="kicker">Case study</p>
+<h1>A monthly close for our own budget</h1>
+<p class="meta">A personal project, not work for an employer.</p>
+
+<p class="lede">I kept giving up on budget spreadsheets, so I built an offline app that runs our household's monthly close from our bank's CSV exports.</p>
+
+<dl class="snapshot">
+<div><dt>Role</dt><dd>Built it. I decided what it does and how it behaves, and I test every build. Claude wrote the code, the tests and the docs.</dd></div>
+<div><dt>When</dt><dd>Started August 25, 2026. In testing now.</dd></div>
+<div><dt>Tools</dt><dd>Python (standard library only), JavaScript, GitHub Actions, Claude</dd></div>
+<div class="results"><dt>Results</dt><dd><ul><li>393 automated tests, all passing</li><li>Windows and Mac installers</li><li>Our household's monthly close runs on it</li></ul></dd></div>
+</dl>
+
+<h2>The problem</h2>
+<p>I used Mint for a while and then stopped. When I got better at Excel I built my own budget spreadsheet, and later I moved it to Google Sheets.</p>
+
+<p>But keeping the budget current and comparing it to actuals every month was a pain. So I just got too lazy to update it.</p>
+
+<p>I wanted something easier and more automated, so I'd actually do it every month.</p>
+
+<figure class="breakout full">
+<a href="../visuals/png/spend-overview.png"><img src="../visuals/png/spend-overview.png" srcset="../visuals/png/spend-overview-1000.webp 1000w, ../visuals/png/spend-overview-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1032" alt="Sample data: the overview, with spending against budget each month and the buckets that moved most, on the app&#x27;s built-in fictional household. Opens the full-size image." fetchpriority="high"></a>
+<figcaption aria-hidden="true">Sample data: the overview, with spending against budget each month and the buckets that moved most, on the app's built-in fictional household. Opens full size.</figcaption>
+</figure>
+
+<h2>What I built</h2>
+<p>It's an app that runs on your own computer. You download CSV exports from your bank, card and wallet accounts, drop them in, and it sorts every transaction into spending buckets.</p>
+
+<ul>
+<li>Budget vs actual, savings, net worth, recurring charges and a monthly close, across 9 views.</li>
+<li>A setup wizard that recognizes your bank's file, guesses the account type and imports it right away. It comes with settings for six banks and cards, and others work too. The first time you load a file it doesn't recognize, you map the columns once.</li>
+<li>No bank connection. That would've meant more complexity and probably paying for a service like Plaid.</li>
+<li>Everything stays on your computer, and the only thing the app talks to is itself. I like that it's offline, it keeps the data a little more secure than something in the cloud.</li>
+<li>Installers for Windows and Mac that GitHub builds automatically.</li>
+<li>A made-up household with 10 accounts, so you can look around before loading your own.</li>
+</ul>
+
+<figure class="breakout full">
+<a href="../visuals/png/spend-bva.png"><img src="../visuals/png/spend-bva.png" srcset="../visuals/png/spend-bva-1000.webp 1000w, ../visuals/png/spend-bva-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1066" alt="Sample data: budget vs actual for the year so far, every bucket by month against its budget. Opens the full-size image." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: budget vs actual for the year so far, every bucket by month against its budget. Opens full size.</figcaption>
+</figure>
+
+<h2>How I know it works</h2>
+<ul>
+<li>There are 393 automated tests, and they all pass on the latest version, run on September 26.</li>
+<li>It has three guards against counting the same money twice. A card payment from checking isn't counted as spending, since the purchases are already on the card. A Venmo payment funded from checking gets counted once. And four identical $2.90 fares on the same day stay four transactions instead of collapsing into one.</li>
+<li>Nothing gets dropped quietly. Spending in a bucket that isn't in the budget shows up as Unmapped instead of disappearing from the totals.</li>
+<li>I test every build myself, and I run our household's close on it.</li>
+</ul>
+
+<figure class="breakout full">
+<a href="../visuals/png/spend-close.png"><img src="../visuals/png/spend-close.png" srcset="../visuals/png/spend-close-1000.webp 1000w, ../visuals/png/spend-close-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1032" alt="Sample data: the monthly close, showing which accounts are up to date, what isn&#x27;t covered yet, what still needs a bucket, and the open decisions before the month is closed. Opens the full-size image." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: the monthly close, showing which accounts are up to date, what isn't covered yet, what still needs a bucket, and the open decisions before the month is closed. Opens full size.</figcaption>
+</figure>
+
+<h2>Results</h2>
+<ul>
+<li>Our monthly close runs on it now.</li>
+<li>It went from the first commit on August 25 to 195 commits by September 26.</li>
+</ul>
+
+<figure class="breakout full">
+<a href="../visuals/png/spend-networth.png"><img src="../visuals/png/spend-networth.png" srcset="../visuals/png/spend-networth-1000.webp 1000w, ../visuals/png/spend-networth-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1032" alt="Sample data: net worth over time. Opens the full-size image." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: net worth over time. Opens full size.</figcaption>
+</figure>
+
+<figure class="breakout full">
+<a href="../visuals/png/spend-recurring.png"><img src="../visuals/png/spend-recurring.png" srcset="../visuals/png/spend-recurring-1000.webp 1000w, ../visuals/png/spend-recurring-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1007" alt="Sample data: recurring charges. Opens the full-size image." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: recurring charges. Opens full size.</figcaption>
+</figure>
+
+<h2>Limits and what's next</h2>
+<ul>
+<li>There's no bank sync, so you download the CSV files yourself. I chose that, but it's still a manual step every month.</li>
+<li>It comes with ready-made settings for Ally, American Express, Bank of America, Capital One, Chase and Venmo, and only Ally, Chase and Venmo are marked verified so far. Every other bank needs that one-time column mapping first.</li>
+<li>The installers aren't signed, so Windows and Mac both warn you the first time you open it.</li>
+<li>If you close the browser halfway through setup, you lose your place. What you already saved stays.</li>
+<li>I'm the only one testing it so far. The source goes public on GitHub once testing is done.</li>
+</ul>
+
+<details class="sources">
+<summary>How these numbers are sourced</summary>
+
+<p>Parsed from the repo at commit 9ae5075 on September 26, 2026: the 9 views, the ready-made bank settings and the 3 marked verified, the server that only listens on the computer it runs on, the standard-library-only code, the Windows and Mac release workflow, the 10-account sample household, the 195 commits since August 25, the three double-count guards, the rule against dropping transactions and the setup limitation.</p>
+
+<p>Run on September 26, 2026 against that commit: 393 tests, all passing.</p>
+
+<p>My own account: why I built it and what I used before, why there's no bank connection, that I test the builds and run our household's close on it, that it's in testing, when the source goes public, and that Claude writes the code.</p>
+
+</details>
+
+<nav class="more" aria-label="More work">
+<h2 class="label">More work</h2>
+<ul>
+<li><a href="fpa-reporting-package.html"><span class="t">The thirty-minute re-run</span><span class="n">Reporting package</span></a></li>
+<li><a href="stripe-payout-recon.html"><span class="t">Three versions of one weekly reconciliation</span><span class="n">Stripe reconciliation</span></a></li>
+</ul>
+</nav>
+</div></main>
+<footer class="site"><div class="wrap wide">
+<p class="contact" id="contact"><a href="mailto:franco.nidea@gmail.com">franco.nidea@gmail.com</a> · <a href="https://www.linkedin.com/in/franco-nidea/" rel="me">LinkedIn</a></p>
+<p>Every number on this site has a source. Open "How these numbers are sourced" at the end of each case study.</p>
+<p class="privacy">This site uses Google Analytics and Microsoft Clarity, which set cookies, to see how the pages get read. Fonts load from Google Fonts.</p>
+</div></footer>
+</body>
+</html>

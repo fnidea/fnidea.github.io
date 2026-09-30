@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inside the KNIME workflow · Franco Nidea</title>
+<meta name="description" content="My first rebuild took our weekly Stripe reconciliation from 4 hours a week by hand, 6 at month end, to under 30 minutes. This is how it ran, what it got right, where it broke down and why I rebuilt it again.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Inside the KNIME workflow · Franco Nidea">
+<meta property="og:description" content="My first rebuild took our weekly Stripe reconciliation from 4 hours a week by hand, 6 at month end, to under 30 minutes. This is how it ran, what it got right, where it broke down and why I rebuilt it again.">
+<meta property="og:url" content="https://franconidea.com/case-studies/knime-workflow.html">
+<meta property="og:image" content="https://franconidea.com/visuals/png/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="../site.css">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q32D4GRSG7');
+</script>
+<script>
+(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "lypopapb7o");
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap wide">
+<a class="brand" href="../index.html">Franco Nidea</a>
+<nav class="site" aria-label="Site">
+<a href="../case-studies/fpa-reporting-package.html">Reporting package</a>
+<a href="../case-studies/stripe-payout-recon.html" aria-current="page">Stripe reconciliation</a>
+<a href="../case-studies/spend-tracker.html">Spend Tracker</a>
+<a href="#contact">Contact</a>
+</nav>
+</div></header>
+<main id="main" tabindex="-1"><div class="wrap">
+<p class="kicker"><a href="stripe-payout-recon.html">Deep dive · Stripe reconciliation</a></p>
+<h1>Inside the KNIME workflow</h1>
+<p class="meta">The work described here is at TixTrack, where I'm a Senior Financial Analyst.</p>
+
+<p class="lede">My first rebuild took our weekly Stripe reconciliation from 4 hours a week by hand, 6 at month end, to under 30 minutes. This is how it ran, what it got right, where it broke down and why I rebuilt it again.</p>
+
+<h2>What it had to do</h2>
+<p>Every week I had to put each Stripe fee and payment in the right client's week. Then I totaled it all by client and fee type, so it could go into NetSuite as a journal entry.</p>
+
+<p>The hard part is the week. Some clients run Monday to Sunday and some run Sunday to Saturday, and they're spread across five timezones, so the same moment can fall in one client's week and not another's. That's hundreds of thousands of lines in a single week.</p>
+
+<h2>How it ran, step by step</h2>
+<h3>Every run started with ten things typed by hand</h3>
+<figure class="breakout diagram">
+<a href="../visuals/knime-params.html"><img src="../visuals/png/knime-params.png" srcset="../visuals/png/knime-params-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="879" height="900" alt="The Variable Creator, redrawn from the workflow file, with the ten parameters from the last saved run. The account id and the folder path are masked. Opens the diagram full size." fetchpriority="high"></a>
+<figcaption aria-hidden="true">The Variable Creator, redrawn from the workflow file, with the ten parameters from the last saved run. The account id and the folder path are masked. Opens the full diagram.</figcaption>
+</figure>
+
+<p>Every run began in one node, where I typed ten parameters: the start and end dates for the queries, the Mon–Sun week, the Sun–Sat week, two timezones, the Stripe account and the folder the files went to.</p>
+
+<p>The query dates had to sit a day outside the week on each side, so nothing close to midnight got cut off. The week dates had to be exact. I kept a note on the canvas so I'd remember which was which.</p>
+
+<p>Nothing checked any of it, and all 12 queries read those two dates. Hand-typed date windows like these once gave each week range an extra day that was already booked.</p>
+
+<h3>Twelve queries off one connector</h3>
+<figure class="breakout diagram tall">
+<a href="../visuals/knime-queries.html"><img src="../visuals/png/knime-queries.png" srcset="../visuals/png/knime-queries-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="898" height="1925" alt="The twelve queries, each reading the same hand-typed dates from the Variable Creator. Opens the diagram full size." loading="lazy"></a>
+<figcaption aria-hidden="true">The twelve queries, each reading the same hand-typed dates from the Variable Creator. Opens the full diagram.</figcaption>
+</figure>
+
+<p>Twelve queries pulled the week out of Snowflake. Eleven pulled one kind of fee or payment each, and the twelfth was the checker further down. Every one of them read the same two hand-typed dates.</p>
+
+<p>The queries moved each client's rows into that client's own local time before comparing dates. Rows that belong to no client stayed on UTC. The window was the padded one, a day early and a day late, so a filter further down could trim each row back to its own week.</p>
+
+<pre class="code"><code>SELECT
+    CONVERT_TIMEZONE('UTC',
+        CASE WHEN ca.timezone = 'US/Pacific-New' THEN 'US/Pacific'
+             ELSE COALESCE(ca.timezone, 'UTC') END,
+        ari.activity_at::timestamp_ltz) AS IncurredAt_Local,
+    ari.balance_transaction_reporting_category,
+    ari.connected_account_id,
+    ari.currency,
+    SUM(ari.amount) / 100 AS amount
+FROM activity_report_itemized ari
+LEFT JOIN connected_accounts ca ON ari.connected_account_id = ca.id
+WHERE ari.balance_transaction_reporting_category IN ('network_cost')
+  AND ari.merchant_id IN ('$${Smerchant_id}$$')
+  AND DATE(/* the same local-time conversion */)
+      BETWEEN '$${SStartDate}$$' AND '$${SEndDate}$$'
+GROUP BY ...</code></pre>
+
+<p>That put the timezone rule in the query, in one place I could read, instead of in a Tableau calculated field.</p>
+
+<p>All 12 of those database nodes are now flagged deprecated by KNIME, so each one is something else to replace.</p>
+
+<h3>Trimming every row back to its client's week</h3>
+<figure class="breakout diagram full">
+<a href="../visuals/knime-trim.html"><img src="../visuals/png/knime-trim.png" srcset="../visuals/png/knime-trim-1000.webp 1000w, ../visuals/png/knime-trim-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1400" height="533" alt="Inside one of the ten copies: join the client list, filter the Mon–Sun and Sun–Sat weeks, total by date and client, and split by product. Opens the diagram full size." loading="lazy"></a>
+<figcaption aria-hidden="true">Inside one of the ten copies: join the client list, filter the Mon–Sun and Sun–Sat weeks, total by date and client, and split by product. Opens the full diagram.</figcaption>
+</figure>
+
+<p>Ten of the queries handed their rows to their own copy of one sub-workflow. I named it "Tableau Workflow Replacement," because it did what the Tableau calculated fields used to do.</p>
+
+<p>Inside, it joined the client list to find each client's week, then filtered the Mon–Sun clients and the Sun–Sat clients separately and totaled each day by client. Last, it split the rows between our two products.</p>
+
+<p>There were ten copies of it, so any change to the logic had to be made ten times.</p>
+
+<h3>Splitting shared costs between two products</h3>
+<figure class="breakout diagram">
+<a href="../visuals/knime-allocation.html"><img src="../visuals/png/knime-allocation.png" srcset="../visuals/png/knime-allocation-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="938" height="449" alt="The allocation sub-workflow that works out each product&#x27;s share. Opens the diagram full size." loading="lazy"></a>
+<figcaption aria-hidden="true">The allocation sub-workflow that works out each product's share. Opens the full diagram.</figcaption>
+</figure>
+
+<p>Two products ran through one Stripe account. After one was sold, its transactions kept running through the account while its clients moved over, so they had to be separated in the books and paid over to the buyer. Some costs came in as one pile and had to be split. The allocation sub-workflow worked out each product's share and passed the percentages on to the rest of the run.</p>
+
+<h3>Writing the files</h3>
+<figure class="breakout diagram">
+<a href="../visuals/knime-writers.html"><img src="../visuals/png/knime-writers.png" width="268" height="579" alt="One writer sub-workflow: four files, one for each product and week type. Opens the diagram full size." loading="lazy"></a>
+<figcaption aria-hidden="true">One writer sub-workflow: four files, one for each product and week type. Opens the full diagram.</figcaption>
+</figure>
+
+<p>Every branch ended in Excel. The writer sub-workflows saved a separate file for each product and each week type into shared folders, and the US workflow alone had 29 Excel writers.</p>
+
+<p>Every one of those paths was typed into the workflow. I pointed them at our shared drive so I could send the workflow to someone else, and they only had to update their own Snowflake credentials.</p>
+
+<h3>A checker for fees I didn't know about</h3>
+<figure class="breakout diagram">
+<a href="../visuals/knime-checker.html"><img src="../visuals/png/knime-checker.png" srcset="../visuals/png/knime-checker-1000.webp 1000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="543" height="444" alt="The checker branch and my note on it. Opens the diagram full size." loading="lazy"></a>
+<figcaption aria-hidden="true">The checker branch and my note on it. Opens the full diagram.</figcaption>
+</figure>
+
+<p>The twelfth query was a branch of its own. It only returns fees outside the nine categories the rest of the workflow handled. My note on it says "in case any additional fees pop up."</p>
+
+<p>The checker was catching the per-authorization fee, but it never made it into the summary's other-fees line, so the payout summary had been leaving it out. A review in July found the gap, and it's fixed now.</p>
+
+<p>The checker also sat outside the main workflow, so it only ran when someone ran it on its own. Once the weekly run was handed over, it wasn't being run every week, and that's how a per-authorization fee went unbooked until my cost dashboard surfaced it.</p>
+
+<h3>Building the NetSuite import</h3>
+<figure class="breakout diagram full">
+<a href="../visuals/knime-import.html"><img src="../visuals/png/knime-import.png" srcset="../visuals/png/knime-import-1000.webp 1000w, ../visuals/png/knime-import-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1556" height="976" alt="The import workflow. The yellow notes are the steps still done by hand each week. It&#x27;s wide, so it reads best full size. Opens the diagram full size." loading="lazy"></a>
+<figcaption aria-hidden="true">The import workflow. The yellow notes are the steps still done by hand each week. It's wide, so it reads best full size. Opens the full diagram.</figcaption>
+</figure>
+
+<p>A separate workflow turned the week's files into the journal entry import. It maps every fee type to its ledger account and splits each amount into debit and credit by its sign.</p>
+
+<p>Every line gets an External ID, so if the import runs twice NetSuite updates it instead of booking it twice.</p>
+
+<p>This one took its dates from date pickers instead of typed text, which is the fix the payout workflow never got. The notes on its canvas list what still had to be done by hand each week, like pointing each reader at the latest payout summary and downloading fresh lookup files.</p>
+
+<h2>What it got right</h2>
+<ul>
+<li>The week went from 4 hours by hand, 6 at month end, to under 30 minutes door to door. The run itself took 5 to 15 minutes once it started.</li>
+<li>The timezone rule was deliberate. Any cost with a connected account ID gets the client's timezone, and anything without one stays on UTC. That's the matching principle. Our revenue is booked from each client's weekly reconciliation, which runs on the client's own time, so cutting their costs on the same local day keeps cost of sales matched to that revenue. All 12 queries apply it to every row the same way.</li>
+<li>Client attribution moved out of spreadsheet formulas and into the query, and later I collapsed nine categorization queries into one.</li>
+<li>The checker was already catching the per-authorization fee before the summary picked it up.</li>
+<li>The import couldn't double-post.</li>
+<li>Running it next to the manual process showed the manual process had been wrong in places for months, and nobody had noticed.</li>
+</ul>
+
+<h2>Where it broke down</h2>
+<ul>
+<li>Ten parameters were typed by hand every run, dates included, and nothing checked them.</li>
+<li>Every file path was typed into the workflow, and anyone running it had to set up their own Snowflake credentials first.</li>
+<li>The checker sat outside the main workflow, so it only ran when someone ran it on its own, and once the weekly run was handed over it wasn't being run every week.</li>
+<li>A re-run overwrote what was booked, so there was no way to see what we booked, what Stripe says now and what moved in between.</li>
+<li>The same logic lived in ten copies.</li>
+<li>All 12 of its database nodes are deprecated.</li>
+<li>A reconciliation query's activity window was too narrow, and it had been missing backdated payment entries since January, about $110K of them.</li>
+</ul>
+
+<h2>Why I rebuilt it</h2>
+<ul>
+<li>KNIME was moving to a paid subscription the next year. It isn't expensive, but it wasn't in the budget.</li>
+<li>Every run still depended on hand-typed dates, and hand-typed windows did give one booked week an extra day.</li>
+<li>It couldn't show what changed after a week was booked. That's what the true-up view does now, and it surfaced backdated entries the old reconciliation had missed.</li>
+<li>New Stripe fee types were caught by a side branch instead of by the process itself. The console that replaced it checks that every category in the source is declared.</li>
+</ul>
+
+<p>The Python console I built to replace it is the next part of the case study.</p>
+
+<details class="sources">
+<summary>How these numbers are sourced</summary>
+
+<p>Parsed from the workflow files themselves, "US Payout Summary - CLEAN.knwf" and "FN - Stripe Fees NetSuite import.knwf": the ten parameters and their values, the twelve queries and the dates they read, the timezone rule every query applies to each row, the deprecated database nodes, the ten copies of one sub-workflow, the 29 Excel writers and their hardcoded paths, the checker branch, the import builder's mapping, External IDs and date pickers, and the notes on its canvas. The SQL is shortened here. The account id and folder path are masked, and product and client names in the drawings are replaced.</p>
+
+<p>From the build spec written against the workflows: the widened window, the UK queries following the same timezone rule, client attribution in the query, the nine queries collapsed into one, and the overwrite on re-run.</p>
+
+<p>My own account: what the week involved, the hundreds of thousands of lines, the product split and the sale, the timings, the per-authorization fee, the parallel run, the date error the console caught, the subscription and the true-up view.</p>
+
+<p>My estimate, not a count: about $110K of backdated entries missed.</p>
+
+</details>
+
+<p class="back-to"><a href="stripe-payout-recon.html">&larr; Back to the Stripe reconciliation case study</a></p>
+
+<nav class="more" aria-label="More work">
+<h2 class="label">More work</h2>
+<ul>
+<li><a href="fpa-reporting-package.html"><span class="t">The thirty-minute re-run</span><span class="n">Reporting package</span></a></li>
+<li><a href="stripe-payout-recon.html"><span class="t">Three versions of one weekly reconciliation</span><span class="n">Stripe reconciliation</span></a></li>
+<li><a href="spend-tracker.html"><span class="t">A monthly close for our own budget</span><span class="n">Spend Tracker</span></a></li>
+</ul>
+</nav>
+</div></main>
+<footer class="site"><div class="wrap wide">
+<p class="contact" id="contact"><a href="mailto:franco.nidea@gmail.com">franco.nidea@gmail.com</a> · <a href="https://www.linkedin.com/in/franco-nidea/" rel="me">LinkedIn</a></p>
+<p>Every number on this site has a source. Open "How these numbers are sourced" at the end of each case study.</p>
+<p class="privacy">This site uses Google Analytics and Microsoft Clarity, which set cookies, to see how the pages get read. Fonts load from Google Fonts.</p>
+</div></footer>
+</body>
+</html>

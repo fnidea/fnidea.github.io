@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monthly reporting package case study · Franco Nidea</title>
+<meta name="description" content="I rebuilt our monthly reporting package so a re-run takes under 5 minutes instead of 30, and every closed month of 2026 balances and ties to the package.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Monthly reporting package case study · Franco Nidea">
+<meta property="og:description" content="I rebuilt our monthly reporting package so a re-run takes under 5 minutes instead of 30, and every closed month of 2026 balances and ties to the package.">
+<meta property="og:url" content="https://franconidea.com/case-studies/fpa-reporting-package.html">
+<meta property="og:image" content="https://franconidea.com/visuals/png/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="../site.css">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q32D4GRSG7');
+</script>
+<script>
+(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "lypopapb7o");
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap wide">
+<a class="brand" href="../index.html">Franco Nidea</a>
+<nav class="site" aria-label="Site">
+<a href="../case-studies/fpa-reporting-package.html" aria-current="page">Reporting package</a>
+<a href="../case-studies/stripe-payout-recon.html">Stripe reconciliation</a>
+<a href="../case-studies/spend-tracker.html">Spend Tracker</a>
+<a href="#contact">Contact</a>
+</nav>
+</div></header>
+<main id="main" tabindex="-1"><div class="wrap">
+<p class="kicker">Case study</p>
+<h1>The thirty-minute re-run</h1>
+<p class="meta">The work described here is at TixTrack, where I'm a Senior Financial Analyst.</p>
+
+<p class="lede">I rebuilt our monthly reporting package so a re-run takes under 5 minutes instead of 30, and every closed month of 2026 balances and ties to the package.</p>
+
+<dl class="snapshot">
+<div><dt>Role</dt><dd>Built it. I decided what it had to produce and I check the output against the source data. Claude wrote the code.</dd></div>
+<div><dt>When</dt><dd>Built in July 2026, moved onto NetSuite reports in September</dd></div>
+<div><dt>Tools</dt><dd>NetSuite, Numeric, SQL, Python, Claude</dd></div>
+<div class="results"><dt>Results</dt><dd><ul><li>30 minutes to under 5 per run (timed)</li><li>All 8 closed months balance and tie to the package</li><li>74 runs kept, no closed month flagged as changed</li></ul></dd></div>
+</dl>
+
+<figure class="breakout full">
+<a href="../visuals/png/fpa-dashboard-overview.png"><img src="../visuals/png/fpa-dashboard-overview.png" srcset="../visuals/png/fpa-dashboard-overview-1000.webp 1000w, ../visuals/png/fpa-dashboard-overview-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1107" alt="Sample data: the real dashboard running on invented names and amounts. The executive summary was written for this demo. In the real one it&#x27;s still empty, which is one of the limits below. Opens the full-size image." fetchpriority="high"></a>
+<figcaption aria-hidden="true">Sample data: the real dashboard running on invented names and amounts. The executive summary was written for this demo. In the real one it's still empty, which is one of the limits below. Opens full size.</figcaption>
+</figure>
+
+<h2>The problem</h2>
+<p>Every time we closed a period I'd pull the reports, analyze the numbers and write the commentary, and every time something would have to change.</p>
+
+<p>Any change meant pulling all the reports again and consolidating them again, which took me 30 minutes each time. It happened maybe 2 to 4 times per close, I never actually counted.</p>
+
+<p>So you can imagine what it's like when you thought you were already done and there's pressure to finish and send the package so the CEO can review it.</p>
+
+<h2>What I built</h2>
+<figure class="breakout diagram full">
+<a href="../visuals/reporting-package.html"><img src="../visuals/png/reporting-package.png" srcset="../visuals/png/reporting-package-1000.webp 1000w, ../visuals/png/reporting-package-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1000" height="517" alt="Where the numbers come from, how they get built and checked, and what goes out. Opens the diagram as a page, with its text." loading="lazy"></a>
+<figcaption aria-hidden="true">Where the numbers come from, how they get built and checked, and what goes out. Opens the full diagram.</figcaption>
+</figure>
+
+<p>I built the dashboard in July 2026, once my ERP and close platform were connected to an AI assistant and the gears started grinding.</p>
+
+<ul>
+<li>Two NetSuite reports I built for it, one P&amp;L and one balance sheet, so the data pulls cheaply and accurately.</li>
+<li>Claude pulls the reports from the ERP and the code builds every number deterministically.</li>
+<li>8 views: overview, P&amp;L detail, income statement, balance sheet, balance sheet by entity for our 6 legal entities, adjusted EBITDA, budget vs actuals on both the original budget and the reforecast, and a page for data and runs.</li>
+<li>Commentary is written by people in Numeric's flux reports and pulled in as is.</li>
+<li>Prepaid and accrual tabs my VP asked for, laid out so someone who isn't an accountant can follow them. I rebuilt both straight from ERP data instead of hand-kept schedules, so the whole method is deterministic end to end.</li>
+<li>The whole package exports in one click, plus a second version in the format the CEO expects.</li>
+</ul>
+
+<figure class="breakout full">
+<a href="../visuals/png/fpa-dashboard-bva.png"><img src="../visuals/png/fpa-dashboard-bva.png" srcset="../visuals/png/fpa-dashboard-bva-1000.webp 1000w, ../visuals/png/fpa-dashboard-bva-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1084" alt="Sample data: budget vs actuals filtered to one department, with two expense groups opened to the account level. Opens the full-size image." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: budget vs actuals filtered to one department, with two expense groups opened to the account level. Opens full size.</figcaption>
+</figure>
+
+<h2>How I know it works</h2>
+<figure class="breakout diagram full">
+<a href="../visuals/reporting-tieout.html"><img src="../visuals/png/reporting-tieout.png" srcset="../visuals/png/reporting-tieout-1000.webp 1000w, ../visuals/png/reporting-tieout-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1000" height="410" alt="Every closed month so far this year, checked against both tie-outs and for any change after close. Opens the diagram as a page, with its text." loading="lazy"></a>
+<figcaption aria-hidden="true">Every closed month so far this year, checked against both tie-outs and for any change after close. Opens the full diagram.</figcaption>
+</figure>
+
+<ul>
+<li>At the end everything gets tied back to the ERP, account by account and in total.</li>
+<li>Every closed month so far this year, January to August, ties two ways. Assets equal liabilities plus equity within $0.02, and net income ties to the financial package.</li>
+<li>Every load of a month gets saved as a run instead of overwriting the last one, and a closed month that comes back different on a reload gets flagged. I wanted that so any adjustment shows up against what we already sent.</li>
+<li>From July 22 to September 11 there were 74 runs, and no closed month is flagged as changed. That also means the drift check hasn't been tested on a real change yet.</li>
+</ul>
+
+<figure class="breakout full">
+<a href="../visuals/png/fpa-bva-workbook.png"><img src="../visuals/png/fpa-bva-workbook.png" srcset="../visuals/png/fpa-bva-workbook-1000.webp 1000w, ../visuals/png/fpa-bva-workbook-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1100" height="838" alt="Sample data: the one-click budget-vs-actuals export, recalculated by Excel. Opens the full-size image." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: the one-click budget-vs-actuals export, recalculated by Excel. Opens full size.</figcaption>
+</figure>
+
+<figure class="breakout full">
+<a href="../visuals/png/fpa-package-cover.png"><img src="../visuals/png/fpa-package-cover.png" srcset="../visuals/png/fpa-package-cover-1000.webp 1000w, ../visuals/png/fpa-package-cover-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1100" height="552" alt="Sample data: the reporting package&#x27;s cover and contents, exported in one click. Opens the full-size image." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: the reporting package's cover and contents, exported in one click. Opens full size.</figcaption>
+</figure>
+
+<a class="card deep" href="after-the-package.html" aria-labelledby="t-after-the-package">
+<p class="n">Deep dive</p>
+<h3 class="t" id="t-after-the-package">After the package is sent</h3>
+<p class="d">How every load of a month is kept, how a month moves from Open or Provisional to Pass, how a closed month is watched once it's gone to the CEO, and what the tie-outs prove.</p>
+<p class="n">Read the deep dive →</p>
+</a>
+
+<h2>Results</h2>
+<ul>
+<li>A full run takes me under 5 minutes, against 30 before. I timed both.</li>
+<li>So when something changes after close, I just run it again.</li>
+</ul>
+
+<figure class="breakout full">
+<a href="../visuals/png/fpa-dashboard-runs.png"><img src="../visuals/png/fpa-dashboard-runs.png" srcset="../visuals/png/fpa-dashboard-runs-1000.webp 1000w, ../visuals/png/fpa-dashboard-runs-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1440" height="1032" alt="Sample data: every load is kept as a run, and the drift check compares each closed month with its last run. On September 11 the source switches from Numeric to the two NetSuite reports. Opens the full-size image." loading="lazy"></a>
+<figcaption aria-hidden="true">Sample data: every load is kept as a run, and the drift check compares each closed month with its last run. On September 11 the source switches from Numeric to the two NetSuite reports. Opens full size.</figcaption>
+</figure>
+
+<h2>What didn't work</h2>
+<ul>
+<li>The first time I tried pulling ERP data through Claude, it burned through my usage allowance really fast because it kept retrying queries it didn't have access to. So I built on our package workbook and then Numeric first, then built the two NetSuite reports myself and moved the P&amp;L and balance sheet to them on September 11.</li>
+<li>I tried having Claude analyze the numbers, find the variances and write the commentary, but it was bad so I reverted it back.</li>
+</ul>
+
+<h2>Limits and what's next</h2>
+<ul>
+<li>The executive summary section is empty, and the build only carries one summary tagged to one month, so writing them all wouldn't fix it yet.</li>
+<li>The commentary cells can still be edited on the dashboard, and an edit there never goes back to Numeric. They should be read-only.</li>
+<li>The balance sheet is off by up to $0.02 in some months and the check lets it pass. I hate that, it should tie to the penny.</li>
+<li>The overview still says "Numeric consolidated basis" even though the P&amp;L and balance sheet come from NetSuite now.</li>
+<li>Next: wiring the VP of Finance's live reforecast into the dashboard. That's in progress.</li>
+</ul>
+
+<details class="sources">
+<summary>How these numbers are sourced</summary>
+
+<p>Parsed from the dashboard itself (built September 18, 2026), through a structural extract with no amounts in it: the 8 views, the 6 entities, 12 months per budget basis, the EBITDA definition, the $0.02 balance check, the net income tie in all 8 months, the 74 runs and their statuses, no closed month flagged as changed, the switch to NetSuite reports on September 11, the empty executive summary, the editable commentary cells and the stale overview label.</p>
+
+<p>Timed by me: 30 minutes before, under 5 after. I didn't write either timing down.</p>
+
+<p>My estimate, not a count: 2 to 4 re-runs per close.</p>
+
+<p>My own account: when and why I built it, the drift requirement, where commentary is written, the AI commentary I tried and reverted, the first ERP pull that burned my usage, building the NetSuite reports myself, that Claude pulls the reports while code builds the numbers and ties them account by account, and that Claude writes the code.</p>
+
+</details>
+
+<nav class="more" aria-label="More work">
+<h2 class="label">More work</h2>
+<ul>
+<li><a href="stripe-payout-recon.html"><span class="t">Three versions of one weekly reconciliation</span><span class="n">Stripe reconciliation</span></a></li>
+<li><a href="spend-tracker.html"><span class="t">A monthly close for our own budget</span><span class="n">Spend Tracker</span></a></li>
+</ul>
+</nav>
+</div></main>
+<footer class="site"><div class="wrap wide">
+<p class="contact" id="contact"><a href="mailto:franco.nidea@gmail.com">franco.nidea@gmail.com</a> · <a href="https://www.linkedin.com/in/franco-nidea/" rel="me">LinkedIn</a></p>
+<p>Every number on this site has a source. Open "How these numbers are sourced" at the end of each case study.</p>
+<p class="privacy">This site uses Google Analytics and Microsoft Clarity, which set cookies, to see how the pages get read. Fonts load from Google Fonts.</p>
+</div></footer>
+</body>
+</html>

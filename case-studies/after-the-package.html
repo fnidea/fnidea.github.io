@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>After the package is sent · Franco Nidea</title>
+<meta name="description" content="Once our monthly package goes to the CEO, a later adjustment shouldn&#x27;t quietly change the numbers. The dashboard has kept all 74 loads so far, and no closed month is flagged as changed.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="After the package is sent · Franco Nidea">
+<meta property="og:description" content="Once our monthly package goes to the CEO, a later adjustment shouldn&#x27;t quietly change the numbers. The dashboard has kept all 74 loads so far, and no closed month is flagged as changed.">
+<meta property="og:url" content="https://franconidea.com/case-studies/after-the-package.html">
+<meta property="og:image" content="https://franconidea.com/visuals/png/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="../site.css">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q32D4GRSG7');
+</script>
+<script>
+(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "lypopapb7o");
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap wide">
+<a class="brand" href="../index.html">Franco Nidea</a>
+<nav class="site" aria-label="Site">
+<a href="../case-studies/fpa-reporting-package.html" aria-current="page">Reporting package</a>
+<a href="../case-studies/stripe-payout-recon.html">Stripe reconciliation</a>
+<a href="../case-studies/spend-tracker.html">Spend Tracker</a>
+<a href="#contact">Contact</a>
+</nav>
+</div></header>
+<main id="main" tabindex="-1"><div class="wrap">
+<p class="kicker"><a href="fpa-reporting-package.html">Deep dive · Reporting package</a></p>
+<h1>After the package is sent</h1>
+<p class="meta">The work described here is at TixTrack, where I'm a Senior Financial Analyst.</p>
+
+<p class="lede">Once our monthly package goes to the CEO, a later adjustment shouldn't quietly change the numbers. The dashboard has kept all 74 loads so far, and no closed month is flagged as changed.</p>
+
+<h2>The problem</h2>
+<p>Every close, something would change after I thought the numbers were final. It happened maybe 2 to 4 times per close, and I never actually counted.</p>
+
+<p>Before the dashboard, a re-run just replaced the old numbers. That's fine while I'm still working on them. But once the package has gone to the CEO, a change needs to show up against what we already sent, not get quietly absorbed into a new total.</p>
+
+<h2>Every load is a run</h2>
+<p>Each time I load a month, the dashboard keeps that load as a run with a status, instead of overwriting the last one. Between July 22 and September 11 there were 74 of them.</p>
+
+<p>A month is Open while the period's still open and people are still working on it. Provisional means I want the numbers pulled so I can do a first pass and some analysis, but they aren't final yet.</p>
+
+<p>The very first loads, from the package workbook in late July, show as Open even for months that were long closed. That was just the default before I'd set up the statuses.</p>
+
+<p>Then its loads turn Pass, and in the run history no month ever went back.</p>
+
+<p>August is a good example. I loaded it 12 times as Provisional between September 8 and 11, and it turned Pass on the 11th.</p>
+
+<figure class="breakout diagram full">
+<a href="../visuals/fpa-runs.html"><img src="../visuals/png/fpa-runs.png" srcset="../visuals/png/fpa-runs-1000.webp 1000w, ../visuals/png/fpa-runs-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1200" height="467" alt="All 74 loads from the run history, one row per month and one column per day that had a load, marked by status. Dates and statuses only. Opens the diagram as a page, with its text." fetchpriority="high"></a>
+<figcaption aria-hidden="true">All 74 loads from the run history, one row per month and one column per day that had a load, marked by status. Dates and statuses only. Opens the full diagram.</figcaption>
+</figure>
+
+<h2>Watching the closed months</h2>
+<p>Flagging a closed month that comes back different on a reload was my requirement. I wanted any adjustment to show up against what we'd already sent.</p>
+
+<p>When a sent month does change, it depends on the change, but usually we send the package again with a note explaining it.</p>
+
+<p>It hasn't fired on a real change yet. No closed month is flagged as changed, which also means the flag itself hasn't been tested on a real one.</p>
+
+<h2>What the tie-outs prove</h2>
+<p>Every month gets two checks. Total assets have to equal total liabilities and equity, and net income from Numeric has to equal net income in the package. All eight closed months this year pass both.</p>
+
+<p>The first tells me the balance sheet the code builds still balances. The second tells me the package says the same thing as the close platform, where our commentary gets written.</p>
+
+<p>The balance check allows up to $0.02, and some months use it. I hate that. It should tie to the penny.</p>
+
+<h2>Switching sources without losing history</h2>
+<p>On September 11 I reloaded all eight months from two NetSuite reports I built, one P&amp;L and one balance sheet. Before that, the loads came from the package workbook and then from Numeric. Every one of those earlier runs is still there.</p>
+
+<p>Claude pulls the reports from the ERP, code builds every number, and the result gets tied back to the ERP account by account and in total.</p>
+
+<h2>Limits and what's next</h2>
+<ul>
+<li>The flag on closed months hasn't caught a real change yet, so it's only been tested on months that didn't change.</li>
+<li>The balance check lets up to $0.02 through. It should be zero.</li>
+<li>The balance sheet by entity and the department detail still load from Numeric.</li>
+<li>The overview still says "Numeric consolidated basis" even though the P&amp;L and balance sheet come from NetSuite now.</li>
+</ul>
+
+<details class="sources">
+<summary>How these numbers are sourced</summary>
+
+<p>Parsed from the dashboard itself (built September 18, 2026), through a structural extract with no amounts in it: the 74 runs and their statuses, the order each month moved through them, no closed month flagged as changed, the two tie-outs in all eight months, the $0.02 tolerance, the switch to NetSuite reports on September 11 and the stale overview label.</p>
+
+<p>My estimate, not a count: 2 to 4 re-runs per close.</p>
+
+<p>My own account: why I built it, what Open and Provisional mean, why the first loads show as Open, the requirement to flag closed months, sending the package again with a note, building the NetSuite reports, and that Claude pulls the reports while code builds the numbers and ties them. Claude wrote the code.</p>
+
+</details>
+
+<p class="back-to"><a href="fpa-reporting-package.html">&larr; Back to the Reporting package case study</a></p>
+
+<nav class="more" aria-label="More work">
+<h2 class="label">More work</h2>
+<ul>
+<li><a href="fpa-reporting-package.html"><span class="t">The thirty-minute re-run</span><span class="n">Reporting package</span></a></li>
+<li><a href="stripe-payout-recon.html"><span class="t">Three versions of one weekly reconciliation</span><span class="n">Stripe reconciliation</span></a></li>
+<li><a href="spend-tracker.html"><span class="t">A monthly close for our own budget</span><span class="n">Spend Tracker</span></a></li>
+</ul>
+</nav>
+</div></main>
+<footer class="site"><div class="wrap wide">
+<p class="contact" id="contact"><a href="mailto:franco.nidea@gmail.com">franco.nidea@gmail.com</a> · <a href="https://www.linkedin.com/in/franco-nidea/" rel="me">LinkedIn</a></p>
+<p>Every number on this site has a source. Open "How these numbers are sourced" at the end of each case study.</p>
+<p class="privacy">This site uses Google Analytics and Microsoft Clarity, which set cookies, to see how the pages get read. Fonts load from Google Fonts.</p>
+</div></footer>
+</body>
+</html>

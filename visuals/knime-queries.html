@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twelve Queries</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="visuals.css">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q32D4GRSG7');
+</script>
+<script>
+(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "lypopapb7o");
+</script>
+</head>
+<body>
+<main class="frame wide-frame">
+<p class="back"><a href="../case-studies/knime-workflow.html">&larr; Back to the KNIME deep dive</a></p>
+
+<p class="kicker">Deep dive · Stripe reconciliation</p>
+<h1>Twelve queries off one connector</h1>
+<p class="dek">Every query read the same hand-typed dates. Eleven pulled one kind of fee or payment, and ten of those handed their rows to their own copy of the Tableau replacement step. The last one is the checker.</p>
+
+<div class="canvas">
+<svg class="knime" viewBox="-59 -327 820 1841" width="820" height="1841" role="img" aria-label="Twelve database queries fanning out of one connector">
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,279.0 371,279.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,1019.0 371,1019.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,1440.0 371,1440.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,1159.0 371,1159.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,-271.0 371,-271.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,139.0 371,139.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,4.0 371,4.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,-126.0 371,-126.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,704.0 371,704.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,569.0 371,569.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,859.0 371,859.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,424.0 371,424.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,279.0 371,279.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,1159.0 371,1159.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,1440.0 371,1440.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,1019.0 371,1019.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,859.0 371,859.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,569.0 371,569.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,704.0 371,704.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,-126.0 371,-126.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,4.0 371,4.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,139.0 371,139.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,-271.0 371,-271.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,424.0 371,424.0"/>
+<path class="conn" d="M403,279.0 C439.5,279.0 439.5,279.0 476,279.0"/>
+<path class="conn" d="M508,279.0 C574.5,279.0 574.5,279.0 641,279.0"/>
+<path class="conn" d="M508,-126.0 C574.5,-126.0 574.5,-126.0 641,-126.0"/>
+<path class="conn" d="M403,-126.0 C439.5,-126.0 439.5,-126.0 476,-126.0"/>
+<path class="conn" d="M403,4.0 C439.5,4.0 439.5,4.0 476,4.0"/>
+<path class="conn" d="M508,4.0 C574.5,4.0 574.5,4.0 641,4.0"/>
+<path class="conn" d="M403,139.0 C439.5,139.0 439.5,139.0 476,139.0"/>
+<path class="conn" d="M508,139.0 C574.5,139.0 574.5,139.0 641,139.0"/>
+<path class="conn" d="M508,859.0 C574.5,859.0 574.5,859.0 641,859.0"/>
+<path class="conn" d="M508,-271.0 C574.5,-271.0 574.5,-271.0 641,-271.0"/>
+<path class="conn" d="M403,-271.0 C439.5,-271.0 439.5,-271.0 476,-271.0"/>
+<path class="conn" d="M403,859.0 C439.5,859.0 439.5,859.0 476,859.0"/>
+<path class="conn" d="M403,569.0 C439.5,569.0 439.5,569.0 476,569.0"/>
+<path class="conn" d="M508,569.0 C574.5,569.0 574.5,569.0 641,569.0"/>
+<path class="conn" d="M403,704.0 C439.5,704.0 439.5,704.0 476,704.0"/>
+<path class="conn" d="M508,704.0 C574.5,704.0 574.5,704.0 641,704.0"/>
+<path class="conn" d="M403,424.0 C439.5,424.0 439.5,424.0 476,424.0"/>
+<path class="conn" d="M508,424.0 C574.5,424.0 574.5,424.0 641,424.0"/>
+<path class="conn" d="M403,1019.0 C439.5,1019.0 439.5,1019.0 476,1019.0"/>
+<path class="conn" d="M508,1159.0 C574.5,1159.0 574.5,1159.0 641,1159.0"/>
+<path class="conn" d="M403,1159.0 C439.5,1159.0 439.5,1159.0 476,1159.0"/>
+<path class="conn" d="M403,1440.0 C439.5,1440.0 439.5,1440.0 476,1440.0"/>
+<text class="name" x="27.0" y="234">Snowflake</text>
+<text class="name" x="27.0" y="246">Connector</text>
+<rect class="node db" x="11" y="253" width="32" height="32" rx="5"/>
+<text class="name" x="27.0" y="96">Variable Creator</text>
+<rect class="node var" x="11" y="103" width="32" height="32" rx="5"/>
+<text class="name" x="387.0" y="244">DB Table Selector</text>
+<text class="name" x="387.0" y="256">_deprecated_</text>
+<rect class="node db" x="371" y="263" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="309">US - Volume Fees</text>
+<text class="name" x="492.0" y="256">DB Reader</text>
+<rect class="node db" x="476" y="263" width="32" height="32" rx="5"/>
+<text class="name" x="657.0" y="244">Tableau Workflow</text>
+<text class="name" x="657.0" y="256">Replacement</text>
+<rect class="node meta" x="641" y="263" width="32" height="32" rx="5"/>
+<text class="name" x="492.0" y="-149">DB Reader</text>
+<rect class="node db" x="476" y="-142" width="32" height="32" rx="5"/>
+<text class="name" x="387.0" y="-161">DB Table Selector</text>
+<text class="name" x="387.0" y="-149">_deprecated_</text>
+<rect class="node db" x="371" y="-142" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="-96">US - Network Costs</text>
+<text class="name" x="657.0" y="-161">Tableau Workflow</text>
+<text class="name" x="657.0" y="-149">Replacement</text>
+<rect class="node meta" x="641" y="-142" width="32" height="32" rx="5"/>
+<text class="name" x="387.0" y="-31">DB Table Selector</text>
+<text class="name" x="387.0" y="-19">_deprecated_</text>
+<rect class="node db" x="371" y="-12" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="34">UK - Network Costs -</text>
+<text class="lab" x="387.0" y="46">NULL in UTC</text>
+<text class="name" x="492.0" y="-19">DB Reader</text>
+<rect class="node db" x="476" y="-12" width="32" height="32" rx="5"/>
+<text class="name" x="657.0" y="-31">Tableau Workflow</text>
+<text class="name" x="657.0" y="-19">Replacement</text>
+<rect class="node meta" x="641" y="-12" width="32" height="32" rx="5"/>
+<text class="lab" x="657.0" y="34">Added any null in</text>
+<text class="lab" x="657.0" y="46">Rule-Based row filter</text>
+<text class="lab" x="657.0" y="58">for Mon-Sun date range</text>
+<text class="lab" x="657.0" y="70">REMOVED CLASS SPLIT</text>
+<text class="name" x="387.0" y="104">DB Table Selector</text>
+<text class="name" x="387.0" y="116">_deprecated_</text>
+<rect class="node db" x="371" y="123" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="169">UK Other Network Costs</text>
+<text class="lab" x="387.0" y="181">in UTC</text>
+<text class="name" x="492.0" y="116">DB Reader</text>
+<rect class="node db" x="476" y="123" width="32" height="32" rx="5"/>
+<text class="name" x="657.0" y="104">Tableau Workflow</text>
+<text class="name" x="657.0" y="116">Replacement</text>
+<rect class="node meta" x="641" y="123" width="32" height="32" rx="5"/>
+<text class="lab" x="657.0" y="169">Added any null in</text>
+<text class="lab" x="657.0" y="181">Rule-Based row filter</text>
+<text class="lab" x="657.0" y="193">for Mon-Sun date range</text>
+<text class="lab" x="657.0" y="205">REMOVED CLASS SPLIT</text>
+<text class="name" x="492.0" y="836">DB Reader</text>
+<rect class="node db" x="476" y="843" width="32" height="32" rx="5"/>
+<text class="name" x="492.0" y="-294">DB Reader</text>
+<rect class="node db" x="476" y="-287" width="32" height="32" rx="5"/>
+<text class="name" x="387.0" y="-306">DB Table Selector</text>
+<text class="name" x="387.0" y="-294">_deprecated_</text>
+<rect class="node db" x="371" y="-287" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="-241">US - Platform Earnings</text>
+<text class="name" x="387.0" y="824">DB Table Selector</text>
+<text class="name" x="387.0" y="836">_deprecated_</text>
+<rect class="node db" x="371" y="843" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="889">US Other Fees in UTC</text>
+<text class="name" x="657.0" y="-306">Tableau Workflow</text>
+<text class="name" x="657.0" y="-294">Replacement</text>
+<rect class="node meta" x="641" y="-287" width="32" height="32" rx="5"/>
+<text class="name" x="387.0" y="534">DB Table Selector</text>
+<text class="name" x="387.0" y="546">_deprecated_</text>
+<rect class="node db" x="371" y="553" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="599">US - Blended Fees</text>
+<text class="name" x="657.0" y="534">Tableau Workflow</text>
+<text class="name" x="657.0" y="546">Replacement</text>
+<rect class="node meta" x="641" y="553" width="32" height="32" rx="5"/>
+<text class="name" x="492.0" y="546">DB Reader</text>
+<rect class="node db" x="476" y="553" width="32" height="32" rx="5"/>
+<text class="name" x="657.0" y="824">Tableau Workflow</text>
+<text class="name" x="657.0" y="836">Replacement</text>
+<rect class="node meta" x="641" y="843" width="32" height="32" rx="5"/>
+<text class="lab" x="657.0" y="889">Added any null in</text>
+<text class="lab" x="657.0" y="901">Rule-Based row filter</text>
+<text class="lab" x="657.0" y="913">for Mon-Sun date range</text>
+<text class="lab" x="657.0" y="925">REMOVED CLASS SPLIT</text>
+<text class="name" x="387.0" y="669">DB Table Selector</text>
+<text class="name" x="387.0" y="681">_deprecated_</text>
+<rect class="node db" x="371" y="688" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="734">US - Blended Fees NULL</text>
+<text class="lab" x="387.0" y="746">in UTC</text>
+<text class="name" x="492.0" y="681">DB Reader</text>
+<rect class="node db" x="476" y="688" width="32" height="32" rx="5"/>
+<text class="name" x="657.0" y="669">Tableau Workflow</text>
+<text class="name" x="657.0" y="681">Replacement</text>
+<rect class="node meta" x="641" y="688" width="32" height="32" rx="5"/>
+<text class="lab" x="657.0" y="734">Added any null in</text>
+<text class="lab" x="657.0" y="746">Rule-Based row filter</text>
+<text class="lab" x="657.0" y="758">for Mon-Sun date range</text>
+<text class="lab" x="657.0" y="770">REMOVED CLASS SPLIT</text>
+<text class="name" x="387.0" y="389">DB Table Selector</text>
+<text class="name" x="387.0" y="401">_deprecated_</text>
+<rect class="node db" x="371" y="408" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="454">US - Processing Fees</text>
+<text class="name" x="657.0" y="389">Tableau Workflow</text>
+<text class="name" x="657.0" y="401">Replacement</text>
+<rect class="node meta" x="641" y="408" width="32" height="32" rx="5"/>
+<text class="name" x="492.0" y="401">DB Reader</text>
+<rect class="node db" x="476" y="408" width="32" height="32" rx="5"/>
+<text class="name" x="387.0" y="984">DB Table Selector</text>
+<text class="name" x="387.0" y="996">_deprecated_</text>
+<rect class="node db" x="371" y="1003" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="1049">US Client A Transfer</text>
+<text class="name" x="492.0" y="996">DB Reader</text>
+<rect class="node db" x="476" y="1003" width="32" height="32" rx="5"/>
+<text class="name" x="492.0" y="1136">DB Reader</text>
+<rect class="node db" x="476" y="1143" width="32" height="32" rx="5"/>
+<text class="name" x="387.0" y="1124">DB Table Selector</text>
+<text class="name" x="387.0" y="1136">_deprecated_</text>
+<rect class="node db" x="371" y="1143" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="1189">US Other Adjustment in</text>
+<text class="lab" x="387.0" y="1201">UTC</text>
+<text class="name" x="492.0" y="1417">DB Reader</text>
+<rect class="node db" x="476" y="1424" width="32" height="32" rx="5"/>
+<text class="name" x="387.0" y="1405">DB Table Selector</text>
+<text class="name" x="387.0" y="1417">_deprecated_</text>
+<rect class="node db" x="371" y="1424" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="1470">OTHER FEES NOT CAPTURED</text>
+<text class="name" x="657.0" y="1124">Tableau Workflow</text>
+<text class="name" x="657.0" y="1136">Replacement</text>
+<rect class="node meta" x="641" y="1143" width="32" height="32" rx="5"/>
+<text class="lab" x="657.0" y="1189">Added any null in</text>
+<text class="lab" x="657.0" y="1201">Rule-Based row filter</text>
+<text class="lab" x="657.0" y="1213">for Mon-Sun date range</text>
+<text class="lab" x="657.0" y="1225">REMOVED CLASS SPLIT</text>
+</svg>
+</div>
+
+<p class="foot">Redrawn from the workflow file itself. Product and client names in the labels are replaced.</p>
+</main>
+</body>
+</html>

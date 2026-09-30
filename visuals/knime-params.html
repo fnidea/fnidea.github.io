@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Every Run Starts Here</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="visuals.css">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q32D4GRSG7');
+</script>
+<script>
+(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "lypopapb7o");
+</script>
+</head>
+<body>
+<main class="frame">
+<p class="back"><a href="../case-studies/knime-workflow.html">&larr; Back to the KNIME deep dive</a></p>
+
+<p class="kicker">Deep dive · Stripe reconciliation</p>
+<h1>Every run started with ten typed parameters</h1>
+<p class="dek">The Variable Creator, where each week&#x27;s dates, timezones, account and folder were typed in by hand, with the ten values from the last saved run.</p>
+
+<div class="canvas">
+<svg class="knime" viewBox="-670 10 801 816" width="801" height="816" role="img" aria-label="The Variable Creator and the Snowflake connector">
+<rect class="note" x="-255" y="50" width="225" height="295"/>
+<text class="notet" x="-247" y="68">Variable Creator: The Start and</text>
+<text class="notet" x="-247" y="82">End dates should have 1 day</text>
+<text class="notet" x="-247" y="96">before and 1 day after the date</text>
+<text class="notet" x="-247" y="110">range to capture all activity</text>
+<text class="notet" x="-247" y="124">Mon-Sun and Sun-Sat date range</text>
+<text class="notet" x="-247" y="138">should be the exact dates (no</text>
+<text class="notet" x="-247" y="152">need to add a day) Snowflake</text>
+<text class="notet" x="-247" y="166">Connector Edit the node to use</text>
+<text class="notet" x="-247" y="180">your credentials</text>
+<text class="name" x="27.0" y="234">Snowflake</text>
+<text class="name" x="27.0" y="246">Connector</text>
+<rect class="node db" x="11" y="253" width="32" height="32" rx="5"/>
+<text class="name" x="27.0" y="96">Variable Creator</text>
+<rect class="node var" x="11" y="103" width="32" height="32" rx="5"/>
+<rect class="ring" x="6" y="98" width="42" height="42" rx="7"/>
+<path class="lead" d="M27.0,140 L27.0,162 L-11,162 L-11,400 L-140,400 L-140,430"/>
+<rect class="call" x="-600" y="430" width="520" height="306" rx="4"/>
+<text class="callh" x="-588" y="452">Every run starts here, typed by hand</text>
+<text class="callt" x="-588" y="472">Ten parameters go in by hand at the start of every run, six of them</text>
+<text class="callt" x="-588" y="487">dates, and nothing checks them. Hand-typed date windows like these once</text>
+<text class="callt" x="-588" y="502">gave each week range an extra day that was already booked.</text>
+<rect class="tbl" x="-592" y="514" width="504" height="202"/>
+<text class="callth" x="-588" y="527">Variable</text>
+<text class="callth" x="-470" y="527">Type</text>
+<text class="callth" x="-404" y="527">Value</text>
+<line class="tblr" x1="-592" x2="-88" y1="532" y2="532"/>
+<text class="callp" x="-588" y="545">StartDate</text>
+<text class="callp" x="-470" y="545">String</text>
+<text class="callp" x="-404" y="545">2025-12-13</text>
+<line class="tblr" x1="-592" x2="-88" y1="550" y2="550"/>
+<text class="callp" x="-588" y="563">EndDate</text>
+<text class="callp" x="-470" y="563">String</text>
+<text class="callp" x="-404" y="563">2025-12-22</text>
+<line class="tblr" x1="-592" x2="-88" y1="568" y2="568"/>
+<text class="callp" x="-588" y="581">timezone</text>
+<text class="callp" x="-470" y="581">String</text>
+<text class="callp" x="-404" y="581">UTC</text>
+<line class="tblr" x1="-592" x2="-88" y1="586" y2="586"/>
+<text class="callp" x="-588" y="599">merchant_id</text>
+<text class="callp" x="-470" y="599">String</text>
+<text class="callp" x="-404" y="599">acct_••••••••••</text>
+<line class="tblr" x1="-592" x2="-88" y1="604" y2="604"/>
+<text class="callp" x="-588" y="617">timezone2</text>
+<text class="callp" x="-470" y="617">String</text>
+<text class="callp" x="-404" y="617">UTC</text>
+<line class="tblr" x1="-592" x2="-88" y1="622" y2="622"/>
+<text class="callp" x="-588" y="635">MonSunStart</text>
+<text class="callp" x="-470" y="635">String</text>
+<text class="callp" x="-404" y="635">2025-12-15</text>
+<line class="tblr" x1="-592" x2="-88" y1="640" y2="640"/>
+<text class="callp" x="-588" y="653">MonSunEnd</text>
+<text class="callp" x="-470" y="653">String</text>
+<text class="callp" x="-404" y="653">2025-12-21</text>
+<line class="tblr" x1="-592" x2="-88" y1="658" y2="658"/>
+<text class="callp" x="-588" y="671">SunSatStart</text>
+<text class="callp" x="-470" y="671">String</text>
+<text class="callp" x="-404" y="671">2025-12-14</text>
+<line class="tblr" x1="-592" x2="-88" y1="676" y2="676"/>
+<text class="callp" x="-588" y="689">SunSatEnd</text>
+<text class="callp" x="-470" y="689">String</text>
+<text class="callp" x="-404" y="689">2025-12-20</text>
+<line class="tblr" x1="-592" x2="-88" y1="694" y2="694"/>
+<text class="callp" x="-588" y="707">PathStart</text>
+<text class="callp" x="-470" y="707">String</text>
+<text class="callp" x="-404" y="707">G:\…\</text>
+</svg>
+</div>
+
+<p class="foot">Redrawn from the workflow file itself. Product and client names in the labels are replaced.</p>
+</main>
+</body>
+</html>

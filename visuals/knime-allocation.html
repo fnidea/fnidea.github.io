@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Splitting Shared Costs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="visuals.css">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q32D4GRSG7');
+</script>
+<script>
+(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "lypopapb7o");
+</script>
+</head>
+<body>
+<main class="frame">
+<p class="back"><a href="../case-studies/knime-workflow.html">&larr; Back to the KNIME deep dive</a></p>
+
+<p class="kicker">Deep dive · Stripe reconciliation</p>
+<h1>Splitting shared costs between two products</h1>
+<p class="dek">The allocation sub-workflow works out each product&#x27;s share of the costs they share.</p>
+
+<div class="canvas">
+<svg class="knime" viewBox="-15 89 860 365" width="860" height="365" role="img" aria-label="Inside the allocation sub-workflow">
+<path class="conn" d="M87,255.0 C143.5,255.0 143.5,255.0 200,255.0"/>
+<path class="conn" d="M87,255.0 C123.5,255.0 123.5,145.0 160,145.0"/>
+<path class="conn" d="M412,215.0 C468.5,215.0 468.5,215.0 525,215.0"/>
+<path class="conn" d="M232,255.0 C306.0,255.0 306.0,215.0 380,215.0"/>
+<path class="conn" d="M232,255.0 C306.0,255.0 306.0,380.0 380,380.0"/>
+<path class="conn" d="M282,145.0 C331.0,145.0 331.0,380.0 380,380.0"/>
+<path class="conn" d="M282,145.0 C331.0,145.0 331.0,215.0 380,215.0"/>
+<path class="conn" d="M192,145.0 C221.0,145.0 221.0,145.0 250,145.0"/>
+<path class="conn" d="M412,380.0 C468.5,380.0 468.5,380.0 525,380.0"/>
+<path class="conn" d="M557,215.0 C596.0,215.0 596.0,175.0 635,175.0"/>
+<path class="conn" d="M557,380.0 C588.5,380.0 588.5,376.0 620,376.0"/>
+<path class="conn" d="M667,175.0 C696.0,175.0 696.0,170.0 725,170.0"/>
+<path class="conn" d="M652,376.0 C683.5,376.0 683.5,365.0 715,365.0"/>
+<text class="name" x="71.0" y="232">Concatenate</text>
+<rect class="node manip" x="55" y="239" width="32" height="32" rx="5"/>
+<text class="name" x="396.0" y="192">Math Formula</text>
+<rect class="node manip" x="380" y="199" width="32" height="32" rx="5"/>
+<text class="name" x="216.0" y="232">GroupBy</text>
+<rect class="node manip" x="200" y="239" width="32" height="32" rx="5"/>
+<text class="lab" x="216.0" y="285">Total allocated Product</text>
+<text class="lab" x="216.0" y="297">B costs</text>
+<text class="name" x="266.0" y="110">Table Row to</text>
+<text class="name" x="266.0" y="122">Variable</text>
+<rect class="node manip" x="250" y="129" width="32" height="32" rx="5"/>
+<text class="name" x="176.0" y="122">Table Transposer</text>
+<rect class="node manip" x="160" y="129" width="32" height="32" rx="5"/>
+<text class="name" x="396.0" y="357">Math Formula</text>
+<rect class="node manip" x="380" y="364" width="32" height="32" rx="5"/>
+<text class="name" x="541.0" y="192">Column Renamer</text>
+<rect class="node manip" x="525" y="199" width="32" height="32" rx="5"/>
+<text class="lab" x="541.0" y="245">Renames to Product A</text>
+<text class="name" x="541.0" y="357">Column Renamer</text>
+<rect class="node manip" x="525" y="364" width="32" height="32" rx="5"/>
+<text class="lab" x="541.0" y="410">Renames to Product B</text>
+<text class="name" x="741.0" y="135">Table Row to</text>
+<text class="name" x="741.0" y="147">Variable</text>
+<rect class="node manip" x="725" y="154" width="32" height="32" rx="5"/>
+<text class="name" x="731.0" y="330">Table Row to</text>
+<text class="name" x="731.0" y="342">Variable</text>
+<rect class="node manip" x="715" y="349" width="32" height="32" rx="5"/>
+<text class="name" x="651.0" y="152">Number Rounder</text>
+<rect class="node manip" x="635" y="159" width="32" height="32" rx="5"/>
+<text class="name" x="636.0" y="353">Number Rounder</text>
+<rect class="node manip" x="620" y="360" width="32" height="32" rx="5"/>
+</svg>
+</div>
+
+<p class="foot">Redrawn from the workflow file itself. Product and client names in the labels are replaced.</p>
+</main>
+</body>
+</html>

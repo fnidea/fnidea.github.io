@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The NetSuite Import</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="visuals.css">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q32D4GRSG7');
+</script>
+<script>
+(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "lypopapb7o");
+</script>
+</head>
+<body>
+<main class="frame wide-frame">
+<p class="back"><a href="../case-studies/knime-workflow.html">&larr; Back to the KNIME deep dive</a></p>
+
+<p class="kicker">Deep dive · Stripe reconciliation</p>
+<h1>The workflow that builds the NetSuite import</h1>
+<p class="dek">A separate workflow reads the week&#x27;s spreadsheets and writes the journal-entry import files, with every fee type mapped to its ledger account along the way.</p>
+
+<div class="canvas">
+<svg class="knime" viewBox="-6620 -2826 6120 3696" width="6120" height="3696" role="img" aria-label="The top level of the NetSuite import workflow">
+<rect class="note" x="-6365" y="-1480" width="500" height="470"/>
+<text class="notet" x="-6357" y="-1462">Step 1.2 Download updated Lookup files from NetSuite and Google Sheets</text>
+<text class="notet" x="-6357" y="-1448">NeSuite UA Lookup Go to NetSuite &gt; Saved Searches &gt; customer lookup</text>
+<text class="notet" x="-6357" y="-1434">search, export this to Excel and save as &quot;FNCustomerUALookupResults&quot; in</text>
+<text class="notet" x="-6357" y="-1420">the payout folder. lookup file Download the lookup file file from</text>
+<text class="notet" x="-6357" y="-1406">Google Sheets and save as &quot;lookup file&quot; in the payout folder</text>
+<rect class="note" x="-6290" y="-1765" width="350" height="270"/>
+<text class="notet" x="-6282" y="-1747">`Step 1.1 Update the Excel Reader path to the</text>
+<text class="notet" x="-6282" y="-1733">latest Weekly Payout Summary Fees Table Update</text>
+<text class="notet" x="-6282" y="-1719">this node&#x27;s path to the latest Weekly Payout</text>
+<text class="notet" x="-6282" y="-1705">Summary file and make sure it points to the Fees</text>
+<text class="notet" x="-6282" y="-1691">table</text>
+<rect class="note" x="-5820" y="-1560" width="315" height="160"/>
+<text class="notet" x="-5812" y="-1542">Step 2 Updates and Cleans Client Data between</text>
+<text class="notet" x="-5812" y="-1528">NetSuite and Stripe Lookup files</text>
+<rect class="note" x="-4960" y="-2390" width="335" height="305"/>
+<text class="notet" x="-4952" y="-2372">`Step 4 Update the Excel Reader path to the</text>
+<text class="notet" x="-4952" y="-2358">latest Weekly Payout Summary Other Fees Table</text>
+<text class="notet" x="-4952" y="-2344">Update this node&#x27;s path to the latest Weekly</text>
+<text class="notet" x="-4952" y="-2330">Payout Summary file and make sure it points to</text>
+<text class="notet" x="-4952" y="-2316">the COGS Summary tab</text>
+<rect class="note" x="-2775" y="-1855" width="425" height="240"/>
+<text class="notet" x="-2767" y="-1837">Step 6 Update this to the date that costs are being accrued</text>
+<text class="notet" x="-2767" y="-1823">Date For Mon-Sun clients, update to the second end date of</text>
+<text class="notet" x="-2767" y="-1809">the week</text>
+<rect class="note" x="-3710" y="-1420" width="300" height="290"/>
+<text class="notet" x="-3702" y="-1402">Step 5 Update this to the date that costs</text>
+<text class="notet" x="-3702" y="-1388">are being accrued Date For Sun-Sat</text>
+<text class="notet" x="-3702" y="-1374">clients, update to the first end date of</text>
+<text class="notet" x="-3702" y="-1360">the week</text>
+<rect class="note" x="-6370" y="310" width="500" height="470"/>
+<text class="notet" x="-6362" y="328">Step 2 Download updated Lookup files from NetSuite and Google Sheets</text>
+<text class="notet" x="-6362" y="342">NeSuite UA Lookup Go to NetSuite &gt; Saved Searches &gt; customer lookup</text>
+<text class="notet" x="-6362" y="356">search, export this to Excel and save as &quot;FNCustomerUALookupResults&quot; in</text>
+<text class="notet" x="-6362" y="370">the payout folder. lookup file Download the lookup file file from</text>
+<text class="notet" x="-6362" y="384">Google Sheets and save as &quot;lookup file&quot; in the payout folder</text>
+<rect class="note" x="-6295" y="25" width="350" height="255"/>
+<text class="notet" x="-6287" y="43">`Step 1 Update the Excel Reader path to the latest</text>
+<text class="notet" x="-6287" y="57">Weekly Payout Summary Fees Table Update this</text>
+<text class="notet" x="-6287" y="71">node&#x27;s path to the latest Weekly Payout Summary</text>
+<text class="notet" x="-6287" y="85">file and make sure it points to the Fees table</text>
+<rect class="note" x="-5165" y="-510" width="335" height="305"/>
+<text class="notet" x="-5157" y="-492">Step 3 Update the Excel Reader path to the</text>
+<text class="notet" x="-5157" y="-478">latest Weekly Payout Summary Other Fees Table</text>
+<text class="notet" x="-5157" y="-464">Update this node&#x27;s path to the latest Weekly</text>
+<text class="notet" x="-5157" y="-450">Payout Summary file and make sure it points to</text>
+<text class="notet" x="-5157" y="-436">the COGS Summary tab</text>
+<rect class="note" x="-3490" y="-330" width="405" height="255"/>
+<text class="notet" x="-3482" y="-312">Step 4 Update this to the date that costs are being</text>
+<text class="notet" x="-3482" y="-298">accrued Date For Mon-Sun clients, update to the second</text>
+<text class="notet" x="-3482" y="-284">end date of the week</text>
+<rect class="note" x="-2650" y="-270" width="425" height="290"/>
+<text class="notet" x="-2642" y="-252">Step 6 Update this to the date that costs are being accrued</text>
+<text class="notet" x="-2642" y="-238">Date For Mon-Sun clients, update to the second end date of</text>
+<text class="notet" x="-2642" y="-224">the week</text>
+<rect class="note" x="-3490" y="245" width="405" height="255"/>
+<text class="notet" x="-3482" y="263">Step 5 Update this to the date that costs are being</text>
+<text class="notet" x="-3482" y="277">accrued Date For Sun-Sat clients, update to the first end</text>
+<text class="notet" x="-3482" y="291">date of the week</text>
+<rect class="note" x="-6550" y="-775" width="5930" height="35"/>
+<rect class="note" x="-6080" y="-2240" width="835" height="70"/>
+<text class="notet" x="-6072" y="-2222">Company / Product A</text>
+<rect class="note" x="-6055" y="-585" width="835" height="70"/>
+<text class="notet" x="-6047" y="-567">Product B</text>
+<rect class="note" x="-3710" y="-2135" width="300" height="290"/>
+<text class="notet" x="-3702" y="-2117">Step 5 Update this to the date that costs</text>
+<text class="notet" x="-3702" y="-2103">are being accrued Date For Mon-Sun</text>
+<text class="notet" x="-3702" y="-2089">clients, update to the first end date of</text>
+<text class="notet" x="-3702" y="-2075">the week</text>
+<path class="conn" d="M-6103,-1590.0 C-5641.5,-1590.0 -5641.5,-1580.0 -5180,-1580.0"/>
+<path class="conn" d="M-2663,-1690.0 C-2621.5,-1690.0 -2621.5,-1690.0 -2580,-1690.0"/>
+<path class="conn" d="M-6113,-1240.0 C-5899.0,-1240.0 -5899.0,-1465.0 -5685,-1465.0"/>
+<path class="conn" d="M-6113,-1100.0 C-5899.0,-1100.0 -5899.0,-1465.0 -5685,-1465.0"/>
+<path class="conn" d="M-4768,-1945.0 C-4669.0,-1945.0 -4669.0,-1945.0 -4570,-1945.0"/>
+<path class="conn" d="M-4768,-1230.0 C-4669.0,-1230.0 -4669.0,-1230.0 -4570,-1230.0"/>
+<path class="conn" d="M-5653,-1465.0 C-5416.5,-1465.0 -5416.5,-1580.0 -5180,-1580.0"/>
+<path class="conn" d="M-4158,-1945.0 C-4069.0,-1945.0 -4069.0,-1945.0 -3980,-1945.0"/>
+<path class="conn" d="M-3553,-1945.0 C-3291.5,-1945.0 -3291.5,-1615.0 -3030,-1615.0"/>
+<path class="conn" d="M-4768,-2225.0 C-4649.0,-2225.0 -4649.0,-2225.0 -4530,-2225.0"/>
+<path class="conn" d="M-2433,-1690.0 C-2454.0,-1690.0 -2454.0,-1350.0 -2475,-1350.0"/>
+<path class="conn" d="M-2548,-1690.0 C-2506.5,-1690.0 -2506.5,-1690.0 -2465,-1690.0"/>
+<path class="conn" d="M-3143,-1815.0 C-3099.0,-1815.0 -3099.0,-1815.0 -3055,-1815.0"/>
+<path class="conn" d="M-3023,-1815.0 C-3026.5,-1815.0 -3026.5,-1615.0 -3030,-1615.0"/>
+<path class="conn" d="M-3173,-1295.0 C-3129.0,-1295.0 -3129.0,-1295.0 -3085,-1295.0"/>
+<path class="conn" d="M-3563,-1230.0 C-3296.5,-1230.0 -3296.5,-1080.0 -3030,-1080.0"/>
+<path class="conn" d="M-3053,-1295.0 C-3041.5,-1295.0 -3041.5,-1080.0 -3030,-1080.0"/>
+<path class="conn" d="M-4158,-1230.0 C-4069.0,-1230.0 -4069.0,-1230.0 -3980,-1230.0"/>
+<path class="conn" d="M-4538,-1945.0 C-4364.0,-1945.0 -4364.0,-1945.0 -4190,-1945.0"/>
+<path class="conn" d="M-4538,-1945.0 C-4364.0,-1945.0 -4364.0,-1945.0 -4190,-1945.0"/>
+<path class="conn" d="M-4538,-1945.0 C-4364.0,-1945.0 -4364.0,-1945.0 -4190,-1945.0"/>
+<path class="conn" d="M-4538,-1945.0 C-4364.0,-1945.0 -4364.0,-1945.0 -4190,-1945.0"/>
+<path class="conn" d="M-4538,-1945.0 C-4364.0,-1945.0 -4364.0,-1945.0 -4190,-1945.0"/>
+<path class="conn" d="M-4538,-1230.0 C-4364.0,-1230.0 -4364.0,-1230.0 -4190,-1230.0"/>
+<path class="conn" d="M-4538,-1230.0 C-4364.0,-1230.0 -4364.0,-1230.0 -4190,-1230.0"/>
+<path class="conn" d="M-4538,-1230.0 C-4364.0,-1230.0 -4364.0,-1230.0 -4190,-1230.0"/>
+<path class="conn" d="M-4538,-1230.0 C-4364.0,-1230.0 -4364.0,-1230.0 -4190,-1230.0"/>
+<path class="conn" d="M-4538,-1230.0 C-4364.0,-1230.0 -4364.0,-1230.0 -4190,-1230.0"/>
+<path class="conn" d="M-2313,-95.0 C-2266.5,-95.0 -2266.5,115.0 -2220,115.0"/>
+<path class="conn" d="M-4093,415.0 C-3889.0,415.0 -3889.0,400.0 -3685,400.0"/>
+<path class="conn" d="M-4093,415.0 C-4006.5,415.0 -4006.5,295.0 -3920,295.0"/>
+<path class="conn" d="M-2428,-95.0 C-2386.5,-95.0 -2386.5,-95.0 -2345,-95.0"/>
+<path class="conn" d="M-3113,-440.0 C-3069.0,-440.0 -3069.0,-440.0 -3025,-440.0"/>
+<path class="conn" d="M-3653,400.0 C-3481.5,400.0 -3481.5,395.0 -3310,395.0"/>
+<path class="conn" d="M-4218,-160.0 C-4156.5,-160.0 -4156.5,-160.0 -4095,-160.0"/>
+<path class="conn" d="M-4418,-160.0 C-4334.0,-160.0 -4334.0,-160.0 -4250,-160.0"/>
+<path class="conn" d="M-3278,-180.0 C-3114.0,-180.0 -3114.0,-170.0 -2950,-170.0"/>
+<path class="conn" d="M-4733,55.0 C-4591.5,55.0 -4591.5,-160.0 -4450,-160.0"/>
+<path class="conn" d="M-4733,55.0 C-4591.5,55.0 -4591.5,-160.0 -4450,-160.0"/>
+<path class="conn" d="M-4733,55.0 C-4591.5,55.0 -4591.5,-160.0 -4450,-160.0"/>
+<path class="conn" d="M-4433,415.0 C-4356.5,415.0 -4356.5,415.0 -4280,415.0"/>
+<path class="conn" d="M-6108,200.0 C-5766.5,200.0 -5766.5,225.0 -5425,225.0"/>
+<path class="conn" d="M-3278,395.0 C-3101.5,395.0 -3101.5,405.0 -2925,405.0"/>
+<path class="conn" d="M-2543,-95.0 C-2501.5,-95.0 -2501.5,-95.0 -2460,-95.0"/>
+<path class="conn" d="M-6118,550.0 C-5896.5,550.0 -5896.5,625.0 -5675,625.0"/>
+<path class="conn" d="M-6118,690.0 C-5896.5,690.0 -5896.5,625.0 -5675,625.0"/>
+<path class="conn" d="M-3618,-180.0 C-3464.0,-180.0 -3464.0,-180.0 -3310,-180.0"/>
+<path class="conn" d="M-4063,-160.0 C-3856.5,-160.0 -3856.5,-180.0 -3650,-180.0"/>
+<path class="conn" d="M-4063,-160.0 C-3987.5,-160.0 -3987.5,-260.0 -3912,-260.0"/>
+<path class="conn" d="M-4978,-315.0 C-4871.5,-315.0 -4871.5,-315.0 -4765,-315.0"/>
+<path class="conn" d="M-2978,125.0 C-2951.5,125.0 -2951.5,405.0 -2925,405.0"/>
+<path class="conn" d="M-5093,50.0 C-4929.0,50.0 -4929.0,55.0 -4765,55.0"/>
+<path class="conn" d="M-5023,420.0 C-4894.0,420.0 -4894.0,420.0 -4765,420.0"/>
+<path class="conn" d="M-3098,125.0 C-3054.0,125.0 -3054.0,125.0 -3010,125.0"/>
+<path class="conn" d="M-4248,415.0 C-4186.5,415.0 -4186.5,415.0 -4125,415.0"/>
+<path class="conn" d="M-2993,-440.0 C-2971.5,-440.0 -2971.5,-170.0 -2950,-170.0"/>
+<path class="conn" d="M-5643,625.0 C-5534.0,625.0 -5534.0,225.0 -5425,225.0"/>
+<path class="conn" d="M-4733,420.0 C-4599.0,420.0 -4599.0,415.0 -4465,415.0"/>
+<path class="conn" d="M-4733,420.0 C-4599.0,420.0 -4599.0,415.0 -4465,415.0"/>
+<path class="conn" d="M-4733,420.0 C-4599.0,420.0 -4599.0,415.0 -4465,415.0"/>
+<path class="conn" d="M-2658,-1350.0 C-2566.5,-1350.0 -2566.5,-1350.0 -2475,-1350.0"/>
+<path class="conn" d="M-2593,115.0 C-2406.5,115.0 -2406.5,115.0 -2220,115.0"/>
+<path class="conn" d="M-4733,-315.0 C-4591.5,-315.0 -4591.5,-160.0 -4450,-160.0"/>
+<path class="conn" d="M-3880,-260.0 C-3765.0,-260.0 -3765.0,-180.0 -3650,-180.0"/>
+<path class="conn" d="M-3888,295.0 C-3786.5,295.0 -3786.5,400.0 -3685,400.0"/>
+<path class="conn" d="M-5393,225.0 C-5259.0,225.0 -5259.0,50.0 -5125,50.0"/>
+<path class="conn" d="M-5393,225.0 C-5224.0,225.0 -5224.0,420.0 -5055,420.0"/>
+<path class="conn" d="M-2918,-170.0 C-2771.5,-170.0 -2771.5,115.0 -2625,115.0"/>
+<path class="conn" d="M-2893,405.0 C-2759.0,405.0 -2759.0,115.0 -2625,115.0"/>
+<path class="conn" d="M-5148,-1580.0 C-4974.0,-1580.0 -4974.0,-1230.0 -4800,-1230.0"/>
+<path class="conn" d="M-5148,-1580.0 C-4974.0,-1580.0 -4974.0,-1945.0 -4800,-1945.0"/>
+<path class="conn" d="M-4498,-2225.0 C-4344.0,-2225.0 -4344.0,-1945.0 -4190,-1945.0"/>
+<path class="conn" d="M-3948,-1230.0 C-3771.5,-1230.0 -3771.5,-1230.0 -3595,-1230.0"/>
+<path class="conn" d="M-3948,-1945.0 C-3766.5,-1945.0 -3766.5,-1945.0 -3585,-1945.0"/>
+<path class="conn" d="M-2998,-1080.0 C-2844.0,-1080.0 -2844.0,-1350.0 -2690,-1350.0"/>
+<path class="conn" d="M-2998,-1615.0 C-2844.0,-1615.0 -2844.0,-1350.0 -2690,-1350.0"/>
+<text class="name" x="-6119.0" y="-1613">Excel Reader</text>
+<rect class="node manip" x="-6135" y="-1606" width="32" height="32" rx="5"/>
+<text class="lab" x="-6119.0" y="-1560">Fees Table from Stripe</text>
+<text class="lab" x="-6119.0" y="-1548">Payout Summary - Company</text>
+<text class="name" x="-2679.0" y="-1713">Variable Creator</text>
+<rect class="node var" x="-2695" y="-1706" width="32" height="32" rx="5"/>
+<text class="name" x="-6129.0" y="-1263">Excel Reader</text>
+<rect class="node manip" x="-6145" y="-1256" width="32" height="32" rx="5"/>
+<text class="lab" x="-6129.0" y="-1210">Read NetSuite UA Lookup</text>
+<text class="name" x="-6129.0" y="-1123">Excel Reader</text>
+<rect class="node manip" x="-6145" y="-1116" width="32" height="32" rx="5"/>
+<text class="lab" x="-6129.0" y="-1070">Read lookup file</text>
+<text class="name" x="-4784.0" y="-1968">Row Filter</text>
+<rect class="node manip" x="-4800" y="-1961" width="32" height="32" rx="5"/>
+<text class="lab" x="-4784.0" y="-1915">Mon-Sun:</text>
+<text class="lab" x="-4784.0" y="-1903">Filters for Product A</text>
+<text class="lab" x="-4784.0" y="-1891">Clients only</text>
+<text class="name" x="-4784.0" y="-1253">Row Filter</text>
+<rect class="node manip" x="-4800" y="-1246" width="32" height="32" rx="5"/>
+<text class="lab" x="-4784.0" y="-1200">Sun-Sat:</text>
+<text class="lab" x="-4784.0" y="-1188">Filters for Product A</text>
+<text class="lab" x="-4784.0" y="-1176">clients only</text>
+<text class="name" x="-5669.0" y="-1500">Data Cleaning and</text>
+<text class="name" x="-5669.0" y="-1488">Merging</text>
+<rect class="node meta" x="-5685" y="-1481" width="32" height="32" rx="5"/>
+<text class="name" x="-4174.0" y="-1968">Concatenate</text>
+<rect class="node manip" x="-4190" y="-1961" width="32" height="32" rx="5"/>
+<text class="lab" x="-4174.0" y="-1915">Joins all Mon-Sun costs</text>
+<text class="lab" x="-4174.0" y="-1903">together</text>
+<text class="name" x="-3569.0" y="-1980">Constant Value</text>
+<text class="name" x="-3569.0" y="-1968">Column</text>
+<rect class="node manip" x="-3585" y="-1961" width="32" height="32" rx="5"/>
+<text class="lab" x="-3569.0" y="-1915">Adds Date Column</text>
+<text class="name" x="-4784.0" y="-2248">Excel Reader</text>
+<rect class="node manip" x="-4800" y="-2241" width="32" height="32" rx="5"/>
+<text class="lab" x="-4784.0" y="-2195">Other Fees Summary</text>
+<text class="lab" x="-4784.0" y="-2183">from Stripe Payout</text>
+<text class="lab" x="-4784.0" y="-2171">Summary - Company</text>
+<text class="name" x="-2449.0" y="-1725">String to Path</text>
+<text class="name" x="-2449.0" y="-1713">_Variable_</text>
+<rect class="node manip" x="-2465" y="-1706" width="32" height="32" rx="5"/>
+<text class="name" x="-2564.0" y="-1725">Variable</text>
+<text class="name" x="-2564.0" y="-1713">Expression</text>
+<rect class="node var" x="-2580" y="-1706" width="32" height="32" rx="5"/>
+<text class="name" x="-3159.0" y="-1838">Date_Time Widget</text>
+<rect class="node manip" x="-3175" y="-1831" width="32" height="32" rx="5"/>
+<text class="lab" x="-3159.0" y="-1785">Gets the current date</text>
+<text class="name" x="-3039.0" y="-1850">Variable</text>
+<text class="name" x="-3039.0" y="-1838">Expression</text>
+<rect class="node var" x="-3055" y="-1831" width="32" height="32" rx="5"/>
+<text class="lab" x="-3039.0" y="-1785">Reformats to External ID</text>
+<text class="name" x="-3189.0" y="-1318">Date_Time Widget</text>
+<rect class="node manip" x="-3205" y="-1311" width="32" height="32" rx="5"/>
+<text class="lab" x="-3189.0" y="-1265">Gets the current date</text>
+<text class="name" x="-3579.0" y="-1265">Constant Value</text>
+<text class="name" x="-3579.0" y="-1253">Column</text>
+<rect class="node manip" x="-3595" y="-1246" width="32" height="32" rx="5"/>
+<text class="lab" x="-3579.0" y="-1200">Adds Date Column</text>
+<text class="name" x="-3069.0" y="-1330">Variable</text>
+<text class="name" x="-3069.0" y="-1318">Expression</text>
+<rect class="node var" x="-3085" y="-1311" width="32" height="32" rx="5"/>
+<text class="lab" x="-3069.0" y="-1265">Reformats to External ID</text>
+<text class="name" x="-4174.0" y="-1253">Concatenate</text>
+<rect class="node manip" x="-4190" y="-1246" width="32" height="32" rx="5"/>
+<text class="lab" x="-4174.0" y="-1200">Joins all Mon-Sun costs</text>
+<text class="lab" x="-4174.0" y="-1188">together</text>
+<text class="name" x="-4554.0" y="-1968">Costs Metanode</text>
+<rect class="node meta" x="-4570" y="-1961" width="32" height="32" rx="5"/>
+<text class="lab" x="-4554.0" y="-1915">Groups each cost by type</text>
+<text class="lab" x="-4554.0" y="-1903">and assigns the correct</text>
+<text class="lab" x="-4554.0" y="-1891">account</text>
+<text class="name" x="-4554.0" y="-1253">Costs Metanode</text>
+<rect class="node meta" x="-4570" y="-1246" width="32" height="32" rx="5"/>
+<text class="lab" x="-4554.0" y="-1200">Groups each cost by type</text>
+<text class="lab" x="-4554.0" y="-1188">and assigns the correct</text>
+<text class="lab" x="-4554.0" y="-1176">account</text>
+<text class="name" x="-2329.0" y="-130">String to Path</text>
+<text class="name" x="-2329.0" y="-118">_Variable_</text>
+<rect class="node manip" x="-2345" y="-111" width="32" height="32" rx="5"/>
+<text class="name" x="-4109.0" y="392">Missing Value</text>
+<rect class="node manip" x="-4125" y="399" width="32" height="32" rx="5"/>
+<text class="lab" x="-4109.0" y="445">Converts missing values</text>
+<text class="lab" x="-4109.0" y="457">in Debit and Credit to 0</text>
+<text class="name" x="-2444.0" y="-130">Variable</text>
+<text class="name" x="-2444.0" y="-118">Expression</text>
+<rect class="node var" x="-2460" y="-111" width="32" height="32" rx="5"/>
+<text class="name" x="-3129.0" y="-463">Date_Time Widget</text>
+<rect class="node manip" x="-3145" y="-456" width="32" height="32" rx="5"/>
+<text class="lab" x="-3129.0" y="-410">Gets the current date</text>
+<text class="name" x="-3669.0" y="377">Concatenate</text>
+<rect class="node manip" x="-3685" y="384" width="32" height="32" rx="5"/>
+<text class="lab" x="-3669.0" y="430">Joins the Accrued Stripe</text>
+<text class="lab" x="-3669.0" y="442">Costs line to the full</text>
+<text class="lab" x="-3669.0" y="454">cost table</text>
+<text class="name" x="-4234.0" y="-195">Constant Value</text>
+<text class="name" x="-4234.0" y="-183">Column</text>
+<rect class="node manip" x="-4250" y="-176" width="32" height="32" rx="5"/>
+<text class="lab" x="-4234.0" y="-130">Adds: Line: Department</text>
+<text class="lab" x="-4234.0" y="-118">COGS column</text>
+<text class="name" x="-4434.0" y="-183">Concatenate</text>
+<rect class="node manip" x="-4450" y="-176" width="32" height="32" rx="5"/>
+<text class="lab" x="-4434.0" y="-130">Joins all Mon-Sun costs</text>
+<text class="lab" x="-4434.0" y="-118">together</text>
+<text class="name" x="-3294.0" y="-215">Constant Value</text>
+<text class="name" x="-3294.0" y="-203">Column</text>
+<rect class="node manip" x="-3310" y="-196" width="32" height="32" rx="5"/>
+<text class="lab" x="-3294.0" y="-150">Mon-Sun</text>
+<text class="name" x="-4749.0" y="32">Costs Metanode</text>
+<rect class="node meta" x="-4765" y="39" width="32" height="32" rx="5"/>
+<text class="lab" x="-4749.0" y="85">Groups each cost by type</text>
+<text class="lab" x="-4749.0" y="97">and assigns the correct</text>
+<text class="lab" x="-4749.0" y="109">account</text>
+<text class="name" x="-4449.0" y="392">Concatenate</text>
+<rect class="node manip" x="-4465" y="399" width="32" height="32" rx="5"/>
+<text class="lab" x="-4449.0" y="445">Joins all Sun-Sat costs</text>
+<text class="lab" x="-4449.0" y="457">together</text>
+<text class="name" x="-6124.0" y="177">Excel Reader</text>
+<rect class="node manip" x="-6140" y="184" width="32" height="32" rx="5"/>
+<text class="lab" x="-6124.0" y="230">Fees Table from Stripe</text>
+<text class="lab" x="-6124.0" y="242">Payout Summary - Company</text>
+<text class="name" x="-3294.0" y="360">Constant Value</text>
+<text class="name" x="-3294.0" y="372">Column</text>
+<rect class="node manip" x="-3310" y="379" width="32" height="32" rx="5"/>
+<text class="lab" x="-3294.0" y="425">Sun-Sat</text>
+<text class="name" x="-2559.0" y="-118">Variable Creator</text>
+<rect class="node var" x="-2575" y="-111" width="32" height="32" rx="5"/>
+<text class="name" x="-6134.0" y="527">Excel Reader</text>
+<rect class="node manip" x="-6150" y="534" width="32" height="32" rx="5"/>
+<text class="lab" x="-6134.0" y="580">Read NetSuite UA Lookup</text>
+<text class="name" x="-6134.0" y="667">Excel Reader</text>
+<rect class="node manip" x="-6150" y="674" width="32" height="32" rx="5"/>
+<text class="lab" x="-6134.0" y="720">Read lookup file</text>
+<text class="name" x="-3634.0" y="-203">Concatenate</text>
+<rect class="node manip" x="-3650" y="-196" width="32" height="32" rx="5"/>
+<text class="lab" x="-3634.0" y="-150">Joins the Accrued Stripe</text>
+<text class="lab" x="-3634.0" y="-138">Costs line to the full</text>
+<text class="lab" x="-3634.0" y="-126">cost table</text>
+<text class="name" x="-4079.0" y="-183">Missing Value</text>
+<rect class="node manip" x="-4095" y="-176" width="32" height="32" rx="5"/>
+<text class="lab" x="-4079.0" y="-130">Converts missing values</text>
+<text class="lab" x="-4079.0" y="-118">in Debit and Credit to 0</text>
+<text class="name" x="-4994.0" y="-338">Excel Reader</text>
+<rect class="node manip" x="-5010" y="-331" width="32" height="32" rx="5"/>
+<text class="lab" x="-4994.0" y="-285">Other Fees Summary</text>
+<text class="lab" x="-4994.0" y="-273">from Stripe Payout</text>
+<text class="lab" x="-4994.0" y="-261">Summary - Company</text>
+<text class="name" x="-2994.0" y="90">Variable</text>
+<text class="name" x="-2994.0" y="102">Expression</text>
+<rect class="node var" x="-3010" y="109" width="32" height="32" rx="5"/>
+<text class="lab" x="-2994.0" y="155">Reformats to External ID</text>
+<text class="name" x="-5109.0" y="27">Row Filter</text>
+<rect class="node manip" x="-5125" y="34" width="32" height="32" rx="5"/>
+<text class="lab" x="-5109.0" y="80">Mon-Sun:</text>
+<text class="lab" x="-5109.0" y="92">Filters for Product A</text>
+<text class="lab" x="-5109.0" y="104">Clients only</text>
+<text class="name" x="-5039.0" y="397">Row Filter</text>
+<rect class="node manip" x="-5055" y="404" width="32" height="32" rx="5"/>
+<text class="lab" x="-5039.0" y="450">Sun-Sat:</text>
+<text class="lab" x="-5039.0" y="462">Filters for Product A</text>
+<text class="lab" x="-5039.0" y="474">clients only</text>
+<text class="name" x="-3114.0" y="102">Date_Time Widget</text>
+<rect class="node manip" x="-3130" y="109" width="32" height="32" rx="5"/>
+<text class="lab" x="-3114.0" y="155">Gets the current date</text>
+<text class="name" x="-4264.0" y="380">Constant Value</text>
+<text class="name" x="-4264.0" y="392">Column</text>
+<rect class="node manip" x="-4280" y="399" width="32" height="32" rx="5"/>
+<text class="lab" x="-4264.0" y="445">Adds: Line: Department</text>
+<text class="lab" x="-4264.0" y="457">COGS column</text>
+<text class="name" x="-3009.0" y="-475">Variable</text>
+<text class="name" x="-3009.0" y="-463">Expression</text>
+<rect class="node var" x="-3025" y="-456" width="32" height="32" rx="5"/>
+<text class="lab" x="-3009.0" y="-410">Reformats to External ID</text>
+<text class="name" x="-5659.0" y="590">Data Cleaning and</text>
+<text class="name" x="-5659.0" y="602">Merging</text>
+<rect class="node meta" x="-5675" y="609" width="32" height="32" rx="5"/>
+<text class="lab" x="-5659.0" y="655">Updates and Cleans</text>
+<text class="lab" x="-5659.0" y="667">Client Data between</text>
+<text class="lab" x="-5659.0" y="679">NetSuite and Stripe</text>
+<text class="lab" x="-5659.0" y="691">Lookup files</text>
+<text class="name" x="-4749.0" y="397">Costs Metanode</text>
+<rect class="node meta" x="-4765" y="404" width="32" height="32" rx="5"/>
+<text class="lab" x="-4749.0" y="450">Groups each cost by type</text>
+<text class="lab" x="-4749.0" y="462">and assigns the correct</text>
+<text class="lab" x="-4749.0" y="474">account</text>
+<text class="name" x="-2674.0" y="-1373">Concatenate</text>
+<rect class="node manip" x="-2690" y="-1366" width="32" height="32" rx="5"/>
+<text class="lab" x="-2674.0" y="-1320">Combines both Mon-Sun</text>
+<text class="lab" x="-2674.0" y="-1308">and Sun-Sat JEs</text>
+<text class="name" x="-2459.0" y="-1373">CSV Writer</text>
+<rect class="node sink" x="-2475" y="-1366" width="32" height="32" rx="5"/>
+<text class="lab" x="-2459.0" y="-1320">Writes to a CSV file</text>
+<text class="name" x="-2204.0" y="92">CSV Writer</text>
+<rect class="node sink" x="-2220" y="99" width="32" height="32" rx="5"/>
+<text class="lab" x="-2204.0" y="145">Writes to a CSV file</text>
+<text class="name" x="-2609.0" y="92">Concatenate</text>
+<rect class="node manip" x="-2625" y="99" width="32" height="32" rx="5"/>
+<text class="lab" x="-2609.0" y="145">Combines both Mon-Sun</text>
+<text class="lab" x="-2609.0" y="157">and Sun-Sat JEs</text>
+<text class="name" x="-1819.0" y="-2788">Date Rounder</text>
+<rect class="node manip" x="-1835" y="-2781" width="32" height="32" rx="5"/>
+<text class="name" x="-2119.0" y="-2793">Date_Time Widget</text>
+<rect class="node manip" x="-2135" y="-2786" width="32" height="32" rx="5"/>
+<text class="name" x="-4749.0" y="-350">Other Fees</text>
+<text class="name" x="-4749.0" y="-338">Metanode</text>
+<rect class="node meta" x="-4765" y="-331" width="32" height="32" rx="5"/>
+<text class="lab" x="-4749.0" y="-285">Cleans Other Fees data</text>
+<text class="lab" x="-4749.0" y="-273">to join</text>
+<text class="name" x="-3896.0" y="-295">Accrued Stripe</text>
+<text class="name" x="-3896.0" y="-283">Costs Metanode</text>
+<rect class="node meta" x="-3912" y="-276" width="32" height="32" rx="5"/>
+<text class="lab" x="-3896.0" y="-230">Adds the row for Accrued</text>
+<text class="lab" x="-3896.0" y="-218">Stripe Costs</text>
+<text class="name" x="-3904.0" y="260">Accrued Stripe</text>
+<text class="name" x="-3904.0" y="272">Costs Metanode</text>
+<rect class="node meta" x="-3920" y="279" width="32" height="32" rx="5"/>
+<text class="lab" x="-3904.0" y="325">Adds the row for Accrued</text>
+<text class="lab" x="-3904.0" y="337">Stripe Costs</text>
+<text class="name" x="-5409.0" y="190">Clean and Join</text>
+<text class="name" x="-5409.0" y="202">Metanode</text>
+<rect class="node meta" x="-5425" y="209" width="32" height="32" rx="5"/>
+<text class="name" x="-2934.0" y="-217">Column</text>
+<text class="name" x="-2934.0" y="-205">Manipulation</text>
+<text class="name" x="-2934.0" y="-193">Metanode</text>
+<rect class="node meta" x="-2950" y="-186" width="32" height="32" rx="5"/>
+<text class="lab" x="-2934.0" y="-140">Adds constant value</text>
+<text class="lab" x="-2934.0" y="-128">columns and sorting</text>
+<text class="name" x="-2909.0" y="358">Column</text>
+<text class="name" x="-2909.0" y="370">Manipulation</text>
+<text class="name" x="-2909.0" y="382">Metanode</text>
+<rect class="node meta" x="-2925" y="389" width="32" height="32" rx="5"/>
+<text class="lab" x="-2909.0" y="435">Adds constant value</text>
+<text class="lab" x="-2909.0" y="447">columns and sorting</text>
+<text class="name" x="-5164.0" y="-1615">Clean, Join, and</text>
+<text class="name" x="-5164.0" y="-1603">Split Metanode</text>
+<rect class="node meta" x="-5180" y="-1596" width="32" height="32" rx="5"/>
+<text class="name" x="-4514.0" y="-2260">Other Fees</text>
+<text class="name" x="-4514.0" y="-2248">Metanode</text>
+<rect class="node meta" x="-4530" y="-2241" width="32" height="32" rx="5"/>
+<text class="name" x="-3964.0" y="-1265">Accrued Stripe</text>
+<text class="name" x="-3964.0" y="-1253">Costs Metanode</text>
+<rect class="node meta" x="-3980" y="-1246" width="32" height="32" rx="5"/>
+<text class="name" x="-3964.0" y="-1980">Accrued Stripe</text>
+<text class="name" x="-3964.0" y="-1968">Costs Metanode</text>
+<rect class="node meta" x="-3980" y="-1961" width="32" height="32" rx="5"/>
+<text class="name" x="-3014.0" y="-1127">Column</text>
+<text class="name" x="-3014.0" y="-1115">Manipulation</text>
+<text class="name" x="-3014.0" y="-1103">Metanode</text>
+<rect class="node meta" x="-3030" y="-1096" width="32" height="32" rx="5"/>
+<text class="lab" x="-3014.0" y="-1050">Adds constant value</text>
+<text class="lab" x="-3014.0" y="-1038">columns and sorting</text>
+<text class="name" x="-3014.0" y="-1662">Column</text>
+<text class="name" x="-3014.0" y="-1650">Manipulation</text>
+<text class="name" x="-3014.0" y="-1638">Metanode</text>
+<rect class="node meta" x="-3030" y="-1631" width="32" height="32" rx="5"/>
+<text class="lab" x="-3014.0" y="-1585">Adds constant value</text>
+<text class="lab" x="-3014.0" y="-1573">columns and sorting</text>
+</svg>
+</div>
+
+<p class="foot">Redrawn from the workflow file itself. Product and client names in the labels are replaced.</p>
+</main>
+</body>
+</html>

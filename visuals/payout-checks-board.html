@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 16 Checks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="visuals.css">
+
+<meta name="robots" content="noindex, nofollow, noarchive">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q32D4GRSG7');
+</script>
+<script>
+(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "lypopapb7o");
+</script>
+</head>
+<body>
+<main class="frame">
+<p class="back"><a href="../case-studies/payout-checks.html">&larr; Back to the deep dive</a></p>
+
+<p class="kicker">Deep dive · Stripe reconciliation</p>
+<h1>Sixteen checks, four questions</h1>
+<p class="dek">Every check the console runs before it lets me export, grouped by the question it answers, with the results from one real week.</p>
+
+<span class="real">From a real run · amounts removed</span>
+
+<div class="console">
+
+<div class="chead">
+<div class="t">Weekly payout console</div>
+<div class="meta">WEEK ENDING SEP 20, 2026<br>14 PASS · 1 WARN · 1 OVERRIDE</div>
+</div>
+
+<p class="sec">Is everything here?</p>
+<ul class="gates two">
+<li><span class="stamp pass">Pass</span>
+<span class="name">Source view is complete<small>Every category in Stripe's ledger is declared, and no fee-bearing transaction is missing</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Source population accounted for<small>Every category the query returns is declared, and its cost matches</small></span></li>
+<li><span class="stamp over">Override</span>
+<span class="name">No uncategorized fees<small>Every cost row lands in a bucket. Overridden this week: a $0.03 fee with no account</small></span></li>
+<li><span class="stamp warn">Warn</span>
+<span class="name">No unattributable network cost<small>Cost Stripe sends with no client posts to the platform line</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Every account has a NetSuite name<small>No client's cost posts without a name</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Retention invoices supplied<small>The week's retention invoices are in</small></span></li>
+</ul>
+
+<p class="sec">Does it add up?</p>
+<ul class="gates two">
+<li><span class="stamp pass">Pass</span>
+<span class="name">Journal entries balance<small>Debits equal credits in every entry</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Cost reconciles to source<small>Journal lines add back to the Snowflake cost total</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Entity allocation ties<small>Platform cost splits across entities with nothing created or lost</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Retention matches the rec sheet<small>Client by client</small></span></li>
+</ul>
+
+<p class="sec">Could it post wrong, or twice?</p>
+<ul class="gates two">
+<li><span class="stamp pass">Pass</span>
+<span class="name">Nothing already accrued<small>Every row checked against earlier runs by Stripe's own row ID</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">No cost on a provisional account<small>A placeholder account is not a mapping</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Entity validated<small>Checked against journal entries already posted</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">No open findings<small>Nothing recorded as looking off this week</small></span></li>
+</ul>
+
+<p class="sec">Does it look normal?</p>
+<ul class="gates two">
+<li><span class="stamp pass">Pass</span>
+<span class="name">Cost/revenue ratio is plausible<small>A big move means cost and revenue disagree about the week</small></span></li>
+<li><span class="stamp pass">Pass</span>
+<span class="name">Cost composition is stable<small>New, vanished or shifted cost types get flagged</small></span></li>
+</ul>
+
+</div>
+
+<p class="foot">All 16 checks, named as the console names them, with their results from the run for the week ending September 20, 2026. No client data is shown.</p>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inside the 16 checks · Franco Nidea</title>
+<meta name="description" content="The console I built to replace KNIME runs 16 checks before it lets me export a journal entry. Most of them are checks I was still doing by hand every week, even with KNIME running. It&#x27;s still in testing.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Inside the 16 checks · Franco Nidea">
+<meta property="og:description" content="The console I built to replace KNIME runs 16 checks before it lets me export a journal entry. Most of them are checks I was still doing by hand every week, even with KNIME running. It&#x27;s still in testing.">
+<meta property="og:url" content="https://franconidea.com/case-studies/payout-checks.html">
+<meta property="og:image" content="https://franconidea.com/visuals/png/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="../site.css">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q32D4GRSG7');
+</script>
+<script>
+(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "lypopapb7o");
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap wide">
+<a class="brand" href="../index.html">Franco Nidea</a>
+<nav class="site" aria-label="Site">
+<a href="../case-studies/fpa-reporting-package.html">Reporting package</a>
+<a href="../case-studies/stripe-payout-recon.html" aria-current="page">Stripe reconciliation</a>
+<a href="../case-studies/spend-tracker.html">Spend Tracker</a>
+<a href="#contact">Contact</a>
+</nav>
+</div></header>
+<main id="main" tabindex="-1"><div class="wrap">
+<p class="kicker"><a href="stripe-payout-recon.html">Deep dive · Stripe reconciliation</a></p>
+<h1>Inside the 16 checks</h1>
+<p class="meta">The work described here is at TixTrack, where I'm a Senior Financial Analyst.</p>
+
+<p class="lede">The console I built to replace KNIME runs 16 checks before it lets me export a journal entry. Most of them are checks I was still doing by hand every week, even with KNIME running. It's still in testing.</p>
+
+<h2>Why checks</h2>
+<p>KNIME got our weekly Stripe reconciliation from 4 hours a week, and 6 at month end, down to under 30 minutes. But I still checked the output by hand every week, because the run itself couldn't tell me if something had been booked twice.</p>
+
+<p>The hand-typed dates showed why that mattered. One booked week had an extra day in each week range, a day that had already been booked.</p>
+
+<p>So when I specified the console, most of the checks I'd been doing in my head went into it, and now they run every time. There are 16, and it won't let me export until they've all run.</p>
+
+<h2>The 16 checks</h2>
+<p>I think of them as four questions. Each check answers one of them.</p>
+
+<h3>Is everything here?</h3>
+<p>Six checks make sure nothing is missing before anything gets added up.</p>
+
+<ul>
+<li>Source view is complete. Every category in Stripe's ledger is declared, and no transaction with a fee is missing from the detail.</li>
+<li>Source population accounted for. Every category the query returns is declared, and its cost matches what the query pulled.</li>
+<li>No uncategorized fees. Every cost row lands in a bucket. KNIME had a side branch for this.</li>
+<li>No unattributable network cost. Cost that can't be tied to a client gets flagged instead of guessed.</li>
+<li>Every account has a NetSuite name, so no client's cost posts without a name.</li>
+<li>Retention invoices supplied. Revenue and the net amount to pull both need that week's retention invoices from NetSuite.</li>
+</ul>
+
+<h3>Does it add up?</h3>
+<ul>
+<li>Journal entries balance. Debits equal credits in every entry.</li>
+<li>Cost reconciles to source. The journal lines add up to the Snowflake cost total.</li>
+<li>Entity allocation ties. Splitting platform cost across entities doesn't create or lose anything.</li>
+<li>Retention matches the rec sheet, client by client.</li>
+</ul>
+
+<h3>Could it post wrong, or twice?</h3>
+<ul>
+<li>Nothing already accrued. Every row is checked against earlier runs by Stripe's own row ID.</li>
+<li>No cost on a provisional account. An account marked pending is a placeholder waiting on a decision, and it shouldn't carry real cost.</li>
+<li>Entity validated against journal entries that were already posted.</li>
+<li>No open findings. If anyone recorded that something looked off that week, the check won't pass until it's cleared.</li>
+</ul>
+
+<h3>Does it look normal?</h3>
+<ul>
+<li>Cost to revenue ratio is plausible. Cost and revenue are picked by different rules, so a big move means they disagree about which week something belongs to.</li>
+<li>Cost composition is stable. A new fee type, one that disappears or one that shifts a lot gets flagged.</li>
+</ul>
+
+<figure class="breakout diagram full tall">
+<a href="../visuals/payout-checks-board.html"><img src="../visuals/png/payout-checks-board.png" srcset="../visuals/png/payout-checks-board-1000.webp 1000w, ../visuals/png/payout-checks-board-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1000" height="1214" alt="All 16 checks, grouped by the question each one answers, with the results from the run for the week ending September 20. No client data is shown. Opens the diagram as a page, with its text." fetchpriority="high"></a>
+<figcaption aria-hidden="true">All 16 checks, grouped by the question each one answers, with the results from the run for the week ending September 20. No client data is shown. Opens the full diagram.</figcaption>
+</figure>
+
+<h2>One real week</h2>
+<p>The week ending September 20 is the one I have a full run for. 14 checks passed, 1 warned and 1 was overridden.</p>
+
+<p>The warning was network cost that couldn't be tied to a client. Stripe doesn't send all of its fee data into Snowflake, so some fees can't reach a client at the line level. The console posts those to the platform line with no client name and warns me about it, instead of guessing.</p>
+
+<p>The override was an uncategorized fee of $0.03. When a check gets overridden, the reason is written into the run log right next to the numbers it excused.</p>
+
+<p>The reason on this one said to map the fee to an account. Writing that down doesn't map it, though. The fee stayed unmapped and unbooked, and that check will keep failing every week until the mapping gets added.</p>
+
+<h2>Replaying a week</h2>
+<p>Every run saves the exact data it used with a fingerprint, 581 rows for the week ending September 20. Snowflake keeps changing, so without that snapshot I couldn't go back to a week and get the same answer.</p>
+
+<p>The same run checked 228,255 new rows against earlier runs by Stripe's row ID, and none of them had been accrued before.</p>
+
+<p>To test the snapshot, Claude rebuilt the journal entries from it separately, client by client for each payout window, and compared them with the import file. 14 of 16 groups matched to the cent. The other two were the $0.03 fee with no account mapped and $0.01 of rounding.</p>
+
+<h2>The extra day</h2>
+<p>Run in parallel with the manual process, the console exposed an error in one week's booked entry. Hand-typed date windows had given each week range an extra day that was already booked. I flagged it and it got fixed.</p>
+
+<figure class="breakout diagram full">
+<a href="../visuals/payout-extra-day.html"><img src="../visuals/png/payout-extra-day.png" srcset="../visuals/png/payout-extra-day-1000.webp 1000w, ../visuals/png/payout-extra-day-2000.webp 2000w" sizes="(min-width: 820px) min(1040px, calc(100vw - 64px)), calc(100vw - 40px)" width="1000" height="314" alt="An illustration of the pattern, not the real dates: each week range picked up a day that was already in the week before. Opens the diagram as a page, with its text." loading="lazy"></a>
+<figcaption aria-hidden="true">An illustration of the pattern, not the real dates: each week range picked up a day that was already in the week before. Opens the full diagram.</figcaption>
+</figure>
+
+<h2>Designed, not built yet</h2>
+<p>Two parts of the design aren't in the console yet. Both are in progress.</p>
+
+<ul>
+<li>Materiality thresholds that start unset. Until someone sets them, the tie-out comes back unassessed instead of passing, and unassessed blocks posting the same way a failure does. The idea is that a placeholder picked to make a demo look tidy turns into policy by accident.</li>
+<li>An approval step. Nothing posts until a person approves that run, and the approval records the state of every check at that moment.</li>
+</ul>
+
+<h2>Limits and what's next</h2>
+<ul>
+<li>It's still in testing and not posting. The week ending September 20 matches what was booked.</li>
+<li>It writes import files. Posting straight into NetSuite is labeled a later phase and isn't built.</li>
+<li>An override excuses a check. It doesn't fix what the check found.</li>
+<li>Some Stripe fees can't reach a client, because Stripe doesn't send all of its fee data into Snowflake.</li>
+<li>Next are the thresholds and the approval step.</li>
+</ul>
+
+<details class="sources">
+<summary>How these numbers are sourced</summary>
+
+<p>Parsed from the console itself: the 16 checks and what each one tests, from the console page with names and amounts replaced. From its run for the week ending September 20: 14 passed, 1 warned and 1 overridden, the override reason in the run log, the 581-row snapshot and its fingerprint, the 228,255 new rows and none already accrued, the six exports and the posting phase that isn't built. The rebuild of 14 of 16 groups to the cent was recomputed by Claude from that run's snapshot.</p>
+
+<p>From the design spec: the thresholds that start unset and block posting, and the approval step.</p>
+
+<p>My own account: the 4 hours a week, 6 at month end, and under 30 minutes, that most of the checks were ones I still did by hand, that the console is in testing and matches what was booked, the fees that can't reach a client, the extra day and that the thresholds and approval step are only designed so far. Claude wrote the code.</p>
+
+</details>
+
+<p class="back-to"><a href="stripe-payout-recon.html">&larr; Back to the Stripe reconciliation case study</a></p>
+
+<nav class="more" aria-label="More work">
+<h2 class="label">More work</h2>
+<ul>
+<li><a href="fpa-reporting-package.html"><span class="t">The thirty-minute re-run</span><span class="n">Reporting package</span></a></li>
+<li><a href="stripe-payout-recon.html"><span class="t">Three versions of one weekly reconciliation</span><span class="n">Stripe reconciliation</span></a></li>
+<li><a href="spend-tracker.html"><span class="t">A monthly close for our own budget</span><span class="n">Spend Tracker</span></a></li>
+</ul>
+</nav>
+</div></main>
+<footer class="site"><div class="wrap wide">
+<p class="contact" id="contact"><a href="mailto:franco.nidea@gmail.com">franco.nidea@gmail.com</a> · <a href="https://www.linkedin.com/in/franco-nidea/" rel="me">LinkedIn</a></p>
+<p>Every number on this site has a source. Open "How these numbers are sourced" at the end of each case study.</p>
+<p class="privacy">This site uses Google Analytics and Microsoft Clarity, which set cookies, to see how the pages get read. Fonts load from Google Fonts.</p>
+</div></footer>
+</body>
+</html>

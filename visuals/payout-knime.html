@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The KNIME Workflow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="visuals.css">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q32D4GRSG7');
+</script>
+<script>
+(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "lypopapb7o");
+</script>
+</head>
+<body>
+<main class="frame wide-frame">
+<p class="back"><a href="../case-studies/stripe-payout-recon.html">&larr; Back to the case study</a></p>
+
+<p class="kicker">Case study · Stripe payout reconciliation</p>
+<h1>The KNIME workflow, redrawn from the file</h1>
+<p class="dek">The US payout workflow as it sat in KNIME, every node and connection where I placed them. Product and client names in the labels are replaced.</p>
+
+<p class="sec">The top level</p>
+<div class="canvas">
+<svg class="knime" viewBox="-670 -745 2551 2375" width="2551" height="2375" role="img" aria-label="The top level of the US payout workflow in KNIME">
+<rect class="note" x="570" y="-705" width="745" height="65"/>
+<text class="notet" x="578" y="-687">US PAYOUT SUMMARY UPDATED VERSION</text>
+<rect class="note" x="-255" y="50" width="225" height="295"/>
+<text class="notet" x="-247" y="68">Variable Creator: The Start and</text>
+<text class="notet" x="-247" y="82">End dates should have 1 day</text>
+<text class="notet" x="-247" y="96">before and 1 day after the date</text>
+<text class="notet" x="-247" y="110">range to capture all activity</text>
+<text class="notet" x="-247" y="124">Mon-Sun and Sun-Sat date range</text>
+<text class="notet" x="-247" y="138">should be the exact dates (no</text>
+<text class="notet" x="-247" y="152">need to add a day) Snowflake</text>
+<text class="notet" x="-247" y="166">Connector Edit the node to use</text>
+<text class="notet" x="-247" y="180">your credentials</text>
+<rect class="note" x="305" y="1310" width="275" height="230"/>
+<text class="notet" x="313" y="1328">CHECKER in case any additional fees pop</text>
+<text class="notet" x="313" y="1342">up</text>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,279.0 371,279.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,1019.0 371,1019.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,1440.0 371,1440.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,1159.0 371,1159.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,-271.0 371,-271.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,139.0 371,139.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,4.0 371,4.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,-126.0 371,-126.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,704.0 371,704.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,569.0 371,569.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,859.0 371,859.0"/>
+<path class="conn" d="M43,269.0 C207.0,269.0 207.0,424.0 371,424.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,279.0 371,279.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,1159.0 371,1159.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,1440.0 371,1440.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,1019.0 371,1019.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,859.0 371,859.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,569.0 371,569.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,704.0 371,704.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,-126.0 371,-126.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,4.0 371,4.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,139.0 371,139.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,-271.0 371,-271.0"/>
+<path class="conn" d="M43,119.0 C207.0,119.0 207.0,424.0 371,424.0"/>
+<path class="conn" d="M403,279.0 C439.5,279.0 439.5,279.0 476,279.0"/>
+<path class="conn" d="M508,279.0 C574.5,279.0 574.5,279.0 641,279.0"/>
+<path class="conn" d="M673,279.0 C942.0,279.0 942.0,279.0 1211,279.0"/>
+<path class="conn" d="M673,279.0 C942.0,279.0 942.0,279.0 1211,279.0"/>
+<path class="conn" d="M673,279.0 C942.0,279.0 942.0,279.0 1211,279.0"/>
+<path class="conn" d="M673,279.0 C942.0,279.0 942.0,279.0 1211,279.0"/>
+<path class="conn" d="M673,279.0 C804.5,279.0 804.5,1339.0 936,1339.0"/>
+<path class="conn" d="M673,279.0 C804.5,279.0 804.5,1339.0 936,1339.0"/>
+<path class="conn" d="M673,279.0 C799.5,279.0 799.5,-541.0 926,-541.0"/>
+<path class="conn" d="M673,279.0 C799.5,279.0 799.5,-541.0 926,-541.0"/>
+<path class="conn" d="M508,-126.0 C574.5,-126.0 574.5,-126.0 641,-126.0"/>
+<path class="conn" d="M403,-126.0 C439.5,-126.0 439.5,-126.0 476,-126.0"/>
+<path class="conn" d="M673,-126.0 C799.5,-126.0 799.5,-541.0 926,-541.0"/>
+<path class="conn" d="M673,-126.0 C799.5,-126.0 799.5,-541.0 926,-541.0"/>
+<path class="conn" d="M673,-126.0 C804.5,-126.0 804.5,1339.0 936,1339.0"/>
+<path class="conn" d="M673,-126.0 C804.5,-126.0 804.5,1339.0 936,1339.0"/>
+<path class="conn" d="M673,-126.0 C942.0,-126.0 942.0,-126.0 1211,-126.0"/>
+<path class="conn" d="M673,-126.0 C942.0,-126.0 942.0,-126.0 1211,-126.0"/>
+<path class="conn" d="M673,-126.0 C942.0,-126.0 942.0,-126.0 1211,-126.0"/>
+<path class="conn" d="M673,-126.0 C942.0,-126.0 942.0,-126.0 1211,-126.0"/>
+<path class="conn" d="M403,4.0 C439.5,4.0 439.5,4.0 476,4.0"/>
+<path class="conn" d="M508,4.0 C574.5,4.0 574.5,4.0 641,4.0"/>
+<path class="conn" d="M673,4.0 C804.5,4.0 804.5,1339.0 936,1339.0"/>
+<path class="conn" d="M673,4.0 C799.5,4.0 799.5,-541.0 926,-541.0"/>
+<path class="conn" d="M673,4.0 C1217.0,4.0 1217.0,4.0 1761,4.0"/>
+<path class="conn" d="M403,139.0 C439.5,139.0 439.5,139.0 476,139.0"/>
+<path class="conn" d="M508,139.0 C574.5,139.0 574.5,139.0 641,139.0"/>
+<path class="conn" d="M673,139.0 C1217.0,139.0 1217.0,139.0 1761,139.0"/>
+<path class="conn" d="M508,859.0 C574.5,859.0 574.5,859.0 641,859.0"/>
+<path class="conn" d="M508,-271.0 C574.5,-271.0 574.5,-271.0 641,-271.0"/>
+<path class="conn" d="M403,-271.0 C439.5,-271.0 439.5,-271.0 476,-271.0"/>
+<path class="conn" d="M403,859.0 C439.5,859.0 439.5,859.0 476,859.0"/>
+<path class="conn" d="M673,-271.0 C942.0,-271.0 942.0,-271.0 1211,-271.0"/>
+<path class="conn" d="M673,-271.0 C942.0,-271.0 942.0,-271.0 1211,-271.0"/>
+<path class="conn" d="M673,-271.0 C942.0,-271.0 942.0,-271.0 1211,-271.0"/>
+<path class="conn" d="M673,-271.0 C942.0,-271.0 942.0,-271.0 1211,-271.0"/>
+<path class="conn" d="M403,569.0 C439.5,569.0 439.5,569.0 476,569.0"/>
+<path class="conn" d="M673,569.0 C942.0,569.0 942.0,569.0 1211,569.0"/>
+<path class="conn" d="M673,569.0 C942.0,569.0 942.0,569.0 1211,569.0"/>
+<path class="conn" d="M673,569.0 C942.0,569.0 942.0,569.0 1211,569.0"/>
+<path class="conn" d="M673,569.0 C942.0,569.0 942.0,569.0 1211,569.0"/>
+<path class="conn" d="M673,569.0 C799.5,569.0 799.5,-541.0 926,-541.0"/>
+<path class="conn" d="M673,569.0 C799.5,569.0 799.5,-541.0 926,-541.0"/>
+<path class="conn" d="M508,569.0 C574.5,569.0 574.5,569.0 641,569.0"/>
+<path class="conn" d="M673,859.0 C1217.0,859.0 1217.0,859.0 1761,859.0"/>
+<path class="conn" d="M403,704.0 C439.5,704.0 439.5,704.0 476,704.0"/>
+<path class="conn" d="M508,704.0 C574.5,704.0 574.5,704.0 641,704.0"/>
+<path class="conn" d="M673,704.0 C1217.0,704.0 1217.0,704.0 1761,704.0"/>
+<path class="conn" d="M673,704.0 C799.5,704.0 799.5,-541.0 926,-541.0"/>
+<path class="conn" d="M958,-541.0 C989.5,-541.0 989.5,-541.0 1021,-541.0"/>
+<path class="conn" d="M403,424.0 C439.5,424.0 439.5,424.0 476,424.0"/>
+<path class="conn" d="M673,424.0 C799.5,424.0 799.5,-541.0 926,-541.0"/>
+<path class="conn" d="M673,424.0 C799.5,424.0 799.5,-541.0 926,-541.0"/>
+<path class="conn" d="M673,424.0 C804.5,424.0 804.5,1339.0 936,1339.0"/>
+<path class="conn" d="M673,424.0 C804.5,424.0 804.5,1339.0 936,1339.0"/>
+<path class="conn" d="M673,424.0 C942.0,424.0 942.0,424.0 1211,424.0"/>
+<path class="conn" d="M673,424.0 C942.0,424.0 942.0,424.0 1211,424.0"/>
+<path class="conn" d="M673,424.0 C942.0,424.0 942.0,424.0 1211,424.0"/>
+<path class="conn" d="M673,424.0 C942.0,424.0 942.0,424.0 1211,424.0"/>
+<path class="conn" d="M508,424.0 C574.5,424.0 574.5,424.0 641,424.0"/>
+<path class="conn" d="M968,1339.0 C999.5,1339.0 999.5,1339.0 1031,1339.0"/>
+<path class="conn" d="M1053,-541.0 C1084.5,-541.0 1084.5,-541.0 1116,-541.0"/>
+<path class="conn" d="M1248,-541.0 C1354.5,-541.0 1354.5,354.0 1461,354.0"/>
+<path class="conn" d="M1148,-541.0 C1182.0,-541.0 1182.0,-541.0 1216,-541.0"/>
+<path class="conn" d="M1258,1339.0 C1359.5,1339.0 1359.5,354.0 1461,354.0"/>
+<path class="conn" d="M1158,1339.0 C1192.0,1339.0 1192.0,1339.0 1226,1339.0"/>
+<path class="conn" d="M1063,1339.0 C1094.5,1339.0 1094.5,1339.0 1126,1339.0"/>
+<path class="conn" d="M1493,354.0 C1627.0,354.0 1627.0,139.0 1761,139.0"/>
+<path class="conn" d="M1493,354.0 C1627.0,354.0 1627.0,139.0 1761,139.0"/>
+<path class="conn" d="M1493,354.0 C1627.0,354.0 1627.0,859.0 1761,859.0"/>
+<path class="conn" d="M1493,354.0 C1627.0,354.0 1627.0,859.0 1761,859.0"/>
+<path class="conn" d="M1493,354.0 C1627.0,354.0 1627.0,4.0 1761,4.0"/>
+<path class="conn" d="M1493,354.0 C1627.0,354.0 1627.0,4.0 1761,4.0"/>
+<path class="conn" d="M403,1019.0 C439.5,1019.0 439.5,1019.0 476,1019.0"/>
+<path class="conn" d="M508,1019.0 C1134.5,1019.0 1134.5,1019.0 1761,1019.0"/>
+<path class="conn" d="M508,1159.0 C574.5,1159.0 574.5,1159.0 641,1159.0"/>
+<path class="conn" d="M403,1159.0 C439.5,1159.0 439.5,1159.0 476,1159.0"/>
+<path class="conn" d="M403,1440.0 C439.5,1440.0 439.5,1440.0 476,1440.0"/>
+<path class="conn" d="M673,1159.0 C1217.0,1159.0 1217.0,1159.0 1761,1159.0"/>
+<text class="name" x="27.0" y="234">Snowflake</text>
+<text class="name" x="27.0" y="246">Connector</text>
+<rect class="node db" x="11" y="253" width="32" height="32" rx="5"/>
+<text class="name" x="27.0" y="96">Variable Creator</text>
+<rect class="node var" x="11" y="103" width="32" height="32" rx="5"/>
+<text class="name" x="387.0" y="244">DB Table Selector</text>
+<text class="name" x="387.0" y="256">_deprecated_</text>
+<rect class="node db" x="371" y="263" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="309">US - Volume Fees</text>
+<text class="name" x="492.0" y="256">DB Reader</text>
+<rect class="node db" x="476" y="263" width="32" height="32" rx="5"/>
+<text class="name" x="657.0" y="244">Tableau Workflow</text>
+<text class="name" x="657.0" y="256">Replacement</text>
+<rect class="node meta" x="641" y="263" width="32" height="32" rx="5"/>
+<text class="name" x="492.0" y="-149">DB Reader</text>
+<rect class="node db" x="476" y="-142" width="32" height="32" rx="5"/>
+<text class="name" x="387.0" y="-161">DB Table Selector</text>
+<text class="name" x="387.0" y="-149">_deprecated_</text>
+<rect class="node db" x="371" y="-142" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="-96">US - Network Costs</text>
+<text class="name" x="657.0" y="-161">Tableau Workflow</text>
+<text class="name" x="657.0" y="-149">Replacement</text>
+<rect class="node meta" x="641" y="-142" width="32" height="32" rx="5"/>
+<text class="name" x="387.0" y="-31">DB Table Selector</text>
+<text class="name" x="387.0" y="-19">_deprecated_</text>
+<rect class="node db" x="371" y="-12" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="34">UK - Network Costs -</text>
+<text class="lab" x="387.0" y="46">NULL in UTC</text>
+<text class="name" x="492.0" y="-19">DB Reader</text>
+<rect class="node db" x="476" y="-12" width="32" height="32" rx="5"/>
+<text class="name" x="657.0" y="-31">Tableau Workflow</text>
+<text class="name" x="657.0" y="-19">Replacement</text>
+<rect class="node meta" x="641" y="-12" width="32" height="32" rx="5"/>
+<text class="lab" x="657.0" y="34">Added any null in</text>
+<text class="lab" x="657.0" y="46">Rule-Based row filter</text>
+<text class="lab" x="657.0" y="58">for Mon-Sun date range</text>
+<text class="lab" x="657.0" y="70">REMOVED CLASS SPLIT</text>
+<text class="name" x="387.0" y="104">DB Table Selector</text>
+<text class="name" x="387.0" y="116">_deprecated_</text>
+<rect class="node db" x="371" y="123" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="169">UK Other Network Costs</text>
+<text class="lab" x="387.0" y="181">in UTC</text>
+<text class="name" x="492.0" y="116">DB Reader</text>
+<rect class="node db" x="476" y="123" width="32" height="32" rx="5"/>
+<text class="name" x="657.0" y="104">Tableau Workflow</text>
+<text class="name" x="657.0" y="116">Replacement</text>
+<rect class="node meta" x="641" y="123" width="32" height="32" rx="5"/>
+<text class="lab" x="657.0" y="169">Added any null in</text>
+<text class="lab" x="657.0" y="181">Rule-Based row filter</text>
+<text class="lab" x="657.0" y="193">for Mon-Sun date range</text>
+<text class="lab" x="657.0" y="205">REMOVED CLASS SPLIT</text>
+<text class="name" x="492.0" y="836">DB Reader</text>
+<rect class="node db" x="476" y="843" width="32" height="32" rx="5"/>
+<text class="name" x="492.0" y="-294">DB Reader</text>
+<rect class="node db" x="476" y="-287" width="32" height="32" rx="5"/>
+<text class="name" x="387.0" y="-306">DB Table Selector</text>
+<text class="name" x="387.0" y="-294">_deprecated_</text>
+<rect class="node db" x="371" y="-287" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="-241">US - Platform Earnings</text>
+<text class="name" x="387.0" y="824">DB Table Selector</text>
+<text class="name" x="387.0" y="836">_deprecated_</text>
+<rect class="node db" x="371" y="843" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="889">US Other Fees in UTC</text>
+<text class="name" x="657.0" y="-306">Tableau Workflow</text>
+<text class="name" x="657.0" y="-294">Replacement</text>
+<rect class="node meta" x="641" y="-287" width="32" height="32" rx="5"/>
+<text class="name" x="387.0" y="534">DB Table Selector</text>
+<text class="name" x="387.0" y="546">_deprecated_</text>
+<rect class="node db" x="371" y="553" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="599">US - Blended Fees</text>
+<text class="name" x="657.0" y="534">Tableau Workflow</text>
+<text class="name" x="657.0" y="546">Replacement</text>
+<rect class="node meta" x="641" y="553" width="32" height="32" rx="5"/>
+<text class="name" x="492.0" y="546">DB Reader</text>
+<rect class="node db" x="476" y="553" width="32" height="32" rx="5"/>
+<text class="name" x="657.0" y="824">Tableau Workflow</text>
+<text class="name" x="657.0" y="836">Replacement</text>
+<rect class="node meta" x="641" y="843" width="32" height="32" rx="5"/>
+<text class="lab" x="657.0" y="889">Added any null in</text>
+<text class="lab" x="657.0" y="901">Rule-Based row filter</text>
+<text class="lab" x="657.0" y="913">for Mon-Sun date range</text>
+<text class="lab" x="657.0" y="925">REMOVED CLASS SPLIT</text>
+<text class="name" x="387.0" y="669">DB Table Selector</text>
+<text class="name" x="387.0" y="681">_deprecated_</text>
+<rect class="node db" x="371" y="688" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="734">US - Blended Fees NULL</text>
+<text class="lab" x="387.0" y="746">in UTC</text>
+<text class="name" x="492.0" y="681">DB Reader</text>
+<rect class="node db" x="476" y="688" width="32" height="32" rx="5"/>
+<text class="name" x="657.0" y="669">Tableau Workflow</text>
+<text class="name" x="657.0" y="681">Replacement</text>
+<rect class="node meta" x="641" y="688" width="32" height="32" rx="5"/>
+<text class="lab" x="657.0" y="734">Added any null in</text>
+<text class="lab" x="657.0" y="746">Rule-Based row filter</text>
+<text class="lab" x="657.0" y="758">for Mon-Sun date range</text>
+<text class="lab" x="657.0" y="770">REMOVED CLASS SPLIT</text>
+<text class="name" x="942.0" y="-576">Fees Table</text>
+<text class="name" x="942.0" y="-564">Metanode</text>
+<rect class="node meta" x="926" y="-557" width="32" height="32" rx="5"/>
+<text class="lab" x="942.0" y="-511">Product A</text>
+<text class="lab" x="942.0" y="-499">Creates the pivot table</text>
+<text class="lab" x="942.0" y="-487">for the Fees Table tab</text>
+<text class="name" x="387.0" y="389">DB Table Selector</text>
+<text class="name" x="387.0" y="401">_deprecated_</text>
+<rect class="node db" x="371" y="408" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="454">US - Processing Fees</text>
+<text class="name" x="657.0" y="389">Tableau Workflow</text>
+<text class="name" x="657.0" y="401">Replacement</text>
+<rect class="node meta" x="641" y="408" width="32" height="32" rx="5"/>
+<text class="name" x="492.0" y="401">DB Reader</text>
+<rect class="node db" x="476" y="408" width="32" height="32" rx="5"/>
+<text class="name" x="952.0" y="1304">Fees Table</text>
+<text class="name" x="952.0" y="1316">Metanode</text>
+<rect class="node meta" x="936" y="1323" width="32" height="32" rx="5"/>
+<text class="lab" x="952.0" y="1369">Creates the pivot table</text>
+<text class="lab" x="952.0" y="1381">for the Fees Table tab</text>
+<text class="name" x="1227.0" y="-306">Platform Earnings</text>
+<text class="name" x="1227.0" y="-294">Metanode</text>
+<rect class="node meta" x="1211" y="-287" width="32" height="32" rx="5"/>
+<text class="lab" x="1227.0" y="-241">Writes to individual</text>
+<text class="lab" x="1227.0" y="-229">Excel files</text>
+<text class="lab" x="1227.0" y="-217">and saves in</text>
+<text class="lab" x="1227.0" y="-205">corresponding Master</text>
+<text class="name" x="1227.0" y="-161">Network Costs</text>
+<text class="name" x="1227.0" y="-149">Metanode</text>
+<rect class="node meta" x="1211" y="-142" width="32" height="32" rx="5"/>
+<text class="lab" x="1227.0" y="-96">Writes to individual</text>
+<text class="lab" x="1227.0" y="-84">Excel files</text>
+<text class="lab" x="1227.0" y="-72">and saves in</text>
+<text class="lab" x="1227.0" y="-60">corresponding Master</text>
+<text class="name" x="1777.0" y="-31">Network Costs -</text>
+<text class="name" x="1777.0" y="-19">Null Metanode</text>
+<rect class="node meta" x="1761" y="-12" width="32" height="32" rx="5"/>
+<text class="lab" x="1777.0" y="34">Writes to individual</text>
+<text class="lab" x="1777.0" y="46">Excel files</text>
+<text class="lab" x="1777.0" y="58">and saves in</text>
+<text class="lab" x="1777.0" y="70">corresponding Master</text>
+<text class="name" x="1227.0" y="244">Volume Fees</text>
+<text class="name" x="1227.0" y="256">Metanode</text>
+<rect class="node meta" x="1211" y="263" width="32" height="32" rx="5"/>
+<text class="lab" x="1227.0" y="309">Writes to individual</text>
+<text class="lab" x="1227.0" y="321">Excel files</text>
+<text class="lab" x="1227.0" y="333">and saves in</text>
+<text class="lab" x="1227.0" y="345">corresponding Master</text>
+<text class="name" x="1227.0" y="389">Processing Fees</text>
+<text class="name" x="1227.0" y="401">Metanode</text>
+<rect class="node meta" x="1211" y="408" width="32" height="32" rx="5"/>
+<text class="lab" x="1227.0" y="454">Writes to individual</text>
+<text class="lab" x="1227.0" y="466">Excel files</text>
+<text class="lab" x="1227.0" y="478">and saves in</text>
+<text class="lab" x="1227.0" y="490">corresponding Master</text>
+<text class="name" x="1227.0" y="534">Blended Fees</text>
+<text class="name" x="1227.0" y="546">Metanode</text>
+<rect class="node meta" x="1211" y="553" width="32" height="32" rx="5"/>
+<text class="lab" x="1227.0" y="599">Writes to individual</text>
+<text class="lab" x="1227.0" y="611">Excel files</text>
+<text class="lab" x="1227.0" y="623">and saves in</text>
+<text class="lab" x="1227.0" y="635">corresponding Master</text>
+<text class="name" x="1777.0" y="104">Other Network</text>
+<text class="name" x="1777.0" y="116">Costs Metanode</text>
+<rect class="node meta" x="1761" y="123" width="32" height="32" rx="5"/>
+<text class="lab" x="1777.0" y="169">Writes to individual</text>
+<text class="lab" x="1777.0" y="181">Excel files</text>
+<text class="lab" x="1777.0" y="193">and saves in</text>
+<text class="lab" x="1777.0" y="205">corresponding Master</text>
+<text class="name" x="1777.0" y="669">Blended Fees -</text>
+<text class="name" x="1777.0" y="681">Null Metanode</text>
+<rect class="node meta" x="1761" y="688" width="32" height="32" rx="5"/>
+<text class="lab" x="1777.0" y="734">Writes to individual</text>
+<text class="lab" x="1777.0" y="746">Excel files</text>
+<text class="lab" x="1777.0" y="758">and saves in</text>
+<text class="lab" x="1777.0" y="770">corresponding Master</text>
+<text class="name" x="1777.0" y="824">Other Fees</text>
+<text class="name" x="1777.0" y="836">Metanode</text>
+<rect class="node meta" x="1761" y="843" width="32" height="32" rx="5"/>
+<text class="lab" x="1777.0" y="889">Writes to individual</text>
+<text class="lab" x="1777.0" y="901">Excel files</text>
+<text class="lab" x="1777.0" y="913">and saves in</text>
+<text class="lab" x="1777.0" y="925">corresponding Master</text>
+<text class="name" x="1037.0" y="-564">Row Filter</text>
+<rect class="node manip" x="1021" y="-557" width="32" height="32" rx="5"/>
+<text class="name" x="1232.0" y="-564">GroupBy</text>
+<rect class="node manip" x="1216" y="-557" width="32" height="32" rx="5"/>
+<text class="lab" x="1232.0" y="-511">Total allocated Product</text>
+<text class="lab" x="1232.0" y="-499">A costs</text>
+<text class="name" x="1132.0" y="-564">Column Aggregator</text>
+<rect class="node manip" x="1116" y="-557" width="32" height="32" rx="5"/>
+<text class="name" x="1242.0" y="1316">GroupBy</text>
+<rect class="node manip" x="1226" y="1323" width="32" height="32" rx="5"/>
+<text class="lab" x="1242.0" y="1369">Total allocated Product</text>
+<text class="lab" x="1242.0" y="1381">B costs</text>
+<text class="name" x="1142.0" y="1316">Column Aggregator</text>
+<rect class="node manip" x="1126" y="1323" width="32" height="32" rx="5"/>
+<text class="name" x="1047.0" y="1316">Row Filter</text>
+<rect class="node manip" x="1031" y="1323" width="32" height="32" rx="5"/>
+<text class="name" x="1477.0" y="319">Allocation</text>
+<text class="name" x="1477.0" y="331">Metanode</text>
+<rect class="node meta" x="1461" y="338" width="32" height="32" rx="5"/>
+<text class="lab" x="1477.0" y="384">Gets the allocation</text>
+<text class="lab" x="1477.0" y="396">percentages</text>
+<text class="lab" x="1477.0" y="408">for Product A and</text>
+<text class="lab" x="1477.0" y="420">Product B</text>
+<text class="name" x="387.0" y="984">DB Table Selector</text>
+<text class="name" x="387.0" y="996">_deprecated_</text>
+<rect class="node db" x="371" y="1003" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="1049">US Client A Transfer</text>
+<text class="name" x="492.0" y="996">DB Reader</text>
+<rect class="node db" x="476" y="1003" width="32" height="32" rx="5"/>
+<text class="name" x="1777.0" y="996">Excel Writer</text>
+<rect class="node sink" x="1761" y="1003" width="32" height="32" rx="5"/>
+<text class="lab" x="1777.0" y="1049">Writes Transfer tab</text>
+<text class="lab" x="1777.0" y="1061">for Client A</text>
+<text class="name" x="1777.0" y="1136">Excel Writer</text>
+<rect class="node sink" x="1761" y="1143" width="32" height="32" rx="5"/>
+<text class="lab" x="1777.0" y="1189">Writes Other Adjustment</text>
+<text class="lab" x="1777.0" y="1201">tab</text>
+<text class="name" x="492.0" y="1136">DB Reader</text>
+<rect class="node db" x="476" y="1143" width="32" height="32" rx="5"/>
+<text class="name" x="387.0" y="1124">DB Table Selector</text>
+<text class="name" x="387.0" y="1136">_deprecated_</text>
+<rect class="node db" x="371" y="1143" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="1189">US Other Adjustment in</text>
+<text class="lab" x="387.0" y="1201">UTC</text>
+<text class="name" x="492.0" y="1417">DB Reader</text>
+<rect class="node db" x="476" y="1424" width="32" height="32" rx="5"/>
+<text class="name" x="387.0" y="1405">DB Table Selector</text>
+<text class="name" x="387.0" y="1417">_deprecated_</text>
+<rect class="node db" x="371" y="1424" width="32" height="32" rx="5"/>
+<text class="lab" x="387.0" y="1470">OTHER FEES NOT CAPTURED</text>
+<text class="name" x="657.0" y="1124">Tableau Workflow</text>
+<text class="name" x="657.0" y="1136">Replacement</text>
+<rect class="node meta" x="641" y="1143" width="32" height="32" rx="5"/>
+<text class="lab" x="657.0" y="1189">Added any null in</text>
+<text class="lab" x="657.0" y="1201">Rule-Based row filter</text>
+<text class="lab" x="657.0" y="1213">for Mon-Sun date range</text>
+<text class="lab" x="657.0" y="1225">REMOVED CLASS SPLIT</text>
+<rect class="ring" x="6" y="98" width="42" height="42" rx="7"/>
+<path class="lead" d="M27.0,140 L27.0,162 L-11,162 L-11,400 L-140,400 L-140,430"/>
+<rect class="call" x="-600" y="430" width="520" height="306" rx="4"/>
+<text class="callh" x="-588" y="452">Every run starts here, typed by hand</text>
+<text class="callt" x="-588" y="472">Ten parameters go in by hand at the start of every run, six of them</text>
+<text class="callt" x="-588" y="487">dates, and nothing checks them. Hand-typed date windows like these once</text>
+<text class="callt" x="-588" y="502">gave each week range an extra day that was already booked.</text>
+<rect class="tbl" x="-592" y="514" width="504" height="202"/>
+<text class="callth" x="-588" y="527">Variable</text>
+<text class="callth" x="-470" y="527">Type</text>
+<text class="callth" x="-404" y="527">Value</text>
+<line class="tblr" x1="-592" x2="-88" y1="532" y2="532"/>
+<text class="callp" x="-588" y="545">StartDate</text>
+<text class="callp" x="-470" y="545">String</text>
+<text class="callp" x="-404" y="545">2025-12-13</text>
+<line class="tblr" x1="-592" x2="-88" y1="550" y2="550"/>
+<text class="callp" x="-588" y="563">EndDate</text>
+<text class="callp" x="-470" y="563">String</text>
+<text class="callp" x="-404" y="563">2025-12-22</text>
+<line class="tblr" x1="-592" x2="-88" y1="568" y2="568"/>
+<text class="callp" x="-588" y="581">timezone</text>
+<text class="callp" x="-470" y="581">String</text>
+<text class="callp" x="-404" y="581">UTC</text>
+<line class="tblr" x1="-592" x2="-88" y1="586" y2="586"/>
+<text class="callp" x="-588" y="599">merchant_id</text>
+<text class="callp" x="-470" y="599">String</text>
+<text class="callp" x="-404" y="599">acct_••••••••••</text>
+<line class="tblr" x1="-592" x2="-88" y1="604" y2="604"/>
+<text class="callp" x="-588" y="617">timezone2</text>
+<text class="callp" x="-470" y="617">String</text>
+<text class="callp" x="-404" y="617">UTC</text>
+<line class="tblr" x1="-592" x2="-88" y1="622" y2="622"/>
+<text class="callp" x="-588" y="635">MonSunStart</text>
+<text class="callp" x="-470" y="635">String</text>
+<text class="callp" x="-404" y="635">2025-12-15</text>
+<line class="tblr" x1="-592" x2="-88" y1="640" y2="640"/>
+<text class="callp" x="-588" y="653">MonSunEnd</text>
+<text class="callp" x="-470" y="653">String</text>
+<text class="callp" x="-404" y="653">2025-12-21</text>
+<line class="tblr" x1="-592" x2="-88" y1="658" y2="658"/>
+<text class="callp" x="-588" y="671">SunSatStart</text>
+<text class="callp" x="-470" y="671">String</text>
+<text class="callp" x="-404" y="671">2025-12-14</text>
+<line class="tblr" x1="-592" x2="-88" y1="676" y2="676"/>
+<text class="callp" x="-588" y="689">SunSatEnd</text>
+<text class="callp" x="-470" y="689">String</text>
+<text class="callp" x="-404" y="689">2025-12-20</text>
+<line class="tblr" x1="-592" x2="-88" y1="694" y2="694"/>
+<text class="callp" x="-588" y="707">PathStart</text>
+<text class="callp" x="-470" y="707">String</text>
+<text class="callp" x="-404" y="707">G:\…\</text>
+</svg>
+</div>
+
+<p class="sec">Inside one of the ten copies of the Tableau replacement step</p>
+<div class="canvas">
+<svg class="knime" viewBox="-965 9 1825 595" width="1825" height="595" role="img" aria-label="Inside one copy of the Tableau Workflow Replacement sub-workflow">
+<path class="conn" d="M-138,290.0 C-66.5,290.0 -66.5,175.0 5,175.0"/>
+<path class="conn" d="M317,175.0 C428.5,175.0 428.5,530.0 540,530.0"/>
+<path class="conn" d="M317,175.0 C388.5,175.0 388.5,175.0 460,175.0"/>
+<path class="conn" d="M-313,180.0 C-241.5,180.0 -241.5,290.0 -170,290.0"/>
+<path class="conn" d="M-313,180.0 C-239.0,180.0 -239.0,65.0 -165,65.0"/>
+<path class="conn" d="M37,175.0 C161.0,175.0 161.0,175.0 285,175.0"/>
+<path class="conn" d="M37,175.0 C186.0,175.0 186.0,65.0 335,65.0"/>
+<path class="conn" d="M617,175.0 C676.0,175.0 676.0,95.0 735,95.0"/>
+<path class="conn" d="M617,175.0 C678.5,175.0 678.5,300.0 740,300.0"/>
+<path class="conn" d="M-863,340.0 C-800.5,340.0 -800.5,366.0 -738,366.0"/>
+<path class="conn" d="M-863,490.0 C-834.0,490.0 -834.0,490.0 -805,490.0"/>
+<path class="conn" d="M-133,65.0 C-64.0,65.0 -64.0,175.0 5,175.0"/>
+<path class="conn" d="M-568,180.0 C-519.0,180.0 -519.0,180.0 -470,180.0"/>
+<path class="conn" d="M-773,490.0 C-755.5,490.0 -755.5,366.0 -738,366.0"/>
+<path class="conn" d="M-706,366.0 C-653.0,366.0 -653.0,180.0 -600,180.0"/>
+<path class="conn" d="M492,175.0 C538.5,175.0 538.5,175.0 585,175.0"/>
+<path class="conn" d="M-438,180.0 C-391.5,180.0 -391.5,180.0 -345,180.0"/>
+<text class="name" x="-154.0" y="255">Rule_based Row</text>
+<text class="name" x="-154.0" y="267">Filter</text>
+<rect class="node manip" x="-170" y="274" width="32" height="32" rx="5"/>
+<text class="lab" x="-154.0" y="320">Filters based on Sun-Sat</text>
+<text class="lab" x="-154.0" y="332">date range</text>
+<text class="name" x="556.0" y="507">Row Aggregator</text>
+<rect class="node manip" x="540" y="514" width="32" height="32" rx="5"/>
+<text class="lab" x="556.0" y="560">CHECKER</text>
+<text class="name" x="301.0" y="152">GroupBy</text>
+<rect class="node manip" x="285" y="159" width="32" height="32" rx="5"/>
+<text class="lab" x="301.0" y="205">Sums up per date and</text>
+<text class="lab" x="301.0" y="217">client</text>
+<text class="name" x="-329.0" y="157">Column Filter</text>
+<rect class="node manip" x="-345" y="164" width="32" height="32" rx="5"/>
+<text class="lab" x="-329.0" y="210">Filters for columns</text>
+<text class="lab" x="-329.0" y="222">needed</text>
+<text class="name" x="21.0" y="152">Concatenate</text>
+<rect class="node manip" x="5" y="159" width="32" height="32" rx="5"/>
+<text class="lab" x="21.0" y="205">Combines Mon-Sun and</text>
+<text class="lab" x="21.0" y="217">Sun-Sat transactions</text>
+<text class="name" x="351.0" y="42">Row Aggregator</text>
+<rect class="node manip" x="335" y="49" width="32" height="32" rx="5"/>
+<text class="lab" x="351.0" y="95">CHECKER</text>
+<text class="name" x="601.0" y="152">Row Splitter</text>
+<rect class="node manip" x="585" y="159" width="32" height="32" rx="5"/>
+<text class="lab" x="601.0" y="205">Splits Product A and</text>
+<text class="lab" x="601.0" y="217">Product B</text>
+<text class="name" x="-879.0" y="317">Excel Reader</text>
+<rect class="node manip" x="-895" y="324" width="32" height="32" rx="5"/>
+<text class="lab" x="-879.0" y="370">Adds the Weekly Fees</text>
+<text class="lab" x="-879.0" y="382">Client List</text>
+<text class="lab" x="-879.0" y="394">to get the range for</text>
+<text class="lab" x="-879.0" y="406">each client</text>
+<text class="name" x="-879.0" y="467">Excel Reader</text>
+<rect class="node manip" x="-895" y="474" width="32" height="32" rx="5"/>
+<text class="lab" x="-879.0" y="520">Adds the UA Lookup so we</text>
+<text class="lab" x="-879.0" y="532">can classify</text>
+<text class="lab" x="-879.0" y="544">if account is Product A</text>
+<text class="lab" x="-879.0" y="556">or Product B</text>
+<text class="name" x="-149.0" y="30">Rule_based Row</text>
+<text class="name" x="-149.0" y="42">Filter</text>
+<rect class="node manip" x="-165" y="49" width="32" height="32" rx="5"/>
+<text class="lab" x="-149.0" y="95">Filters based on Mon-Sun</text>
+<text class="lab" x="-149.0" y="107">date range</text>
+<text class="name" x="-584.0" y="157">Joiner</text>
+<rect class="node manip" x="-600" y="164" width="32" height="32" rx="5"/>
+<text class="lab" x="-584.0" y="210">Joins transactions data</text>
+<text class="lab" x="-584.0" y="222">with</text>
+<text class="lab" x="-584.0" y="234">data for Class, Weekly</text>
+<text class="lab" x="-584.0" y="246">Range</text>
+<text class="name" x="-789.0" y="455">Duplicate Row</text>
+<text class="name" x="-789.0" y="467">Filter</text>
+<rect class="node manip" x="-805" y="474" width="32" height="32" rx="5"/>
+<text class="name" x="751.0" y="72">Row Splitter</text>
+<rect class="node manip" x="735" y="79" width="32" height="32" rx="5"/>
+<text class="lab" x="751.0" y="125">Product A</text>
+<text class="lab" x="751.0" y="137">Splits Mon-Sun and</text>
+<text class="lab" x="751.0" y="149">Sun-Sat</text>
+<text class="name" x="756.0" y="277">Row Splitter</text>
+<rect class="node manip" x="740" y="284" width="32" height="32" rx="5"/>
+<text class="lab" x="756.0" y="330">Product B</text>
+<text class="lab" x="756.0" y="342">Splits Mon-Sun and</text>
+<text class="lab" x="756.0" y="354">Sun-Sat</text>
+<text class="name" x="-722.0" y="343">Joiner</text>
+<rect class="node manip" x="-738" y="350" width="32" height="32" rx="5"/>
+<text class="name" x="476.0" y="152">Column Resorter</text>
+<rect class="node manip" x="460" y="159" width="32" height="32" rx="5"/>
+<text class="name" x="-454.0" y="157">Time Modifier</text>
+<rect class="node manip" x="-470" y="164" width="32" height="32" rx="5"/>
+</svg>
+</div>
+
+<p class="foot">Drawn from the workflow file itself. The node count, the queries and the Excel writers are counted from it.</p>
+</main>
+</body>
+</html>

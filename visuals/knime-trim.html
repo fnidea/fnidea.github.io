@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trimming to the Week</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="visuals.css">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q32D4GRSG7');
+</script>
+<script>
+(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "lypopapb7o");
+</script>
+</head>
+<body>
+<main class="frame wide-frame">
+<p class="back"><a href="../case-studies/knime-workflow.html">&larr; Back to the KNIME deep dive</a></p>
+
+<p class="kicker">Deep dive · Stripe reconciliation</p>
+<h1>Trimming every row back to its client&#x27;s week</h1>
+<p class="dek">Inside one of the ten copies of the Tableau replacement step: join the client list, filter the Mon–Sun and Sun–Sat weeks, total by date and client, and split by product.</p>
+
+<div class="canvas">
+<svg class="knime" viewBox="-965 9 1825 595" width="1825" height="595" role="img" aria-label="Inside one copy of the Tableau Workflow Replacement">
+<path class="conn" d="M-138,290.0 C-66.5,290.0 -66.5,175.0 5,175.0"/>
+<path class="conn" d="M317,175.0 C428.5,175.0 428.5,530.0 540,530.0"/>
+<path class="conn" d="M317,175.0 C388.5,175.0 388.5,175.0 460,175.0"/>
+<path class="conn" d="M-313,180.0 C-241.5,180.0 -241.5,290.0 -170,290.0"/>
+<path class="conn" d="M-313,180.0 C-239.0,180.0 -239.0,65.0 -165,65.0"/>
+<path class="conn" d="M37,175.0 C161.0,175.0 161.0,175.0 285,175.0"/>
+<path class="conn" d="M37,175.0 C186.0,175.0 186.0,65.0 335,65.0"/>
+<path class="conn" d="M617,175.0 C676.0,175.0 676.0,95.0 735,95.0"/>
+<path class="conn" d="M617,175.0 C678.5,175.0 678.5,300.0 740,300.0"/>
+<path class="conn" d="M-863,340.0 C-800.5,340.0 -800.5,366.0 -738,366.0"/>
+<path class="conn" d="M-863,490.0 C-834.0,490.0 -834.0,490.0 -805,490.0"/>
+<path class="conn" d="M-133,65.0 C-64.0,65.0 -64.0,175.0 5,175.0"/>
+<path class="conn" d="M-568,180.0 C-519.0,180.0 -519.0,180.0 -470,180.0"/>
+<path class="conn" d="M-773,490.0 C-755.5,490.0 -755.5,366.0 -738,366.0"/>
+<path class="conn" d="M-706,366.0 C-653.0,366.0 -653.0,180.0 -600,180.0"/>
+<path class="conn" d="M492,175.0 C538.5,175.0 538.5,175.0 585,175.0"/>
+<path class="conn" d="M-438,180.0 C-391.5,180.0 -391.5,180.0 -345,180.0"/>
+<text class="name" x="-154.0" y="255">Rule_based Row</text>
+<text class="name" x="-154.0" y="267">Filter</text>
+<rect class="node manip" x="-170" y="274" width="32" height="32" rx="5"/>
+<text class="lab" x="-154.0" y="320">Filters based on Sun-Sat</text>
+<text class="lab" x="-154.0" y="332">date range</text>
+<text class="name" x="556.0" y="507">Row Aggregator</text>
+<rect class="node manip" x="540" y="514" width="32" height="32" rx="5"/>
+<text class="lab" x="556.0" y="560">CHECKER</text>
+<text class="name" x="301.0" y="152">GroupBy</text>
+<rect class="node manip" x="285" y="159" width="32" height="32" rx="5"/>
+<text class="lab" x="301.0" y="205">Sums up per date and</text>
+<text class="lab" x="301.0" y="217">client</text>
+<text class="name" x="-329.0" y="157">Column Filter</text>
+<rect class="node manip" x="-345" y="164" width="32" height="32" rx="5"/>
+<text class="lab" x="-329.0" y="210">Filters for columns</text>
+<text class="lab" x="-329.0" y="222">needed</text>
+<text class="name" x="21.0" y="152">Concatenate</text>
+<rect class="node manip" x="5" y="159" width="32" height="32" rx="5"/>
+<text class="lab" x="21.0" y="205">Combines Mon-Sun and</text>
+<text class="lab" x="21.0" y="217">Sun-Sat transactions</text>
+<text class="name" x="351.0" y="42">Row Aggregator</text>
+<rect class="node manip" x="335" y="49" width="32" height="32" rx="5"/>
+<text class="lab" x="351.0" y="95">CHECKER</text>
+<text class="name" x="601.0" y="152">Row Splitter</text>
+<rect class="node manip" x="585" y="159" width="32" height="32" rx="5"/>
+<text class="lab" x="601.0" y="205">Splits Product A and</text>
+<text class="lab" x="601.0" y="217">Product B</text>
+<text class="name" x="-879.0" y="317">Excel Reader</text>
+<rect class="node manip" x="-895" y="324" width="32" height="32" rx="5"/>
+<text class="lab" x="-879.0" y="370">Adds the Weekly Fees</text>
+<text class="lab" x="-879.0" y="382">Client List</text>
+<text class="lab" x="-879.0" y="394">to get the range for</text>
+<text class="lab" x="-879.0" y="406">each client</text>
+<text class="name" x="-879.0" y="467">Excel Reader</text>
+<rect class="node manip" x="-895" y="474" width="32" height="32" rx="5"/>
+<text class="lab" x="-879.0" y="520">Adds the UA Lookup so we</text>
+<text class="lab" x="-879.0" y="532">can classify</text>
+<text class="lab" x="-879.0" y="544">if account is Product A</text>
+<text class="lab" x="-879.0" y="556">or Product B</text>
+<text class="name" x="-149.0" y="30">Rule_based Row</text>
+<text class="name" x="-149.0" y="42">Filter</text>
+<rect class="node manip" x="-165" y="49" width="32" height="32" rx="5"/>
+<text class="lab" x="-149.0" y="95">Filters based on Mon-Sun</text>
+<text class="lab" x="-149.0" y="107">date range</text>
+<text class="name" x="-584.0" y="157">Joiner</text>
+<rect class="node manip" x="-600" y="164" width="32" height="32" rx="5"/>
+<text class="lab" x="-584.0" y="210">Joins transactions data</text>
+<text class="lab" x="-584.0" y="222">with</text>
+<text class="lab" x="-584.0" y="234">data for Class, Weekly</text>
+<text class="lab" x="-584.0" y="246">Range</text>
+<text class="name" x="-789.0" y="455">Duplicate Row</text>
+<text class="name" x="-789.0" y="467">Filter</text>
+<rect class="node manip" x="-805" y="474" width="32" height="32" rx="5"/>
+<text class="name" x="751.0" y="72">Row Splitter</text>
+<rect class="node manip" x="735" y="79" width="32" height="32" rx="5"/>
+<text class="lab" x="751.0" y="125">Product A</text>
+<text class="lab" x="751.0" y="137">Splits Mon-Sun and</text>
+<text class="lab" x="751.0" y="149">Sun-Sat</text>
+<text class="name" x="756.0" y="277">Row Splitter</text>
+<rect class="node manip" x="740" y="284" width="32" height="32" rx="5"/>
+<text class="lab" x="756.0" y="330">Product B</text>
+<text class="lab" x="756.0" y="342">Splits Mon-Sun and</text>
+<text class="lab" x="756.0" y="354">Sun-Sat</text>
+<text class="name" x="-722.0" y="343">Joiner</text>
+<rect class="node manip" x="-738" y="350" width="32" height="32" rx="5"/>
+<text class="name" x="476.0" y="152">Column Resorter</text>
+<rect class="node manip" x="460" y="159" width="32" height="32" rx="5"/>
+<text class="name" x="-454.0" y="157">Time Modifier</text>
+<rect class="node manip" x="-470" y="164" width="32" height="32" rx="5"/>
+</svg>
+</div>
+
+<p class="foot">Redrawn from the workflow file itself. Product and client names in the labels are replaced.</p>
+</main>
+</body>
+</html>

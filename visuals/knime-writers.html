@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writing the Files</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="visuals.css">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q32D4GRSG7"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q32D4GRSG7');
+</script>
+<script>
+(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "lypopapb7o");
+</script>
+</head>
+<body>
+<main class="frame">
+<p class="back"><a href="../case-studies/knime-workflow.html">&larr; Back to the KNIME deep dive</a></p>
+
+<p class="kicker">Deep dive · Stripe reconciliation</p>
+<h1>Four Excel files from one step</h1>
+<p class="dek">One of the writer sub-workflows: each product and each week type gets its own file in a shared folder.</p>
+
+<div class="canvas">
+<svg class="knime" viewBox="290 29 190 495" width="190" height="495" role="img" aria-label="Inside one writer sub-workflow">
+<text class="name" x="376.0" y="62">Excel Writer</text>
+<rect class="node sink" x="360" y="69" width="32" height="32" rx="5"/>
+<text class="lab" x="376.0" y="115">Platform Earnings -</text>
+<text class="lab" x="376.0" y="127">Product A</text>
+<text class="lab" x="376.0" y="139">Mon-Sun</text>
+<text class="name" x="376.0" y="182">Excel Writer</text>
+<rect class="node sink" x="360" y="189" width="32" height="32" rx="5"/>
+<text class="lab" x="376.0" y="235">Platform Earnings -</text>
+<text class="lab" x="376.0" y="247">Product A</text>
+<text class="lab" x="376.0" y="259">Sun-Sat</text>
+<text class="name" x="376.0" y="302">Excel Writer</text>
+<rect class="node sink" x="360" y="309" width="32" height="32" rx="5"/>
+<text class="lab" x="376.0" y="355">Platform Earnings -</text>
+<text class="lab" x="376.0" y="367">Product B</text>
+<text class="lab" x="376.0" y="379">Mon-Sun</text>
+<text class="name" x="376.0" y="427">Excel Writer</text>
+<rect class="node sink" x="360" y="434" width="32" height="32" rx="5"/>
+<text class="lab" x="376.0" y="480">Platform Earnings -</text>
+<text class="lab" x="376.0" y="492">Product B</text>
+<text class="lab" x="376.0" y="504">Sun-Sat</text>
+</svg>
+</div>
+
+<p class="foot">Redrawn from the workflow file itself. Product and client names in the labels are replaced.</p>
+</main>
+</body>
+</html>
